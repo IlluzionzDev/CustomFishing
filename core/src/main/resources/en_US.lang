@@ -1,0 +1,6 @@
+# General Messages
+
+general:
+  nametag:
+    prefix: '&d&lCustomFishing &8>&7'
+  test: '&cTest Message'

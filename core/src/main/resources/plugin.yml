@@ -1,0 +1,4 @@
+name: CustomFishing
+version: ${project.version}
+author: Illuzionz Studios
+main: com.illuzionzstudios.customfishing.CustomFishing

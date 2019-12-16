@@ -10,8 +10,16 @@
     <version>3.1-SNAPSHOT</version>
 
     <modules>
-        <module>common</module>
         <module>core</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>
