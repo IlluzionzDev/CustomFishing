@@ -1,6 +1,12 @@
 # General Messages
 
 general:
-  nametag:
-    prefix: '&d&lCustomFishing &8>&7'
-  test: '&cTest Message'
+    nametag:
+        prefix: '&d&lCustomFishing &8>&7'
+    nopermission: '&cNot enough permissions'
+    reload: '&7Reloaded all configuration files'
+
+rewards:
+    list:
+        header: '&dLoaded &d&lCustom Fishing &drewards:'
+        item: '&d&l* &d%reward%'

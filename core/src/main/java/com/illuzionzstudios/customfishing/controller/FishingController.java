@@ -1,0 +1,133 @@
+package com.illuzionzstudios.customfishing.controller;
+
+/**
+ * Created by Illuzionz on 12 2019
+ */
+
+import com.illuzionzstudios.core.bukkit.controller.BukkitController;
+import com.illuzionzstudios.core.chance.LootTable;
+import com.illuzionzstudios.core.locale.Locale;
+import com.illuzionzstudios.core.locale.player.Message;
+import com.illuzionzstudios.core.util.ChanceUtil;
+import com.illuzionzstudios.core.util.Logger;
+import com.illuzionzstudios.customfishing.CustomFishing;
+import com.illuzionzstudios.customfishing.loot.FishingReward;
+import com.illuzionzstudios.customfishing.settings.Settings;
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerFishEvent;
+
+import java.util.List;
+
+/**
+ * Controls everything related to fishing
+ */
+public enum FishingController implements BukkitController<CustomFishing>, Listener {
+    INSTANCE;
+
+    @Override
+    public void initialize(CustomFishing customFishing) {
+        Bukkit.getServer().getPluginManager().registerEvents(this, customFishing);
+    }
+
+    @Override
+    public void stop(CustomFishing customFishing) {
+    }
+
+    /**
+     * Used to detect when a fish is caught
+     */
+    @EventHandler
+    public void onFish(PlayerFishEvent event) {
+        // Detect if they catch a fish
+        if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
+            // Set experience default reward
+            event.setExpToDrop(Settings.EXP_REWARD.getInt());
+
+            // Detect if they actually get a reward
+            if (!ChanceUtil.calculateChance(Settings.REWARD_CHANCE.getDouble())) return;
+            processRewards(event.getPlayer(), event);
+        }
+    }
+
+    /**
+     * Process rewards for a player. All calculations
+     * will be done here, and if null, will rerun until reward is picked.
+     *
+     * @param player Player to reward
+     * @param event  The fishing event
+     */
+    public void processRewards(Player player, PlayerFishEvent event) {
+        // Null check
+        if (RewardsController.INSTANCE.pickReward() == null) return;
+
+        // Null checks
+        if (RequirementController.INSTANCE.getAvailableRewards(player).isEmpty() ||
+                RequirementController.INSTANCE.getAvailableRewards(player) == null) return;
+
+        // Pick rewards from available rewards
+        LootTable<FishingReward> availableRewards = new LootTable<>();
+        for (FishingReward availableReward : RequirementController.INSTANCE.getAvailableRewards(player)) {
+            availableRewards.addLoot(availableReward, availableReward.getChance());
+        }
+
+        FishingReward reward = availableRewards.pick();
+
+        // Variables to use and check
+        List<String> messages = reward.getMessages();
+        List<String> commands = reward.getCommands();
+        List<String> broadcasts = reward.getBroadcasts();
+
+        boolean shouldBroadcast = reward.isBroadcastEnabled();
+        boolean vanillaRewards = reward.isVanillaRewards();
+
+        boolean shouldSendTitle = reward.isTitleEnabled();
+        Message title = reward.getTitle();
+        Message subtitle = reward.getSubtitle();
+
+        Sound sound = reward.getSound();
+
+        int experience = reward.getExperience();
+
+        // Set exp reward
+        event.setExpToDrop(experience);
+
+        // Play sound, no need for null check as was handled loading rewards
+        player.playSound(player.getLocation(), sound, 10, 1);
+
+        // If should have default rewards
+        if (!vanillaRewards) event.getCaught().remove();
+
+        // Set title times
+        title.setFadeIn(Settings.TITLE_FADEIN.getInt());
+        title.setStay(Settings.TITLE_DISPLAY.getInt());
+        title.setFadeOut(Settings.TITLE_FADEOUT.getInt());
+
+        // Send titles
+        if (shouldSendTitle) {
+            title.sendTitle(player, subtitle);
+        }
+
+        // Send messages
+        messages.forEach(msg -> player.sendMessage(Locale.color(msg)));
+
+        // Send broadcasts
+        if (shouldBroadcast) {
+            broadcasts.forEach(msg -> {
+                msg = new Message(msg).processPlaceholder("player", player.getDisplayName()).getMessage();
+                Bukkit.getServer().broadcastMessage(Locale.color(msg));
+            });
+        }
+
+        // Execute commands
+        commands.forEach(command -> {
+            // Do placeholders
+            command = new Message(command).processPlaceholder("player", player.getDisplayName()).getMessage();
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+        });
+    }
+
+}

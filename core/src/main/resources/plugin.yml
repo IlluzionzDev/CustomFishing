@@ -2,3 +2,12 @@ name: CustomFishing
 version: ${project.version}
 author: Illuzionz Studios
 main: com.illuzionzstudios.customfishing.CustomFishing
+description: Customize the fishing system of minecraft
+
+permissions:
+  customfishing.default:
+    default: not op
+  customfishing.admin:
+    children:
+      customfishing.rewards: true
+      customfishing.reload: true
