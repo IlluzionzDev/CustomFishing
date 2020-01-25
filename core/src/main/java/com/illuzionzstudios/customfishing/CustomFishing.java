@@ -25,10 +25,11 @@ import java.util.List;
  * this statement.
  */
 
-public class CustomFishing extends IlluzionzPlugin {
+public final class CustomFishing extends IlluzionzPlugin {
 
     private static CustomFishing INSTANCE;
     public final Config rewardsConfig = new Config(this, "rewards.yml");
+
     /**
      * Plugin hooks
      */
