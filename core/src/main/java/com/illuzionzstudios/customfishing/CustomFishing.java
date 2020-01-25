@@ -1,7 +1,6 @@
 package com.illuzionzstudios.customfishing;
 
 import com.illuzionzstudios.core.bukkit.command.CommandManager;
-import com.illuzionzstudios.core.compatibility.CompatibleSound;
 import com.illuzionzstudios.core.compatibility.ServerVersion;
 import com.illuzionzstudios.core.config.Config;
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
@@ -17,23 +16,28 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Illuzionz on 12 2019
+ * Copyright © 2020 Property of Illuzionz Studios, LLC
+ * All rights reserved. No part of this publication may be reproduced, distributed, or
+ * transmitted in any form or by any means, including photocopying, recording, or other
+ * electronic or mechanical methods, without the prior written permission of the publisher,
+ * except in the case of brief quotations embodied in critical reviews and certain other
+ * noncommercial uses permitted by copyright law. Any licensing of this software overrides
+ * this statement.
  */
+
 public class CustomFishing extends IlluzionzPlugin {
 
-    public final Config rewardsConfig = new Config(this, "rewards.yml");
-
     private static CustomFishing INSTANCE;
-
-    public static CustomFishing getInstance() {
-        return INSTANCE;
-    }
-
+    public final Config rewardsConfig = new Config(this, "rewards.yml");
     /**
      * Plugin hooks
      */
     @Getter
     private boolean worldguardLoaded = false;
+
+    public static CustomFishing getInstance() {
+        return INSTANCE;
+    }
 
     @Override
     public void onPluginLoad() {
@@ -80,11 +84,14 @@ public class CustomFishing extends IlluzionzPlugin {
         if (!rewardsConfig.contains("Rewards")) {
 
             // Changes based on version for default config
-            String soundName = "ENTITY_FIREWORK_ROCKET_LAUNCH";
-            if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_8)) {
-                soundName = "FIREWORK_LAUNCH";
+            String soundName = "";
+
+            if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_15)) {
+                soundName = "ENTITY_FIREWORK_ROCKET_LAUNCH";
             } else if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_12)) {
                 soundName = "ENTITY_FIREWORK_LAUNCH";
+            } else if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_8)) {
+                soundName = "FIREWORK_LAUNCH";
             }
 
             rewardsConfig.createDefaultSection("Rewards",

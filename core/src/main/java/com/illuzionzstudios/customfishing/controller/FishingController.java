@@ -9,7 +9,6 @@ import com.illuzionzstudios.core.chance.LootTable;
 import com.illuzionzstudios.core.locale.Locale;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.ChanceUtil;
-import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.loot.FishingReward;
 import com.illuzionzstudios.customfishing.settings.Settings;
@@ -21,6 +20,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
 import java.util.List;
+
+/**
+ * Copyright © 2020 Property of Illuzionz Studios, LLC
+ * All rights reserved. No part of this publication may be reproduced, distributed, or
+ * transmitted in any form or by any means, including photocopying, recording, or other
+ * electronic or mechanical methods, without the prior written permission of the publisher,
+ * except in the case of brief quotations embodied in critical reviews and certain other
+ * noncommercial uses permitted by copyright law. Any licensing of this software overrides
+ * this statement.
+ */
 
 /**
  * Controls everything related to fishing
@@ -99,7 +108,10 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         player.playSound(player.getLocation(), sound, 10, 1);
 
         // If should have default rewards
-        if (!vanillaRewards) event.getCaught().remove();
+        if (!vanillaRewards) {
+            if (event.getCaught() != null)
+                event.getCaught().remove();
+        }
 
         // Set title times
         title.setFadeIn(Settings.TITLE_FADEIN.getInt());
@@ -117,7 +129,7 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         // Send broadcasts
         if (shouldBroadcast) {
             broadcasts.forEach(msg -> {
-                msg = new Message(msg).processPlaceholder("player", player.getDisplayName()).getMessage();
+                msg = new Message(msg).processPlaceholder("player", player.getName()).getMessage();
                 Bukkit.getServer().broadcastMessage(Locale.color(msg));
             });
         }
@@ -125,7 +137,7 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         // Execute commands
         commands.forEach(command -> {
             // Do placeholders
-            command = new Message(command).processPlaceholder("player", player.getDisplayName()).getMessage();
+            command = new Message(command).processPlaceholder("player", player.getName()).getMessage();
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
         });
     }

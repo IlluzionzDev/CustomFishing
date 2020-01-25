@@ -11,17 +11,21 @@ import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.loot.FishingReward;
 import com.illuzionzstudios.customfishing.loot.FishingRewardBuilder;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.World;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Illuzionz on 12 2019
+ * Copyright © 2020 Property of Illuzionz Studios, LLC
+ * All rights reserved. No part of this publication may be reproduced, distributed, or
+ * transmitted in any form or by any means, including photocopying, recording, or other
+ * electronic or mechanical methods, without the prior written permission of the publisher,
+ * except in the case of brief quotations embodied in critical reviews and certain other
+ * noncommercial uses permitted by copyright law. Any licensing of this software overrides
+ * this statement.
  */
+
 public enum RewardsController implements BukkitController<CustomFishing> {
     INSTANCE;
 
@@ -47,8 +51,13 @@ public enum RewardsController implements BukkitController<CustomFishing> {
         // Load rewards into memory
         if (config.isConfigurationSection("Rewards")) {
             for (ConfigSection section : config.getSections("Rewards")) {
-                // Make sure config values are valid
-                if (Sound.valueOf(section.getString("Sound")) == null) {
+                // Detection if sound enum is valid
+                Sound sound;
+
+                try {
+                    sound = Sound.valueOf(section.getString("Sound"));
+                } catch (Exception ex) {
+                    // Not a valid sound or not loaded correctly
                     Logger.severe("Sound " + section.getString("Sound") + " is not valid for reward " + section.getNodeKey());
                     Logger.severe("The sound is not valid or is not available on your server version " + ServerVersion.getServerVersionString());
                     return;
@@ -66,7 +75,7 @@ public enum RewardsController implements BukkitController<CustomFishing> {
                         .setChance(section.getDouble("Chance"))
                         .setVanillaRewards(section.getBoolean("Vanilla Rewards"))
                         .setExperience(section.getInt("Exp Amount"))
-                        .setSound(Sound.valueOf(section.getString("Sound")))
+                        .setSound(sound)
 
                         .setPermission("customfishing." + section.getString("Requirements.Permission"))
                         .setWorlds(section.getStringList("Requirements.Worlds"))

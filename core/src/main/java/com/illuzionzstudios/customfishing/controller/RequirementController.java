@@ -2,31 +2,36 @@ package com.illuzionzstudios.customfishing.controller;
 
 import com.illuzionzstudios.core.bukkit.controller.BukkitController;
 import com.illuzionzstudios.core.compatibility.ServerVersion;
-import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.worldguard.IWorldGuardCheck;
 import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_12_R1;
 import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_13_R1;
 import com.illuzionzstudios.customfishing.loot.FishingReward;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Illuzionz on 12 2019
+ * Copyright © 2020 Property of Illuzionz Studios, LLC
+ * All rights reserved. No part of this publication may be reproduced, distributed, or
+ * transmitted in any form or by any means, including photocopying, recording, or other
+ * electronic or mechanical methods, without the prior written permission of the publisher,
+ * except in the case of brief quotations embodied in critical reviews and certain other
+ * noncommercial uses permitted by copyright law. Any licensing of this software overrides
+ * this statement.
  */
+
 public enum RequirementController implements BukkitController<CustomFishing> {
     INSTANCE;
+
+    public static final String GLOBAL_WORLD = "all";
+    public static final String GLOBAL_REGION = "global";
+    /**
+     * Used in multi-version support for WorldGuard
+     */
+    private IWorldGuardCheck worldGuardCheck;
 
     @Override
     public void initialize(CustomFishing customFishing) {
@@ -43,14 +48,6 @@ public enum RequirementController implements BukkitController<CustomFishing> {
     public void stop(CustomFishing customFishing) {
 
     }
-
-    public static final String GLOBAL_WORLD = "all";
-    public static final String GLOBAL_REGION = "global";
-
-    /**
-     * Used in multi-version support for WorldGuard
-     */
-    private IWorldGuardCheck worldGuardCheck;
 
     /**
      * Get a list of all rewards a player can find
