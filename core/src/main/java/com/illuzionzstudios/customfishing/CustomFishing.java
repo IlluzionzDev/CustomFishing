@@ -87,7 +87,7 @@ public final class CustomFishing extends IlluzionzPlugin {
             // Changes based on version for default config
             String soundName = "";
 
-            if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_15)) {
+            if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_13)) {
                 soundName = "ENTITY_FIREWORK_ROCKET_LAUNCH";
             } else if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_12)) {
                 soundName = "ENTITY_FIREWORK_LAUNCH";
