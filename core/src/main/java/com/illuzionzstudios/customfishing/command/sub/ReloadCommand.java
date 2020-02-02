@@ -1,10 +1,7 @@
-package com.illuzionzstudios.customfishing.command;
+package com.illuzionzstudios.customfishing.command.sub;
 
-import com.illuzionzstudios.core.bukkit.command.type.GlobalCommand;
-import com.illuzionzstudios.core.bukkit.command.type.PlayerCommand;
+import com.illuzionzstudios.core.bukkit.command.type.SubCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
-import com.illuzionzstudios.customfishing.command.sub.ReloadCommand;
-import com.illuzionzstudios.customfishing.command.sub.RewardsCommand;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.struct.Permission;
 
@@ -17,27 +14,33 @@ import com.illuzionzstudios.customfishing.struct.Permission;
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
-/**
- * Main command
- */
-public class CustomFishingCommand extends GlobalCommand {
 
-    public CustomFishingCommand(CustomFishing plugin) {
-        super("customfishing", "cfishing", "customf");
+public class ReloadCommand extends SubCommand {
 
-        minArgs = 1;
-        setUsage("&c/customfishing rewards|reload|help");
+    private CustomFishing plugin;
 
-        addSubCommand(new RewardsCommand(plugin));
-        addSubCommand(new ReloadCommand(plugin));
+    public ReloadCommand(CustomFishing plugin) {
+        super("reload", "rl");
+
+        this.plugin = plugin;
+
+        this.requiredPermission = Permission.RELOAD;
     }
 
     @Override
     public void onCommand(String s, String[] strings) {
+        plugin.reloadConfig();
+        plugin.getLocale().getMessage("general.reload").sendPrefixedMessage(commandSender);
+    }
+
+    @Override
+    public boolean isConsoleAllowed() {
+        return true;
     }
 
     @Override
     public boolean isPublic() {
-        return false;
+        return true;
     }
+
 }
