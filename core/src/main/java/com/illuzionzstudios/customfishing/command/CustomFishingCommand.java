@@ -1,5 +1,6 @@
 package com.illuzionzstudios.customfishing.command;
 
+import com.illuzionzstudios.core.bukkit.command.type.GlobalCommand;
 import com.illuzionzstudios.core.bukkit.command.type.PlayerCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
@@ -17,7 +18,7 @@ import com.illuzionzstudios.customfishing.struct.Permission;
 /**
  * Main command
  */
-public class CustomFishingCommand extends PlayerCommand {
+public class CustomFishingCommand extends GlobalCommand {
 
     private CustomFishing plugin;
 
@@ -26,7 +27,7 @@ public class CustomFishingCommand extends PlayerCommand {
         this.plugin = plugin;
 
         minArgs = 1;
-        notEnoughArgsMsg = "&c/customfishing rewards|reload|help";
+        setUsage("&c/customfishing rewards|reload|help");
     }
 
     @Override

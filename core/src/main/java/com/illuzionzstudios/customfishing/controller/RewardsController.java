@@ -50,7 +50,7 @@ public enum RewardsController implements BukkitController<CustomFishing> {
 
         // Load rewards into memory
         if (config.isConfigurationSection("Rewards")) {
-            for (ConfigSection section : config.getSections("Rewards")) {
+            for (ConfigSection section : config.clearDefaults().getSections("Rewards")) {
                 // Detection if sound enum is valid
                 Sound sound;
 
