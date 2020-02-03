@@ -1,0 +1,12 @@
+# Allgemeine Benachrichtigungen
+
+general:
+    nametag:
+        prefix: '&d&lCustomFishing &8>&7'
+    nopermission: '&cDu hast zu wenig Berechtigungen!'
+    reload: '&7Alle Konfigurationsdateien neu geladen.'
+
+rewards:
+    list:
+        header: '&d&lCustom Fishing &dBelohnungen &dgeladen:'
+        item: '&d&l* &d%reward%'
