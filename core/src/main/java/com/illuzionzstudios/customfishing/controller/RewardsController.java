@@ -52,15 +52,17 @@ public enum RewardsController implements BukkitController<CustomFishing> {
         if (config.isConfigurationSection("Rewards")) {
             for (ConfigSection section : config.clearDefaults().getSections("Rewards")) {
                 // Detection if sound enum is valid
-                Sound sound;
+                Sound sound = null;
 
-                try {
-                    sound = Sound.valueOf(section.getString("Sound"));
-                } catch (Exception ex) {
-                    // Not a valid sound or not loaded correctly
-                    Logger.severe("Sound " + section.getString("Sound") + " is not valid for reward " + section.getNodeKey());
-                    Logger.severe("The sound is not valid or is not available on your server version " + ServerVersion.getServerVersionString());
-                    return;
+                if (section.getString("Sound") != null) {
+                    try {
+                        sound = Sound.valueOf(section.getString("Sound"));
+                    } catch (Exception ex) {
+                        // Not a valid sound or not loaded correctly
+                        Logger.severe("Sound " + section.getString("Sound") + " is not valid for reward " + section.getNodeKey());
+                        Logger.severe("The sound is not valid or is not available on your server version " + ServerVersion.getServerVersionString());
+                        break;
+                    }
                 }
 
                 loadedRewards.add(new FishingRewardBuilder()
@@ -107,6 +109,10 @@ public enum RewardsController implements BukkitController<CustomFishing> {
             return null;
         }
 
-        return lootTable.pick();
+        try {
+            return lootTable.pick();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 }

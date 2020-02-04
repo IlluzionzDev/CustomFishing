@@ -105,7 +105,9 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         event.setExpToDrop(experience);
 
         // Play sound, no need for null check as was handled loading rewards
-        player.playSound(player.getLocation(), sound, 10, 1);
+        if (sound != null) {
+            player.playSound(player.getLocation(), sound, 10, 1);
+        }
 
         // If should have default rewards
         if (!vanillaRewards) {
