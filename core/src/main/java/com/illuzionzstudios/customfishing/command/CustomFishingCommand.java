@@ -1,7 +1,6 @@
 package com.illuzionzstudios.customfishing.command;
 
-import com.illuzionzstudios.core.bukkit.command.type.GlobalCommand;
-import com.illuzionzstudios.core.bukkit.command.type.PlayerCommand;
+import com.illuzionzstudios.command.type.GlobalCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.command.sub.ReloadCommand;
 import com.illuzionzstudios.customfishing.command.sub.RewardsCommand;

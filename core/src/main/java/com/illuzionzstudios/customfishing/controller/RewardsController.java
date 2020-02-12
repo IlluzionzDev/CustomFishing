@@ -1,10 +1,10 @@
 package com.illuzionzstudios.customfishing.controller;
 
+import com.illuzionzstudios.chance.LootTable;
+import com.illuzionzstudios.compatibility.ServerVersion;
+import com.illuzionzstudios.config.Config;
+import com.illuzionzstudios.config.ConfigSection;
 import com.illuzionzstudios.core.bukkit.controller.BukkitController;
-import com.illuzionzstudios.core.chance.LootTable;
-import com.illuzionzstudios.core.compatibility.ServerVersion;
-import com.illuzionzstudios.core.config.Config;
-import com.illuzionzstudios.core.config.ConfigSection;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;

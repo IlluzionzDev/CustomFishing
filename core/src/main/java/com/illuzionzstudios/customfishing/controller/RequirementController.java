@@ -1,7 +1,7 @@
 package com.illuzionzstudios.customfishing.controller;
 
+import com.illuzionzstudios.compatibility.ServerVersion;
 import com.illuzionzstudios.core.bukkit.controller.BukkitController;
-import com.illuzionzstudios.core.compatibility.ServerVersion;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.worldguard.IWorldGuardCheck;
 import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_12_R1;

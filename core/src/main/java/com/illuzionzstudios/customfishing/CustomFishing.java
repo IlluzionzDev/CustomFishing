@@ -1,8 +1,8 @@
 package com.illuzionzstudios.customfishing;
 
-import com.illuzionzstudios.core.bukkit.command.CommandManager;
-import com.illuzionzstudios.core.compatibility.ServerVersion;
-import com.illuzionzstudios.core.config.Config;
+import com.illuzionzstudios.command.CommandManager;
+import com.illuzionzstudios.compatibility.ServerVersion;
+import com.illuzionzstudios.config.Config;
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
 import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.command.CustomFishingCommand;

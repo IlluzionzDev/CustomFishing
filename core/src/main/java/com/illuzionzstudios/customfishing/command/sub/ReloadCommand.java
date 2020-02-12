@@ -1,6 +1,6 @@
 package com.illuzionzstudios.customfishing.command.sub;
 
-import com.illuzionzstudios.core.bukkit.command.type.SubCommand;
+import com.illuzionzstudios.command.type.SubCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.struct.Permission;

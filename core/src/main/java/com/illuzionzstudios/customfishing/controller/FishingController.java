@@ -4,8 +4,8 @@ package com.illuzionzstudios.customfishing.controller;
  * Created by Illuzionz on 12 2019
  */
 
+import com.illuzionzstudios.chance.LootTable;
 import com.illuzionzstudios.core.bukkit.controller.BukkitController;
-import com.illuzionzstudios.core.chance.LootTable;
 import com.illuzionzstudios.core.locale.Locale;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.ChanceUtil;
