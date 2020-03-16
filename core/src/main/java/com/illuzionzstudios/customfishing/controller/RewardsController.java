@@ -33,24 +33,21 @@ public enum RewardsController implements BukkitController<CustomFishing> {
     private List<FishingReward> loadedRewards;
 
     /**
-     * Loottable of rewards
+     * Loot table of rewards
      */
     private LootTable<FishingReward> lootTable = new LootTable<>();
 
-    /**
-     * Rewards config
-     */
-    private Config config;
-
     @Override
     public void initialize(CustomFishing customFishing) {
-        config = customFishing.getExtraConfig().get(0);
+        Config config = customFishing.getExtraConfig().get(0).clearDefaults();
 
-        loadedRewards = new ArrayList<>();
+        // Clear our already loaded data if any
+        this.loadedRewards = new ArrayList<>();
+        this.lootTable.clear();
 
         // Load rewards into memory
         if (config.isConfigurationSection("Rewards")) {
-            for (ConfigSection section : config.clearDefaults().getSections("Rewards")) {
+            for (ConfigSection section : config.getSections("Rewards")) {
                 // Detection if sound enum is valid
                 Sound sound = null;
 
