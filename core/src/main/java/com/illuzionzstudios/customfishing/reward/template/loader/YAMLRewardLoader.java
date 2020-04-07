@@ -10,6 +10,7 @@
 package com.illuzionzstudios.customfishing.reward.template.loader;
 
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
+import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
 import lombok.RequiredArgsConstructor;

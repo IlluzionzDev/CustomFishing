@@ -10,6 +10,8 @@ import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.FishingRewardBuilder;
+import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
+import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
 import lombok.Getter;
 import org.bukkit.Sound;
 
@@ -39,50 +41,66 @@ public enum RewardsController implements BukkitController<CustomFishing> {
 
     @Override
     public void initialize(CustomFishing customFishing) {
-        Config config = customFishing.getExtraConfig().get(0).clearDefaults();
+//        Config config = customFishing.getExtraConfig().get(0).clearDefaults();
 
         // Clear our already loaded data if any
         this.loadedRewards = new ArrayList<>();
         this.lootTable.clear();
 
-        // Load rewards into memory
-        if (config.isConfigurationSection("Rewards")) {
-            for (ConfigSection section : config.getSections("Rewards")) {
-                // Detection if sound enum is valid
-                Sound sound = null;
+        // Reward loader for "/rewards" dir
+        YAMLRewardLoader loader = new YAMLRewardLoader("rewards");
 
-                if (section.getString("Sound") != null) {
-                    try {
-                        sound = Sound.valueOf(section.getString("Sound"));
-                    } catch (Exception ex) {
-                        // Not a valid sound or not loaded correctly
-                        Logger.severe("Sound " + section.getString("Sound") + " is not valid for reward " + section.getNodeKey());
-                        Logger.severe("The sound is not valid or is not available on your server version " + ServerVersion.getServerVersionString());
-                        continue;
-                    }
-                }
+        // Try load all templates
+        loader.loadTemplates().forEach((fileName, template) -> {
+            try {
+                this.loadedRewards.add(template.create());
 
-                loadedRewards.add(new FishingRewardBuilder()
-                        .setName(section.getNodeKey())
-                        .setCommands(section.getStringList("Commands"))
-                        .setMessages(section.getStringList("Messages"))
-                        .setBroadcastEnabled(section.getBoolean("Broadcast"))
-                        .setBroadcasts(section.getStringList("Broadcasts"))
-                        .setTitleEnabled(section.getBoolean("Title Enabled"))
-                        .setTitle(new Message(section.getString("Title")))
-                        .setSubTitle(new Message(section.getString("Sub Title")))
-                        .setChance(section.getDouble("Chance"))
-                        .setVanillaRewards(section.getBoolean("Vanilla Rewards"))
-                        .setExperience(section.getInt("Exp Amount"))
-                        .setSound(sound)
-
-                        .setPermission("customfishing." + section.getString("Requirements.Permission"))
-                        .setWorlds(section.getStringList("Requirements.Worlds"))
-                        .setRegions(section.getStringList("Requirements.Regions")).build());
-
-                Logger.info("Loaded reward '" + section.getNodeKey() + "'");
+                // Log loaded file
+                Logger.info("Loaded reward " + template.getTemplateFile().getString("Name") + " from file " + fileName + ".yml");
+            } catch (RewardLoadException ex) {
+                // Throw trace
+                ex.printStackTrace();
             }
-        }
+        });
+
+        // Load rewards into memory
+//        if (config.isConfigurationSection("Rewards")) {
+//            for (ConfigSection section : config.getSections("Rewards")) {
+//                // Detection if sound enum is valid
+//                Sound sound = null;
+//
+//                if (section.getString("Sound") != null) {
+//                    try {
+//                        sound = Sound.valueOf(section.getString("Sound"));
+//                    } catch (Exception ex) {
+//                        // Not a valid sound or not loaded correctly
+//                        Logger.severe("Sound " + section.getString("Sound") + " is not valid for reward " + section.getNodeKey());
+//                        Logger.severe("The sound is not valid or is not available on your server version " + ServerVersion.getServerVersionString());
+//                        continue;
+//                    }
+//                }
+//
+//                loadedRewards.add(new FishingRewardBuilder()
+//                        .setName(section.getNodeKey())
+//                        .setCommands(section.getStringList("Commands"))
+//                        .setMessages(section.getStringList("Messages"))
+//                        .setBroadcastEnabled(section.getBoolean("Broadcast"))
+//                        .setBroadcasts(section.getStringList("Broadcasts"))
+//                        .setTitleEnabled(section.getBoolean("Title Enabled"))
+//                        .setTitle(new Message(section.getString("Title")))
+//                        .setSubTitle(new Message(section.getString("Sub Title")))
+//                        .setChance(section.getDouble("Chance"))
+//                        .setVanillaRewards(section.getBoolean("Vanilla Rewards"))
+//                        .setExperience(section.getInt("Exp Amount"))
+//                        .setSound(sound)
+//
+//                        .setPermission("customfishing." + section.getString("Requirements.Permission"))
+//                        .setWorlds(section.getStringList("Requirements.Worlds"))
+//                        .setRegions(section.getStringList("Requirements.Regions")).build());
+//
+//                Logger.info("Loaded reward '" + section.getNodeKey() + "'");
+//            }
+//        }
 
 
         // Load chance sum

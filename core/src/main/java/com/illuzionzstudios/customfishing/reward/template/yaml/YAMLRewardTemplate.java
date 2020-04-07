@@ -41,6 +41,9 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
     public YAMLRewardTemplate(String fileName) {
         // Load config
         this.config = new Config(CustomFishing.getInstance(), "/rewards", fileName + ".yml");
+
+        // Load the config
+        this.config.load();
         this.name = fileName;
     }
 
