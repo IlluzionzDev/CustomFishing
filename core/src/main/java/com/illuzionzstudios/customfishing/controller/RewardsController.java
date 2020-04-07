@@ -8,8 +8,8 @@ import com.illuzionzstudios.core.bukkit.controller.BukkitController;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
-import com.illuzionzstudios.customfishing.loot.FishingReward;
-import com.illuzionzstudios.customfishing.loot.FishingRewardBuilder;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
+import com.illuzionzstudios.customfishing.reward.FishingRewardBuilder;
 import lombok.Getter;
 import org.bukkit.Sound;
 

@@ -1,4 +1,4 @@
-package com.illuzionzstudios.customfishing.loot;
+package com.illuzionzstudios.customfishing.reward;
 
 import com.illuzionzstudios.core.locale.player.Message;
 import lombok.Data;

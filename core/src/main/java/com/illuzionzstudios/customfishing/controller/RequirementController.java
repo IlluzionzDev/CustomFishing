@@ -6,7 +6,7 @@ import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.worldguard.IWorldGuardCheck;
 import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_12_R1;
 import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_13_R1;
-import com.illuzionzstudios.customfishing.loot.FishingReward;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

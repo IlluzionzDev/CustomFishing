@@ -10,7 +10,7 @@ import com.illuzionzstudios.core.locale.Locale;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.ChanceUtil;
 import com.illuzionzstudios.customfishing.CustomFishing;
-import com.illuzionzstudios.customfishing.loot.FishingReward;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
