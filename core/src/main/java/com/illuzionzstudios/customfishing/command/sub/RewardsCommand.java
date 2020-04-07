@@ -42,9 +42,4 @@ public class RewardsCommand extends SubCommand {
     public boolean isConsoleAllowed() {
         return true;
     }
-
-    @Override
-    public boolean isPublic() {
-        return true;
-    }
 }

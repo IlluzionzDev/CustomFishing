@@ -193,4 +193,14 @@ public final class CustomFishing extends IlluzionzPlugin {
     public List<Config> getExtraConfig() {
         return Collections.singletonList(rewardsConfig);
     }
+
+    @Override
+    public String getPluginName() {
+        return "CustomFishing";
+    }
+
+    @Override
+    public String getPluginVersion() {
+        return "3.1.6";
+    }
 }

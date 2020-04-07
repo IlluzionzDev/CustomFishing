@@ -58,7 +58,7 @@ public enum RewardsController implements BukkitController<CustomFishing> {
                         // Not a valid sound or not loaded correctly
                         Logger.severe("Sound " + section.getString("Sound") + " is not valid for reward " + section.getNodeKey());
                         Logger.severe("The sound is not valid or is not available on your server version " + ServerVersion.getServerVersionString());
-                        break;
+                        continue;
                     }
                 }
 

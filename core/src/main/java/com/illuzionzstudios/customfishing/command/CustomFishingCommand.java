@@ -34,9 +34,4 @@ public class CustomFishingCommand extends GlobalCommand {
     @Override
     public void onCommand(String s, String[] strings) {
     }
-
-    @Override
-    public boolean isPublic() {
-        return false;
-    }
 }

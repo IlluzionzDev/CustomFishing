@@ -22,7 +22,7 @@ public enum Permission implements IPermission {
     RELOAD("reload"),
     REWARDS("rewards");
 
-    private static final String PREFIX = "customfishing";
+    private static final String PREFIX = "customfishing.";
     private final String node;
 
     @Override
