@@ -69,7 +69,6 @@ public final class CustomFishing extends IlluzionzPlugin {
 
     @Override
     public void onPluginDisable() {
-
     }
 
     @Override

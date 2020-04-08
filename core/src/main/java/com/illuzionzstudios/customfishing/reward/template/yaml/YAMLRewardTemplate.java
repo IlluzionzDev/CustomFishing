@@ -37,10 +37,11 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
 
     /**
      * @param fileName name of reward file in '/rewards'
+     * @param directory The directory of the template
      */
-    public YAMLRewardTemplate(String fileName) {
+    public YAMLRewardTemplate(String fileName, String directory) {
         // Load config
-        this.config = new Config(CustomFishing.getInstance(), "/rewards", fileName + ".yml");
+        this.config = new Config(CustomFishing.getInstance(), "/" + directory, fileName + ".yml");
 
         // Load the config
         this.config.load();

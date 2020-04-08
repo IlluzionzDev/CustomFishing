@@ -48,7 +48,7 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
             String name = file.getName().split("\\.")[0];
 
             // Add to cache
-            templates.put(name, new YAMLRewardTemplate(name));
+            templates.put(name, new YAMLRewardTemplate(name, directory));
         }
 
         return templates;
