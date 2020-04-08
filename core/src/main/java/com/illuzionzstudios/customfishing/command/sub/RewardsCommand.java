@@ -17,7 +17,7 @@ import com.illuzionzstudios.customfishing.struct.Permission;
 
 public class RewardsCommand extends SubCommand {
 
-    private CustomFishing plugin;
+    private final CustomFishing plugin;
 
     public RewardsCommand(CustomFishing plugin) {
         super("rewards", "list");

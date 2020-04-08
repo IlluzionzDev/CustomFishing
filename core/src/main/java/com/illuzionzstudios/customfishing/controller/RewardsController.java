@@ -101,8 +101,7 @@ public enum RewardsController implements BukkitController<CustomFishing> {
 //                Logger.info("Loaded reward '" + section.getNodeKey() + "'");
 //            }
 //        }
-
-
+        
         // Load chance sum
         if (loadedRewards.isEmpty()) {
             return;
@@ -118,7 +117,7 @@ public enum RewardsController implements BukkitController<CustomFishing> {
     }
 
     public FishingReward pickReward() {
-        if (loadedRewards.isEmpty() || loadedRewards == null) {
+        if (loadedRewards.isEmpty()) {
             // End up returning null if no loaded rewards.
             // Will be dealt with elsewhere
             return null;

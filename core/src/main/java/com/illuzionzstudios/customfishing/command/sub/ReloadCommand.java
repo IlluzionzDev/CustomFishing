@@ -17,7 +17,7 @@ import com.illuzionzstudios.customfishing.struct.Permission;
 
 public class ReloadCommand extends SubCommand {
 
-    private CustomFishing plugin;
+    private final CustomFishing plugin;
 
     public ReloadCommand(CustomFishing plugin) {
         super("reload", "rl");
