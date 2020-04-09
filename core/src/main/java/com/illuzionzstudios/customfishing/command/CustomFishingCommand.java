@@ -2,6 +2,7 @@ package com.illuzionzstudios.customfishing.command;
 
 import com.illuzionzstudios.command.type.GlobalCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
+import com.illuzionzstudios.customfishing.command.sub.ConvertCommand;
 import com.illuzionzstudios.customfishing.command.sub.ReloadCommand;
 import com.illuzionzstudios.customfishing.command.sub.RewardsCommand;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
@@ -29,6 +30,7 @@ public class CustomFishingCommand extends GlobalCommand {
 
         addSubCommand(new RewardsCommand(plugin));
         addSubCommand(new ReloadCommand(plugin));
+        addSubCommand(new ConvertCommand());
     }
 
     @Override
