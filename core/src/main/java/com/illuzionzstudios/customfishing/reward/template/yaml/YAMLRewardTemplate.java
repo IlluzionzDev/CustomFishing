@@ -28,7 +28,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
     /**
      * Config to load data from
      */
-    private final Config config;
+    protected final Config config;
 
     /**
      * Name of the reward
@@ -121,5 +121,10 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
     @Override
     public Config getTemplateFile() {
         return this.config;
+    }
+
+    @Override
+    public void save() {
+        this.config.saveChanges();
     }
 }

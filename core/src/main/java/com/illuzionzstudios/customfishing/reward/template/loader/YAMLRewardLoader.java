@@ -12,6 +12,7 @@ package com.illuzionzstudios.customfishing.reward.template.loader;
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
 import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
+import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
@@ -39,8 +40,14 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
         File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
         File[] files = dir.listFiles();
 
-        // Can't find templates if can't find directory
-        if (files == null) return templates;
+        // No files in directory
+        if (files == null || files.length == 0 || !dir.exists()) {
+            // Save default rewards
+            new FoodDefaultTemplate(directory).save();
+
+            // Rerun as we set some defaults
+            return loadTemplates();
+        }
 
         // Go through files
         for (File file : files) {

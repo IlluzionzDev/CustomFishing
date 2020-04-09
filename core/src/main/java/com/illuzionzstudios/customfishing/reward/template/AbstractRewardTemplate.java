@@ -27,4 +27,9 @@ public interface AbstractRewardTemplate {
      */
     Config getTemplateFile();
 
+    /**
+     * Save the template file to disk
+     */
+    void save();
+
 }

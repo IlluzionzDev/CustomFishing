@@ -37,7 +37,7 @@ public enum RewardsController implements BukkitController<CustomFishing> {
     /**
      * Loot table of rewards
      */
-    private LootTable<FishingReward> lootTable = new LootTable<>();
+    private final LootTable<FishingReward> lootTable = new LootTable<>();
 
     @Override
     public void initialize(CustomFishing customFishing) {

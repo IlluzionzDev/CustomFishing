@@ -37,16 +37,13 @@ public class Settings {
     public static final ConfigSetting LANGUGE_MODE = new ConfigSetting(config, "System.Language Mode", "en_US",
             "The language file to use for the plugin",
             "More language files (if available) can be found in the plugins locale folder.");
-    public static final ConfigSetting AUTOSAVE = new ConfigSetting(config, "System.Autosave Interval", 60,
-            "Seconds to autosave and load the updated config");
-
 
     /**
      * Setup the configuration
      */
     public static void loadConfig() {
         config.load();
-        config.setAutoremove(true).setAutosave(true).setAutosaveInterval(AUTOSAVE.getInt());
+        config.setAutoremove(true);
 
         config.saveChanges();
     }
