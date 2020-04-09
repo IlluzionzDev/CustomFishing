@@ -13,6 +13,7 @@ import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
 import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
+import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
@@ -26,6 +27,18 @@ import java.util.*;
  */
 @RequiredArgsConstructor
 public class YAMLRewardLoader implements AbstractRewardLoader {
+
+    /**
+     * Static list of all defaults to load
+     */
+    public static ArrayList<DefaultRewardTemplate> defaults = new ArrayList<>();
+
+    /**
+     * @param template Add a new default template
+     */
+    public static void addDefault(DefaultRewardTemplate template) {
+        defaults.add(template);
+    }
 
     /**
      * Directory to load files
@@ -42,11 +55,16 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
 
         // No files in directory
         if (files == null || files.length == 0 || !dir.exists()) {
-            // Save default rewards
-            new FoodDefaultTemplate(directory).save();
+            Logger.info("Loading default rewards as no rewards detected in /" + directory);
 
-            // Rerun as we set some defaults
-            return loadTemplates();
+            // Add templates from defaults
+            // Automatically created
+            defaults.forEach(template -> {
+                templates.put(template.getName(), template);
+            });
+
+            // Can't load any rewards
+            return templates;
         }
 
         // Go through files

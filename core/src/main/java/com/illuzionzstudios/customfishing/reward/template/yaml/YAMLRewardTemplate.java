@@ -18,6 +18,7 @@ import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.FishingRewardBuilder;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
+import lombok.Getter;
 import org.bukkit.Sound;
 
 /**
@@ -33,6 +34,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
     /**
      * Name of the reward
      */
+    @Getter
     private String name;
 
     /**
@@ -44,13 +46,15 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
         this.config = new Config(CustomFishing.getInstance(), "/" + directory, fileName + ".yml");
 
         // Load the config
-        this.config.load();
+        save();
         this.name = fileName;
-        this.config.saveChanges();
     }
 
     @Override
     public FishingReward create() throws RewardLoadException {
+        // Save before creating
+        save();
+
         // Lets try build the reward
         FishingRewardBuilder builder = new FishingRewardBuilder();
 
@@ -125,6 +129,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
 
     @Override
     public void save() {
+        this.config.load();
         this.config.saveChanges();
     }
 }

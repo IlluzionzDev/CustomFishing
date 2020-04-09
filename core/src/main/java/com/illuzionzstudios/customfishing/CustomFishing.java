@@ -9,6 +9,8 @@ import com.illuzionzstudios.customfishing.command.CustomFishingCommand;
 import com.illuzionzstudios.customfishing.controller.FishingController;
 import com.illuzionzstudios.customfishing.controller.RequirementController;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
+import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
+import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import lombok.Getter;
 
@@ -60,6 +62,10 @@ public final class CustomFishing extends IlluzionzPlugin {
         this.setLocale(Settings.LANGUGE_MODE.getString(), false);
 
         loadCommands();
+
+        // Add our default rewards
+        YAMLRewardLoader.addDefault(new FoodDefaultTemplate("rewards"));
+
         loadRewards();
 
         // Load FishingController
