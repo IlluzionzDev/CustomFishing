@@ -14,13 +14,13 @@ import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemp
 
 import java.util.Arrays;
 
-public class FoodDefaultTemplate extends DefaultRewardTemplate {
+public class AppleDefaultTemplate extends DefaultRewardTemplate {
 
     /**
      * @param directory The directory of the template
      */
-    public FoodDefaultTemplate(String directory) {
-        super("food", directory);
+    public AppleDefaultTemplate(String directory) {
+        super("golden_apples", directory);
     }
 
     @Override
@@ -44,12 +44,12 @@ public class FoodDefaultTemplate extends DefaultRewardTemplate {
                 " ",
                 "Any queries join our discord at https://discord.gg/DbJXzWq");
 
-        this.config.set("Name", "Food",
+        this.config.set("Name", "Golden Apples",
                 "The name or identifer of the reward. Make it something",
                 "relating to what the reward is.");
-        this.config.set("Commands", Arrays.asList("give %player% cooked_beef 64"),
+        this.config.set("Commands", Arrays.asList("give %player% golden_apple 5"),
                 "A list of commands to run when this reward is caught.");
-        this.config.set("Messages", Arrays.asList("&a&l(!) &aYou found &a&l64 Steak!"),
+        this.config.set("Messages", Arrays.asList("&a&l(!) &aYou found &a&l5 Golden Apples!"),
                 "A list of messages to send the player when this reward is caught.");
         this.config.set("Broadcast", false,
                 "If the server should broadcast messages when this reward is caught");
@@ -84,4 +84,5 @@ public class FoodDefaultTemplate extends DefaultRewardTemplate {
                 "Set to 'global' for all regions",
                 "MUST HAVE WORLDGUARD TO WORK");
     }
+
 }

@@ -1,7 +1,6 @@
 package com.illuzionzstudios.customfishing;
 
 import com.illuzionzstudios.command.CommandManager;
-import com.illuzionzstudios.compatibility.ServerVersion;
 import com.illuzionzstudios.config.Config;
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
 import com.illuzionzstudios.core.util.Logger;
@@ -9,13 +8,13 @@ import com.illuzionzstudios.customfishing.command.CustomFishingCommand;
 import com.illuzionzstudios.customfishing.controller.FishingController;
 import com.illuzionzstudios.customfishing.controller.RequirementController;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
+import com.illuzionzstudios.customfishing.reward.template.defaults.AppleDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
+import com.illuzionzstudios.customfishing.reward.template.defaults.NothingDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import lombok.Getter;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -65,6 +64,8 @@ public final class CustomFishing extends IlluzionzPlugin {
 
         // Add our default rewards
         YAMLRewardLoader.addDefault(new FoodDefaultTemplate("rewards"));
+        YAMLRewardLoader.addDefault(new AppleDefaultTemplate("rewards"));
+        YAMLRewardLoader.addDefault(new NothingDefaultTemplate("rewards"));
 
         loadRewards();
 
