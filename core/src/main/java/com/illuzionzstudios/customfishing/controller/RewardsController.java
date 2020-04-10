@@ -1,19 +1,14 @@
 package com.illuzionzstudios.customfishing.controller;
 
 import com.illuzionzstudios.chance.LootTable;
-import com.illuzionzstudios.compatibility.ServerVersion;
-import com.illuzionzstudios.config.Config;
-import com.illuzionzstudios.config.ConfigSection;
 import com.illuzionzstudios.core.bukkit.controller.BukkitController;
-import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.customfishing.reward.FishingRewardBuilder;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
+import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
 import lombok.Getter;
-import org.bukkit.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,19 +26,20 @@ import java.util.List;
 public enum RewardsController implements BukkitController<CustomFishing> {
     INSTANCE;
 
-    @Getter
-    private List<FishingReward> loadedRewards;
-
     /**
      * Loot table of rewards
      */
     private final LootTable<FishingReward> lootTable = new LootTable<>();
+
+    @Getter
+    private List<FishingReward> loadedRewards;
 
     @Override
     public void initialize(CustomFishing customFishing) {
         // Clear our already loaded data if any
         this.loadedRewards = new ArrayList<>();
         this.lootTable.clear();
+        YAMLRewardLoader.clear();
 
         // Reward loader for "/rewards" dir
         YAMLRewardLoader loader = new YAMLRewardLoader("rewards");
@@ -60,7 +56,7 @@ public enum RewardsController implements BukkitController<CustomFishing> {
                 ex.printStackTrace();
             }
         });
-        
+
         // Load chance sum
         if (loadedRewards.isEmpty()) {
             return;

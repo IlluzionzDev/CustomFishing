@@ -5,8 +5,6 @@ import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.command.sub.ConvertCommand;
 import com.illuzionzstudios.customfishing.command.sub.ReloadCommand;
 import com.illuzionzstudios.customfishing.command.sub.RewardsCommand;
-import com.illuzionzstudios.customfishing.controller.RewardsController;
-import com.illuzionzstudios.customfishing.struct.Permission;
 
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
@@ -17,6 +15,7 @@ import com.illuzionzstudios.customfishing.struct.Permission;
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
+
 /**
  * Main command
  */

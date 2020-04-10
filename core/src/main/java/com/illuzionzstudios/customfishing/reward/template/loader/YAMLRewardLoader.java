@@ -15,6 +15,7 @@ import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate
 import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -25,7 +26,6 @@ import java.util.*;
 /**
  * Load our YAML templates
  */
-@RequiredArgsConstructor
 public class YAMLRewardLoader implements AbstractRewardLoader {
 
     /**
@@ -41,20 +41,35 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
     }
 
     /**
+     * Loaded templates
+     */
+    @Getter
+    public static Map<String, AbstractRewardTemplate> templates = new HashMap<>();
+
+    /**
+     * Clear template cache
+     */
+    public static void clear() {
+        templates.clear();
+    }
+
+    /**
      * Directory to load files
      */
     public final String directory;
 
-    @Override
-    public Map<String, AbstractRewardTemplate> loadTemplates() {
-        Map<String, AbstractRewardTemplate> templates = new HashMap<>();
+    public YAMLRewardLoader(String directory) {
+        this.directory = directory;
+
+        // Add defaults only when initialized
 
         // Reward directory
         File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
-        File[] files = dir.listFiles();
 
         // No files in directory
-        if (files == null || files.length == 0 || !dir.exists()) {
+        if (!dir.exists() || dir.listFiles() == null) {
+            // Can't create directory, FATAL
+            if (!dir.mkdirs()) return;
             Logger.info("Loading default rewards as no rewards detected in /" + directory);
 
             // Add templates from defaults
@@ -62,13 +77,19 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
             defaults.forEach(template -> {
                 templates.put(template.getName(), template);
             });
-
-            // Can't load any rewards
-            return templates;
         }
+    }
+
+    @Override
+    public Map<String, AbstractRewardTemplate> loadTemplates() {
+        // Reward directory
+        File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
+
+        // Ensure exists
+        if (dir.listFiles() == null || !dir.exists()) return templates;
 
         // Go through files
-        for (File file : files) {
+        for (File file : dir.listFiles()) {
             // Get name without extension
             String name = file.getName().split("\\.")[0];
 
