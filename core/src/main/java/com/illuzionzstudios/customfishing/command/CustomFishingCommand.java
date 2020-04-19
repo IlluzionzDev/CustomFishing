@@ -1,6 +1,7 @@
 package com.illuzionzstudios.customfishing.command;
 
 import com.illuzionzstudios.command.type.GlobalCommand;
+import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.command.sub.ConvertCommand;
 import com.illuzionzstudios.customfishing.command.sub.ReloadCommand;
@@ -24,9 +25,6 @@ public class CustomFishingCommand extends GlobalCommand {
     public CustomFishingCommand(CustomFishing plugin) {
         super("customfishing", "cfishing", "customf");
 
-        minArgs = 1;
-        setUsage("&c/customfishing rewards|reload|help");
-
         addSubCommand(new RewardsCommand(plugin));
         addSubCommand(new ReloadCommand(plugin));
         addSubCommand(new ConvertCommand());
@@ -34,5 +32,13 @@ public class CustomFishingCommand extends GlobalCommand {
 
     @Override
     public void onCommand(String s, String[] strings) {
+        // By default execute help command
+
+        // Help message
+        Message help = CustomFishing.getInstance().getLocale().getMessage("general.help")
+                .processPlaceholder("version", CustomFishing.getInstance().getPluginVersion());
+
+        // Send to executor
+        help.sendMessage(commandSender);
     }
 }

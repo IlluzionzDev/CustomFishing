@@ -2,11 +2,22 @@
 
 general:
     nametag:
-        prefix: '&d&lCustomFishing &8>&7'
-    nopermission: '&cNot enough permissions'
-    reload: '&7Reloaded all configuration files'
+        prefix: "&d&lCustomFishing &8>&7"
+    nopermission: "&cNot enough permissions"
+    reload: "&7Reloaded all configuration files"
+    help: "&8&m                                        &r
+    \n &r
+    \n&d&lCustomFishing &7v%version% by &dIlluzionz Studios
+    \n&r
+    \n&d&lCommand Help
+    \n&8&l* &7/customfishing help - Display this page
+    \n&8&l* &7/customfishing rewards - View all loaded rewards
+    \n&8&l* &7/customfishing reload - Reload all plugin configuration files
+    \n &r
+    \n&8&m                                        &r"
+
 
 rewards:
     list:
-        header: '&dLoaded &d&lCustom Fishing &drewards:'
-        item: '&d&l* &d%reward%'
+        header: "&dLoaded &d&lCustom Fishing &drewards:"
+        item: "&d&l* &d%reward%"
