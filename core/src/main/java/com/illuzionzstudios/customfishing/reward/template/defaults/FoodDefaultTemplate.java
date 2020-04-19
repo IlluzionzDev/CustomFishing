@@ -64,7 +64,7 @@ public class FoodDefaultTemplate extends DefaultRewardTemplate {
         this.config.set("Chance", 50, "The chance of this reward being caught when the player",
                 "finds a custom reward. Can be a decimal number");
         this.config.set("Vanilla Rewards", false,
-                "If the player should still recieve default minecraft rewards.",
+                "If the player should still receive default minecraft rewards.",
                 "This means fish, enchanted books, enchanted items etc.",
                 "If set to false only the custom reward will be given");
         this.config.set("Exp Amount", 6,
@@ -75,7 +75,7 @@ public class FoodDefaultTemplate extends DefaultRewardTemplate {
         this.config.set("Requirements.Permission", "default",
                 "The permission required to find this reward. Defined as",
                 "customfishing.<value>. So the above would be the permission customfishing.default.",
-                "Make sure to give this to players by default to recieve rewards");
+                "Make sure to give this to players by default to receive rewards");
         this.config.set("Requirements.Worlds", Arrays.asList("all"),
                 "The worlds this reward can be found in. Set",
                 "to 'all' for all worlds");
