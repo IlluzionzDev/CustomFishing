@@ -1,0 +1,101 @@
+###################################################################
+# A custom reward that can be caught by fishing.                  #
+# This files defines all the options for a specific reward        #
+# identified by 'Name'. Change the options here as you like       #
+# to make your own reward. To add more than one catchable reward, #
+# copy this file and then change the options to your liking.      #
+#                                                                 #
+# Any queries join our discord at https://discord.gg/DbJXzWq      #
+###################################################################
+
+# The name or identifer of the reward. Make it something
+# relating to what the reward is.
+Name: "Demo Reward"
+
+# A list of commands to run when this reward is caught.
+Commands:
+  - "msg %player% demo"
+
+# List of custom item rewards, leave the list blank
+# if you don't want any custom items
+Items:
+  # Our first custom item
+  ItemOne:
+    # Material enum for the item
+    Material: DIAMOND_SWORD
+    # The name of the item
+    Name: "&7My Awesome Sword"
+    # The lore for this item
+    # Each line is separated by "\n"
+    # Begin each new line with this like so
+    # to get multiline lore
+    Lore: "&r
+    \n&7My
+    \n&1Custom
+    \n&4Lore"
+    # Enchants to apply to item
+    Enchantments:
+      # Enchants added as
+      # "ENCHANTMENT ENUM:LEVEL"
+      # So the first side is the enum for the enchantment
+      # and the second is the level of the enchantment
+      # So the below would be Sharpness at level 5
+      - "DAMAGE_ALL:5"
+    # Amount of items to give
+    Amount: 1
+    # Chance of this item reward being given
+    Chance: 100
+
+# A list of messages to send the player when this reward is caught.
+Messages:
+  - '&7&l(!) &aYou found a reward!'
+
+# If the server should broadcast messages when this reward is caught
+Broadcast: false
+
+# Broadcasts to send if the above variable is set to true
+Broadcasts:
+  - ''
+
+# If the player should be shown titles when this reward is caught
+Title Enabled: false
+
+# Title to send if 'Title Enabled' is set to true
+Title:
+
+# Sub Title to send if 'Title Enabled' is set to true
+Sub Title:
+
+# The chance of this reward being caught when the player
+# finds a custom reward. Can be a decimal number
+Chance: 4.5
+
+# If the player should still recieve default minecraft rewards.
+# This means fish, enchanted books, enchanted items etc.
+# If set to false only the custom reward will be given
+Vanilla Rewards: false
+
+# The amount of experience to give the player
+# when they find this reward
+Exp Amount: 15
+
+# The sound to play when this reward is caught
+Sound: ENTITY_FIREWORK_ROCKET_TWINKLE
+
+Requirements:
+
+  # The permission required to find this reward. Defined as
+  # customfishing.<value>. So the above would be the permission customfishing.default.
+  # Make sure to give this to players by default to recieve rewards
+  Permission: "default"
+
+  # The worlds this reward can be found in. Set
+  # to 'all' for all worlds
+  Worlds:
+    - all
+
+  # The WorldGuard regions this reward can be found in.
+  # Set to 'global' for all regions
+  # MUST HAVE WORLDGUARD TO WORK
+  Regions:
+    - global
