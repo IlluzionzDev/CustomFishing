@@ -1,6 +1,7 @@
 package com.illuzionzstudios.customfishing.reward;
 
 import com.illuzionzstudios.core.locale.player.Message;
+import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import org.bukkit.Sound;
 
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class FishingRewardBuilder {
 
-    private FishingReward reward = new FishingReward();
+    private final FishingReward reward = new FishingReward();
 
     public FishingRewardBuilder setName(String name) {
         reward.setName(name);
@@ -36,6 +37,18 @@ public class FishingRewardBuilder {
         List<String> list = reward.getCommands();
         list.add(command);
         reward.setCommands(list);
+        return this;
+    }
+
+    public FishingRewardBuilder setItems(List<ItemReward> items) {
+        reward.setItems(items);
+        return this;
+    }
+
+    public FishingRewardBuilder addItem(ItemReward item) {
+        List<ItemReward> list = reward.getItems();
+        list.add(item);
+        reward.setItems(list);
         return this;
     }
 

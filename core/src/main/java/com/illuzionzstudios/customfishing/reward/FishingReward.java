@@ -1,6 +1,7 @@
 package com.illuzionzstudios.customfishing.reward;
 
 import com.illuzionzstudios.core.locale.player.Message;
+import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import lombok.Data;
 import org.bukkit.Sound;
 
@@ -31,6 +32,11 @@ public class FishingReward {
      * Commands to execute
      */
     private List<String> commands;
+
+    /**
+     * Custom items to give
+     */
+    private List<ItemReward> items;
 
     /**
      * Messages to send

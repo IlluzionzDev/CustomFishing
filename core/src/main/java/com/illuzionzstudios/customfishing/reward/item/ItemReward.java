@@ -66,8 +66,8 @@ public class ItemReward {
      */
     public ItemStack get() {
         // Construct from options
-        return factory.
-                name(name)
+        return factory
+                .name(name)
                 .setLore(lore)
                 .amount(amount)
                 .get();
