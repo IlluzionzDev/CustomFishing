@@ -55,6 +55,12 @@ public class ItemReward {
     public Map<Enchantment, Integer> enchantments = new HashMap<>();
 
     /**
+     * This will hide the enchants lore
+     */
+    @Setter
+    public boolean hideEnchants = false;
+
+    /**
      * Amount of the item
      */
     @Setter
@@ -90,6 +96,8 @@ public class ItemReward {
         if (!lore.isEmpty()) {
             factory.setLore(lore);
         }
+
+        if (hideEnchants) factory.hideAttributes();
 
         ItemStack stack = factory
                 .amount(amount)

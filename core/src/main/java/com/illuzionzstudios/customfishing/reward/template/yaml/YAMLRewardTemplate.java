@@ -94,6 +94,8 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
                     List<String> lore = new Message(item.getString("Lore")).getMessageLines();
                     // Enchantments to parse
                     List<String> enchantmentList = item.getStringList("Enchantments");
+                    // Whether to hide enchants
+                    boolean hideEnchants = item.getBoolean("Hide Enchants");
                     // Amount of items
                     int amount = item.getInt("Amount");
                     // Chance of item
@@ -137,6 +139,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
                     cause = "Could not load item " + item.getName();
                     itemReward.setAmount(amount);
                     itemReward.setChance(chance);
+                    itemReward.setHideEnchants(hideEnchants);
 
                     // Finally add item reward
                     builder.addItem(itemReward);

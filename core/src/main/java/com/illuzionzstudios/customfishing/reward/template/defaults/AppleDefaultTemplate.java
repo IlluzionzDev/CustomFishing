@@ -67,6 +67,9 @@ public class AppleDefaultTemplate extends DefaultRewardTemplate {
                 "So the first side is the enum for the enchantment",
                 "and the second is the level of the enchantment",
                 "So the below would be Unbreaking at level 1");
+        this.config.set("Items.ItemOne.Hide Enchants", false,
+                "If to hide the lore from enchants.",
+                "So Sharpness V won't appear in the lore");
         this.config.set("Items.ItemOne.Amount", 5,
                 "Amount of items to give");
         this.config.set("Items.ItemOne.Chance", 100.0f,
