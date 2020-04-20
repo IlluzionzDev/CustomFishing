@@ -91,7 +91,9 @@ public class ItemReward {
             factory.setLore(lore);
         }
 
-        ItemStack stack = factory.get();
+        ItemStack stack = factory
+                .amount(amount)
+                .get();
 
         // Don't run if no enchantments
         if (!enchantments.isEmpty()) {
