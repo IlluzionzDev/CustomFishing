@@ -59,8 +59,7 @@ public class FoodDefaultTemplate extends DefaultRewardTemplate {
                         "&7My\n" +
                         "&7Custom\n" +
                         "&7Beef",
-                "The lore for this item",
-                "Remove this option for no lore");
+                "The lore for this item");
         this.config.set("Items.ItemOne.Enchantments", Arrays.asList("DURABILITY:1"),
                 "Enchants to apply to item",
                 "Enchants added as",
