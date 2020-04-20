@@ -74,8 +74,7 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         if (RewardsController.INSTANCE.pickReward() == null) return;
 
         // Null checks
-        if (RequirementController.INSTANCE.getAvailableRewards(player).isEmpty() ||
-                RequirementController.INSTANCE.getAvailableRewards(player) == null) return;
+        if (RequirementController.INSTANCE.getAvailableRewards(player).isEmpty()) return;
 
         // Pick rewards from available rewards
         LootTable<FishingReward> availableRewards = new LootTable<>();
@@ -84,6 +83,9 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         }
 
         FishingReward reward = availableRewards.pick();
+
+        // Don't want a somehow null reward
+        if (reward == null) return;
 
         // Variables to use and check
         List<String> messages = reward.getMessages();
@@ -115,33 +117,46 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
                 event.getCaught().remove();
         }
 
-        // Set title times
-        title.setFadeIn(Settings.TITLE_FADEIN.getInt());
-        title.setStay(Settings.TITLE_DISPLAY.getInt());
-        title.setFadeOut(Settings.TITLE_FADEOUT.getInt());
+        if (title != null) {
+            // Set title times
+            title.setFadeIn(Settings.TITLE_FADEIN.getInt());
+            title.setStay(Settings.TITLE_DISPLAY.getInt());
+            title.setFadeOut(Settings.TITLE_FADEOUT.getInt());
 
-        // Send titles
-        if (shouldSendTitle) {
-            title.sendTitle(player, subtitle);
+            // Send titles
+            if (shouldSendTitle) {
+                // Null checking
+                if (subtitle != null) {
+                    title.sendTitle(player, subtitle);
+                } else {
+                    title.sendTitle(player);
+                }
+            }
         }
 
+
         // Send messages
+        if (messages != null)
         messages.forEach(msg -> player.sendMessage(Locale.color(msg)));
 
         // Send broadcasts
         if (shouldBroadcast) {
-            broadcasts.forEach(msg -> {
-                msg = new Message(msg).processPlaceholder("player", player.getName()).getMessage();
-                Bukkit.getServer().broadcastMessage(Locale.color(msg));
-            });
+            if (broadcasts != null) {
+                broadcasts.forEach(msg -> {
+                    msg = new Message(msg).processPlaceholder("player", player.getName()).getMessage();
+                    Bukkit.getServer().broadcastMessage(Locale.color(msg));
+                });
+            }
         }
 
         // Execute commands
-        commands.forEach(command -> {
-            // Do placeholders
-            command = new Message(command).processPlaceholder("player", player.getName()).getMessage();
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
-        });
+        if (commands != null) {
+            commands.forEach(command -> {
+                // Do placeholders
+                command = new Message(command).processPlaceholder("player", player.getName()).getMessage();
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+            });
+        }
     }
 
 }

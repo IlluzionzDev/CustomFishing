@@ -48,7 +48,7 @@ Items:
 
 # A list of messages to send the player when this reward is caught.
 Messages:
-  - '&7&l(!) &aYou found a reward!'
+  - '&7&l(!) &aYou found an awesome sword!'
 
 # If the server should broadcast messages when this reward is caught
 Broadcast: false
@@ -86,7 +86,7 @@ Requirements:
 
   # The permission required to find this reward. Defined as
   # customfishing.<value>. So the above would be the permission customfishing.default.
-  # Make sure to give this to players by default to reeieve rewards
+  # Make sure to give this to players by default to receive rewards
   Permission: "default"
 
   # The worlds this reward can be found in. Set
