@@ -27,7 +27,7 @@ public class RewardLoadException extends Exception {
      * If a fatal error occurred
      */
     @Getter
-    private boolean fatal;
+    private final boolean fatal;
 
     /**
      * Debug reward loading
@@ -35,14 +35,18 @@ public class RewardLoadException extends Exception {
     private final boolean DEBUG = true;
 
     /**
+     * Reward file name
+     */
+    private final String rewardName;
+
+    /**
      * @param message Cause of failed loading
      * @param rewardName The name of the reward failing to load
      * @param fatal If fatal error so need to log
      */
     public RewardLoadException(String message, String rewardName, boolean fatal) {
-        this.message = "An error occurred loading the reward file '" + rewardName + ".yml'!\n"
-                + "Cause: " + message;
-
+        this.message = message;
+        this.rewardName = rewardName;
         this.fatal = fatal;
     }
 
@@ -57,11 +61,16 @@ public class RewardLoadException extends Exception {
     public void printStackTrace() {
         // Log depending on debug
         if (DEBUG || isFatal()) {
-            Logger.severe(getMessage());
             super.printStackTrace();
-        } else {
-            Logger.severe(getMessage());
         }
+
+        // Log pretty
+        Logger.severe("------------------------------");
+        Logger.severe("Encountered an exception!");
+        Logger.severe(" ");
+        Logger.severe("Error occurred loading file " + rewardName + ".yml");
+        Logger.severe(message);
+        Logger.severe("------------------------------");
     }
 
 }
