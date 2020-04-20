@@ -145,6 +145,18 @@ public class FishingRewardBuilder {
         return this;
     }
 
+    public FishingRewardBuilder setBlockedRegions(List<String> regions) {
+        reward.setBlockedRegions(regions);
+        return this;
+    }
+
+    public FishingRewardBuilder addBlockedRegion(String region) {
+        List<String> list = reward.getBlockedRegions();
+        list.add(region);
+        reward.setBlockedRegions(list);
+        return this;
+    }
+
     public FishingReward build() {
         return this.reward;
     }

@@ -99,3 +99,9 @@ Requirements:
   # MUST HAVE WORLDGUARD TO WORK
   Regions:
     - global
+
+  # The WorldGuard regions this reward is blocked
+  # in. This means if the player is in this region,
+  # they can't find this reward
+  BlockedRegions:
+    -

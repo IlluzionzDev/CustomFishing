@@ -183,6 +183,9 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
 
             cause = "Could not load regions";
             builder.setRegions(config.getStringList("Requirements.Regions"));
+
+            cause = "Could not load blocked regions";
+            builder.setBlockedRegions(config.getStringList("Requirements.BlockedRegions"));
         } catch (Exception ex) {
             ex.printStackTrace();
             // If exception throw load exception

@@ -78,6 +78,7 @@ public enum RequirementController implements BukkitController<CustomFishing> {
         String permission = reward.getPermission();
         List<String> worlds = reward.getWorlds();
         List<String> regions = reward.getRegions();
+        List<String> blockedRegions = reward.getBlockedRegions();
 
         // Run requirements checks
         // Will use recursion to rerun for new reward
@@ -91,6 +92,17 @@ public enum RequirementController implements BukkitController<CustomFishing> {
                 if (worldGuardCheck.playerInRegion(region, player) || region.equalsIgnoreCase(GLOBAL_REGION)) {
                     inRegion = true;
                     break; // Don't need any more checks if true
+                }
+            }
+
+            // Check blocked regions
+            for (String region : blockedRegions) {
+                if (worldGuardCheck.playerInRegion(region, player)) {
+                    // Here if in blocked region
+                    // Instantly set to false as technically
+                    // not in region
+                    inRegion = false;
+                    break;
                 }
             }
             if (!inRegion) return false;

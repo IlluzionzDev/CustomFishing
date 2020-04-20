@@ -104,6 +104,11 @@ public class FishingReward {
      */
     private List<String> regions = new ArrayList<>();
 
+    /**
+     * Region the reward can't be found in
+     */
+    private List<String> blockedRegions = new ArrayList<>();
+
     public FishingReward() {
     }
 

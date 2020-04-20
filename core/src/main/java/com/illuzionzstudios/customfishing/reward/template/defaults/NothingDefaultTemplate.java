@@ -83,6 +83,10 @@ public class NothingDefaultTemplate extends DefaultRewardTemplate {
                 "The WorldGuard regions this reward can be found in.",
                 "Set to 'global' for all regions",
                 "MUST HAVE WORLDGUARD TO WORK");
+        this.config.set("Requirements.BlockedRegions", Arrays.asList(""),
+                "The WorldGuard regions this reward is blocked",
+                "in. This means if the player is in this region,",
+                "they can't find this reward");
     }
 
 }
