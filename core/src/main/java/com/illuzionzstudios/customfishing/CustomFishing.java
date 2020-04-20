@@ -14,6 +14,7 @@ import com.illuzionzstudios.customfishing.reward.template.defaults.NothingDefaul
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import lombok.Getter;
+import org.bstats.bukkit.Metrics;
 
 import java.util.List;
 
@@ -72,6 +73,10 @@ public final class CustomFishing extends IlluzionzPlugin {
         // Load FishingController
         FishingController.INSTANCE.initialize(this);
         RequirementController.INSTANCE.initialize(this);
+
+        // Plugin metrics
+        int pluginId = 7247;
+        Metrics metrics = new Metrics(this, pluginId);
     }
 
     @Override
