@@ -29,7 +29,6 @@ import java.util.Map;
  * under {@link FishingReward}
  */
 @Getter
-@RequiredArgsConstructor
 public class ItemReward {
 
     /**
@@ -70,7 +69,14 @@ public class ItemReward {
      * Factory used to build the item
      */
     @Getter
-    public ItemStackFactory factory = new ItemStackFactory(material);
+    public ItemStackFactory factory;
+
+    public ItemReward(Material material, String name) {
+        this.material = material;
+        this.name = name;
+
+        factory = new ItemStackFactory(material);
+    }
 
     /**
      * @return The custom item
