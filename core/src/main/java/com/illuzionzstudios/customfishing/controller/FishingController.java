@@ -11,6 +11,7 @@ import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.ChanceUtil;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
+import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -90,6 +91,7 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         // Variables to use and check
         List<String> messages = reward.getMessages();
         List<String> commands = reward.getCommands();
+        List<ItemReward> items = reward.getItems();
         List<String> broadcasts = reward.getBroadcasts();
 
         boolean shouldBroadcast = reward.isBroadcastEnabled();
@@ -155,6 +157,13 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
                 // Do placeholders
                 command = new Message(command).processPlaceholder("player", player.getName()).getMessage();
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+            });
+        }
+
+        // Give custom items
+        if (items != null) {
+            items.forEach(item -> {
+                player.getInventory().addItem(item.get());
             });
         }
     }

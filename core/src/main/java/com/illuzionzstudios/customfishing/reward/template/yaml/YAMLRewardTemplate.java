@@ -101,7 +101,11 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
                     float chance = (float) item.getDouble("Chance");
 
                     // Start constructing item
-                    ItemReward itemReward = new ItemReward(material, name);
+                    ItemReward itemReward = new ItemReward(material);
+
+                    if (name != null && !name.equals("")) {
+                        itemReward.setName(name);
+                    }
 
                     // Null checks and setting
                     if (lore != null && !lore.isEmpty()) {
@@ -111,21 +115,24 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
                     // Parse enchantments
                     Map<Enchantment, Integer> enchantments = new HashMap<>();
 
-                    cause = "Could not load enchantments for item " + item.getName();
-                    enchantmentList.forEach(string -> {
-                        // Parse
-                        String[] tokens = string.split(":");
-                        Enchantment enchantment = Enchantment.getByName(tokens[0].toUpperCase());
-                        int level = Integer.parseInt(tokens[1]);
+                    if (enchantmentList != null && !enchantmentList.isEmpty()) {
+                        cause = "Could not load enchantments for item " + item.getName();
+                        enchantmentList.forEach(string -> {
+                            // Parse
+                            String[] tokens = string.split(":");
+                            Enchantment enchantment = Enchantment.getByName(tokens[0].toUpperCase());
+                            int level = Integer.parseInt(tokens[1]);
 
-                        enchantments.put(enchantment, level);
-                    });
+                            enchantments.put(enchantment, level);
+                        });
+                    }
 
                     // Set enchantments
                     if (!enchantments.isEmpty()) {
                         itemReward.setEnchantments(enchantments);
                     }
 
+                    cause = "Could not load item " + item.getName();
                     itemReward.setAmount(amount);
                     itemReward.setChance(chance);
 
@@ -175,6 +182,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
             cause = "Could not load regions";
             builder.setRegions(config.getStringList("Requirements.Regions"));
         } catch (Exception ex) {
+            ex.printStackTrace();
             // If exception throw load exception
             throw new RewardLoadException(cause, name);
         }

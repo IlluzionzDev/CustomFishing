@@ -5,6 +5,7 @@ import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import lombok.Data;
 import org.bukkit.Sound;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,17 +32,17 @@ public class FishingReward {
     /**
      * Commands to execute
      */
-    private List<String> commands;
+    private List<String> commands = new ArrayList<>();
 
     /**
      * Custom items to give
      */
-    private List<ItemReward> items;
+    private List<ItemReward> items = new ArrayList<>();
 
     /**
      * Messages to send
      */
-    private List<String> messages;
+    private List<String> messages = new ArrayList<>();
 
     /**
      * If broadcasting is enabled
@@ -51,7 +52,7 @@ public class FishingReward {
     /**
      * Broadcast messages to send
      */
-    private List<String> broadcasts;
+    private List<String> broadcasts = new ArrayList<>();
 
     /**
      * If titles are enabled
@@ -96,12 +97,12 @@ public class FishingReward {
     /**
      * Worlds the reward can be found in
      */
-    private List<String> worlds;
+    private List<String> worlds = new ArrayList<>();
 
     /**
      * Region the reward can be found in
      */
-    private List<String> regions;
+    private List<String> regions = new ArrayList<>();
 
     public FishingReward() {
     }

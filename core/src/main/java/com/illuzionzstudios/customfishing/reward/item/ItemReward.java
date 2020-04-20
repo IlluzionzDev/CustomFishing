@@ -39,7 +39,8 @@ public class ItemReward {
     /**
      * Name of the item
      */
-    public final String name;
+    @Setter
+    public String name;
 
     /**
      * Lore of the item
@@ -71,9 +72,8 @@ public class ItemReward {
     @Getter
     public ItemStackFactory factory;
 
-    public ItemReward(Material material, String name) {
+    public ItemReward(Material material) {
         this.material = material;
-        this.name = name;
 
         factory = new ItemStackFactory(material);
     }
@@ -83,11 +83,15 @@ public class ItemReward {
      */
     public ItemStack get() {
         // Construct from options
-        ItemStack stack =  factory
-                .name(name)
-                .setLore(lore)
-                .amount(amount)
-                .get();
+        if (name != null && !name.equals("")) {
+            factory.name(name);
+        }
+
+        if (!lore.isEmpty()) {
+            factory.setLore(lore);
+        }
+
+        ItemStack stack = factory.get();
 
         // Don't run if no enchantments
         if (!enchantments.isEmpty()) {
