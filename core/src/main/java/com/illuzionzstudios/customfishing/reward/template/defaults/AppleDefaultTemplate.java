@@ -67,7 +67,7 @@ public class AppleDefaultTemplate extends DefaultRewardTemplate {
                 "\"ENCHANTMENT ENUM:LEVEL\"",
                 "So the first side is the enum for the enchantment",
                 "and the second is the level of the enchantment",
-                "So the below would be Sharpness at level 5");
+                "So the below would be Unbreaking at level 1");
         this.config.set("Items.ItemOne.Amount", 5,
                 "Amount of items to give");
         this.config.set("Items.ItemOne.Chance", 100.0f,
