@@ -11,28 +11,19 @@ package com.illuzionzstudios.customfishing.reward.template;
 
 import com.illuzionzstudios.core.util.Logger;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Thrown when there is an error loading rewards
  */
+@RequiredArgsConstructor
 public class RewardLoadException extends Exception {
 
     /**
      * Message or cause of error
      */
     @Getter
-    private String message;
-
-    /**
-     * If a fatal error occurred
-     */
-    @Getter
-    private final boolean fatal;
-
-    /**
-     * Debug reward loading
-     */
-    private final boolean DEBUG = true;
+    private final String message;
 
     /**
      * Reward file name
@@ -40,30 +31,10 @@ public class RewardLoadException extends Exception {
     private final String rewardName;
 
     /**
-     * @param message Cause of failed loading
-     * @param rewardName The name of the reward failing to load
-     * @param fatal If fatal error so need to log
-     */
-    public RewardLoadException(String message, String rewardName, boolean fatal) {
-        this.message = message;
-        this.rewardName = rewardName;
-        this.fatal = fatal;
-    }
-
-    public RewardLoadException(String message, String rewardName) {
-        this(message, rewardName, false);
-    }
-
-    /**
      * Request to print error
      */
     @Override
     public void printStackTrace() {
-        // Log depending on debug
-        if (DEBUG || isFatal()) {
-            super.printStackTrace();
-        }
-
         // Log pretty
         Logger.severe("------------------------------");
         Logger.severe("Encountered an exception!");

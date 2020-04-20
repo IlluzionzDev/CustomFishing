@@ -47,8 +47,34 @@ public class AppleDefaultTemplate extends DefaultRewardTemplate {
         this.config.set("Name", "Golden Apples",
                 "The name or identifer of the reward. Make it something",
                 "relating to what the reward is.");
-        this.config.set("Commands", Arrays.asList("give %player% golden_apple 5"),
+        this.config.set("Commands", Arrays.asList(""),
                 "A list of commands to run when this reward is caught.");
+
+        // Items
+        this.config.set("Items.ItemOne.Material", "GOLDEN_APPLE",
+                "Material enum for the item");
+        this.config.set("Items.ItemOne.Name", "&eGolden Apples",
+                "The custom name of the item");
+        this.config.set("Items.ItemOne.Lore", "&r\n" +
+                "    \\n&7My\n" +
+                "    \\n&7Custom\n" +
+                "    \\n&7Apple",
+                "The lore for this item",
+                "Each line is separated by \"\\n\"",
+                "Begin each new line with this like so",
+                "to get multiline lore");
+        this.config.set("Items.ItemOne.Enchantments", Arrays.asList("DURABILITY:1"),
+                "Enchants to apply to item",
+                "Enchants added as",
+                "\"ENCHANTMENT ENUM:LEVEL\"",
+                "So the first side is the enum for the enchantment",
+                "and the second is the level of the enchantment",
+                "So the below would be Sharpness at level 5");
+        this.config.set("Items.ItemOne.Amount", 1,
+                "Amount of items to give");
+        this.config.set("Items.ItemOne.Chance", 100.0f,
+                "Chance of this item reward being given");
+
         this.config.set("Messages", Arrays.asList("&a&l(!) &aYou found &a&l5 Golden Apples!"),
                 "A list of messages to send the player when this reward is caught.");
         this.config.set("Broadcast", false,

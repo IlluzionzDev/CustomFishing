@@ -73,7 +73,6 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
         // set before trying to set builder
         try {
             // Load everything
-
             cause = "Could not load name";
             builder.setName(config.getString("Name"));
             // Update local name
@@ -99,6 +98,9 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
                     int amount = item.getInt("Amount");
                     // Chance of item
                     float chance = (float) item.getDouble("Chance");
+
+                    // Can't create if invalid material
+                    if (material == null) continue;
 
                     // Start constructing item
                     ItemReward itemReward = new ItemReward(material);
