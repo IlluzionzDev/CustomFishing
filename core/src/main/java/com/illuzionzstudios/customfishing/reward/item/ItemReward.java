@@ -15,9 +15,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A wrapper for a custom item that comes
@@ -41,7 +46,13 @@ public class ItemReward {
      * Lore of the item
      */
     @Setter
-    public List<String> lore;
+    public List<String> lore = new ArrayList<>();
+
+    /**
+     * List of item enchantments paired with level
+     */
+    @Setter
+    public Map<Enchantment, Integer> enchantments = new HashMap<>();
 
     /**
      * Amount of the item
@@ -66,11 +77,26 @@ public class ItemReward {
      */
     public ItemStack get() {
         // Construct from options
-        return factory
+        ItemStack stack =  factory
                 .name(name)
                 .setLore(lore)
                 .amount(amount)
                 .get();
+
+        // Don't run if no enchantments
+        if (!enchantments.isEmpty()) {
+            // Apply enchantments
+            ItemMeta meta = stack.getItemMeta();
+
+            // Loop and add
+            this.enchantments.forEach((ench, lvl) -> {
+                meta.addEnchant(ench, lvl, true);
+            });
+
+            stack.setItemMeta(meta);
+        }
+
+        return stack;
     }
 
 }
