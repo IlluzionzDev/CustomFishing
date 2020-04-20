@@ -163,6 +163,8 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         // Give custom items
         if (items != null) {
             items.forEach(item -> {
+                // If chance for item
+                if (ChanceUtil.calculateChance(item.getChance()))
                 player.getInventory().addItem(item.get());
             });
         }
