@@ -9,6 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.yaml;
 
+import com.illuzionzstudios.compatibility.CompatibleMaterial;
 import com.illuzionzstudios.compatibility.ServerVersion;
 import com.illuzionzstudios.config.Config;
 import com.illuzionzstudios.core.locale.player.Message;
@@ -16,10 +17,18 @@ import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.FishingRewardBuilder;
+import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
 import lombok.Getter;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.enchantments.Enchantment;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A reward loaded from a YAMl file
@@ -72,6 +81,58 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
 
             cause = "Could not load commands";
             builder.setCommands(config.getStringList("Commands"));
+
+            // Parse custom items
+            if (config.getSections("Items") != null) {
+                for (ConfigurationSection item : config.getSections("Items")) {
+                    cause = "Could not load item " + item.getName();
+
+                    // Material
+                    Material material = CompatibleMaterial.getMaterial(item.getString("Material")).getMaterial();
+                    // Item name
+                    String name = new Message(item.getString("Name")).getMessage();
+                    // Item lore
+                    List<String> lore = new Message(item.getString("Lore")).getMessageLines();
+                    // Enchantments to parse
+                    List<String> enchantmentList = item.getStringList("Enchantments");
+                    // Amount of items
+                    int amount = item.getInt("Amount");
+                    // Chance of item
+                    float chance = (float) item.getDouble("Chance");
+
+                    // Start constructing item
+                    ItemReward itemReward = new ItemReward(material, name);
+
+                    // Null checks and setting
+                    if (lore != null && !lore.isEmpty()) {
+                        itemReward.setLore(lore);
+                    }
+
+                    // Parse enchantments
+                    Map<Enchantment, Integer> enchantments = new HashMap<>();
+
+                    cause = "Could not load enchantments for item " + item.getName();
+                    enchantmentList.forEach(string -> {
+                        // Parse
+                        String[] tokens = string.split(":");
+                        Enchantment enchantment = Enchantment.getByName(tokens[0].toUpperCase());
+                        int level = Integer.parseInt(tokens[1]);
+
+                        enchantments.put(enchantment, level);
+                    });
+
+                    // Set enchantments
+                    if (!enchantments.isEmpty()) {
+                        itemReward.setEnchantments(enchantments);
+                    }
+
+                    itemReward.setAmount(amount);
+                    itemReward.setChance(chance);
+
+                    // Finally add item reward
+                    builder.addItem(itemReward);
+                }
+            }
 
             cause = "Could not load messages";
             builder.setMessages(config.getStringList("Messages"));
