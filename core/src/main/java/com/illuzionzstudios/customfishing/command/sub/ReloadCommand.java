@@ -1,6 +1,7 @@
 package com.illuzionzstudios.customfishing.command.sub;
 
-import com.illuzionzstudios.command.type.SubCommand;
+import com.illuzionzstudios.command.ReturnType;
+import com.illuzionzstudios.command.type.AbstractCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.struct.Permission;
@@ -15,7 +16,7 @@ import com.illuzionzstudios.customfishing.struct.Permission;
  * this statement.
  */
 
-public class ReloadCommand extends SubCommand {
+public class ReloadCommand extends AbstractCommand {
 
     private final CustomFishing plugin;
 
@@ -28,9 +29,11 @@ public class ReloadCommand extends SubCommand {
     }
 
     @Override
-    public void onCommand(String s, String[] strings) {
+    public ReturnType onCommand(String s, String[] strings) {
         plugin.reloadConfig();
         plugin.getLocale().getMessage("general.reload").sendPrefixedMessage(commandSender);
+
+        return ReturnType.SUCCESS;
     }
 
     @Override

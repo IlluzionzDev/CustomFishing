@@ -1,9 +1,9 @@
 package com.illuzionzstudios.customfishing.command;
 
-import com.illuzionzstudios.command.type.GlobalCommand;
+import com.illuzionzstudios.command.ReturnType;
+import com.illuzionzstudios.command.type.AbstractCommand;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.CustomFishing;
-import com.illuzionzstudios.customfishing.command.sub.ConvertCommand;
 import com.illuzionzstudios.customfishing.command.sub.ReloadCommand;
 import com.illuzionzstudios.customfishing.command.sub.RewardsCommand;
 
@@ -20,18 +20,17 @@ import com.illuzionzstudios.customfishing.command.sub.RewardsCommand;
 /**
  * Main command
  */
-public class CustomFishingCommand extends GlobalCommand {
+public class CustomFishingCommand extends AbstractCommand {
 
     public CustomFishingCommand(CustomFishing plugin) {
         super("customfishing", "cfishing", "customf");
 
         addSubCommand(new RewardsCommand(plugin));
         addSubCommand(new ReloadCommand(plugin));
-        addSubCommand(new ConvertCommand());
     }
 
     @Override
-    public void onCommand(String s, String[] strings) {
+    public ReturnType onCommand(String s, String[] strings) {
         // By default execute help command
 
         // Help message
@@ -40,5 +39,12 @@ public class CustomFishingCommand extends GlobalCommand {
 
         // Send to executor
         help.sendMessage(commandSender);
+
+        return ReturnType.SUCCESS;
+    }
+
+    @Override
+    public boolean isConsoleAllowed() {
+        return true;
     }
 }

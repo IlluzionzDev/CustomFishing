@@ -175,8 +175,12 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
 
             // Set sound
             cause = "Sound " + config.getString("Sound") + " is not valid";
-            Sound sound = Sound.valueOf(config.getString("Sound"));
-            builder.setSound(sound);
+            try {
+                Sound sound = Sound.valueOf(config.getString("Sound"));
+                builder.setSound(sound);
+            } catch (Exception e) {
+                builder.setSound(null);
+            }
 
             cause = "Could not load permission";
             builder.setPermission("customfishing." + config.getString("Requirements.Permission"));

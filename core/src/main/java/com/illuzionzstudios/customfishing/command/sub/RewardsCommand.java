@@ -1,6 +1,7 @@
 package com.illuzionzstudios.customfishing.command.sub;
 
-import com.illuzionzstudios.command.type.SubCommand;
+import com.illuzionzstudios.command.ReturnType;
+import com.illuzionzstudios.command.type.AbstractCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.struct.Permission;
@@ -15,7 +16,7 @@ import com.illuzionzstudios.customfishing.struct.Permission;
  * this statement.
  */
 
-public class RewardsCommand extends SubCommand {
+public class RewardsCommand extends AbstractCommand {
 
     private final CustomFishing plugin;
 
@@ -28,7 +29,7 @@ public class RewardsCommand extends SubCommand {
     }
 
     @Override
-    public void onCommand(String s, String[] strings) {
+    public ReturnType onCommand(String s, String[] strings) {
         commandSender.sendMessage(" ");
         plugin.getLocale().getMessage("rewards.list.header").sendMessage(commandSender);
         RewardsController.INSTANCE.getLoadedRewards().forEach(reward -> {
@@ -36,6 +37,8 @@ public class RewardsCommand extends SubCommand {
                     .processPlaceholder("reward", reward.getName()).sendMessage(commandSender);
         });
         commandSender.sendMessage(" ");
+
+        return ReturnType.SUCCESS;
     }
 
     @Override
