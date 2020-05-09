@@ -7,6 +7,10 @@ import com.illuzionzstudios.customfishing.controller.worldguard.IWorldGuardCheck
 import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_12_R1;
 import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_13_R1;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
+import com.illuzionzstudios.customfishing.reward.requirement.check.PermissionCheck;
+import com.illuzionzstudios.customfishing.reward.requirement.check.RegionCheck;
+import com.illuzionzstudios.customfishing.reward.requirement.check.WorldCheck;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -31,6 +35,7 @@ public enum RequirementController implements BukkitController<CustomFishing> {
     /**
      * Used in multi-version support for WorldGuard
      */
+    @Getter
     private IWorldGuardCheck worldGuardCheck;
 
     @Override
@@ -75,55 +80,13 @@ public enum RequirementController implements BukkitController<CustomFishing> {
      * @return If all checks pass
      */
     public boolean processChecks(Player player, FishingReward reward) {
-        String permission = reward.getPermission();
-        List<String> worlds = reward.getWorlds();
-        List<String> regions = reward.getRegions();
-        List<String> blockedRegions = reward.getBlockedRegions();
+        WorldCheck worldCheck = new WorldCheck();
+        RegionCheck regionCheck = new RegionCheck();
+        PermissionCheck permissionCheck = new PermissionCheck();
 
-        // Run requirements checks
-        // Will use recursion to rerun for new reward
-        if (!player.hasPermission(permission) && !player.isOp()) return false;
-
-        // Only check if worldguard enabled
-        if (CustomFishing.getInstance().isWorldguardLoaded()) {
-            // Check if in the region
-            boolean inRegion = false;
-            for (String region : regions) {
-                if (worldGuardCheck.playerInRegion(region, player) || region.equalsIgnoreCase(GLOBAL_REGION)) {
-                    inRegion = true;
-                    break; // Don't need any more checks if true
-                }
-            }
-
-            // Check blocked regions
-            for (String region : blockedRegions) {
-                if (worldGuardCheck.playerInRegion(region, player)) {
-                    // Here if in blocked region
-                    // Instantly set to false as technically
-                    // not in region
-                    inRegion = false;
-                    break;
-                }
-            }
-            if (!inRegion) return false;
-        }
-
-        // Check if in worlds
-        boolean inWorld = false;
-        for (String world : worlds) {
-            if (world.equalsIgnoreCase(GLOBAL_WORLD)) {
-                inWorld = true;
-                break;
-            }
-
-            if (Bukkit.getWorld(world) != null) {
-                if (player.getWorld().equals(Bukkit.getWorld(world))) {
-                    inWorld = true;
-                    break; // Don't need any more checks if true
-                }
-            }
-
-        }
-        return inWorld; // Just return last check, as if it passes all have passed
+        // Go through all checks
+        return worldCheck.processCheck(player, reward) &&
+                regionCheck.processCheck(player, reward) &&
+                permissionCheck.processCheck(player, reward);
     }
 }
