@@ -13,6 +13,8 @@ import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTe
 import com.illuzionzstudios.customfishing.reward.template.defaults.NothingDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
 import com.illuzionzstudios.customfishing.settings.Settings;
+import com.illuzionzstudios.scheduler.bukkit.BukkitScheduler;
+import com.illuzionzstudios.ui.controller.InterfaceController;
 import lombok.Getter;
 
 import java.util.List;
@@ -59,6 +61,9 @@ public final class CustomFishing extends IlluzionzPlugin {
         // Load configuration
         Settings.loadConfig();
         this.setLocale(Settings.LANGUGE_MODE.getString(), false);
+
+        new BukkitScheduler(this).initialize();
+        new InterfaceController<>(this).initialize(this);
 
         loadCommands();
 

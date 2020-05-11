@@ -21,3 +21,21 @@ rewards:
     list:
         header: "&dLoaded &d&lCustom Fishing &drewards:"
         item: "&d&l* &d%reward%"
+
+gui:
+    admin:
+        title: "&7Custom Fishing Configuration"
+        add-reward:
+            name: "&a&lAdd New Reward"
+            lore: "&7Add a new custom fishing reward"
+        view-rewards:
+            name: "&d&lView All Rewards"
+            lore: "&7View/Edit current rewards"
+    view-rewards:
+        title: "&7Custom Rewards"
+        item:
+            name: "&d&l%reward_name%"
+            lore: "&7Chance: &d%chance%
+            \n&r
+            \n&7&o(Click to edit reward)"
+

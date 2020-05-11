@@ -4,6 +4,7 @@ import com.illuzionzstudios.command.ReturnType;
 import com.illuzionzstudios.command.type.AbstractCommand;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.CustomFishing;
+import com.illuzionzstudios.customfishing.command.sub.AdminCommand;
 import com.illuzionzstudios.customfishing.command.sub.ReloadCommand;
 import com.illuzionzstudios.customfishing.command.sub.RewardsCommand;
 
@@ -25,6 +26,7 @@ public class CustomFishingCommand extends AbstractCommand {
     public CustomFishingCommand(CustomFishing plugin) {
         super("customfishing", "cfishing", "customf");
 
+        addSubCommand(new AdminCommand());
         addSubCommand(new RewardsCommand(plugin));
         addSubCommand(new ReloadCommand(plugin));
     }

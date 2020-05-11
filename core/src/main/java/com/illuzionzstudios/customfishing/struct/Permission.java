@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Permission implements IPermission {
 
+    ADMIN("admin"),
     RELOAD("reload"),
     REWARDS("rewards");
 
