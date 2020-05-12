@@ -8,6 +8,7 @@ import com.illuzionzstudios.customfishing.command.CustomFishingCommand;
 import com.illuzionzstudios.customfishing.controller.FishingController;
 import com.illuzionzstudios.customfishing.controller.RequirementController;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
+import com.illuzionzstudios.customfishing.reward.config.ConfigChatListener;
 import com.illuzionzstudios.customfishing.reward.template.defaults.AppleDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.defaults.NothingDefaultTemplate;
@@ -75,6 +76,7 @@ public final class CustomFishing extends IlluzionzPlugin {
         loadRewards();
 
         // Load FishingController
+        new ConfigChatListener(this);
         FishingController.INSTANCE.initialize(this);
         RequirementController.INSTANCE.initialize(this);
 

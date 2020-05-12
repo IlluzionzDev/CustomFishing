@@ -38,4 +38,11 @@ gui:
             lore: "&7Chance: &d%chance%
             \n&r
             \n&7&o(Click to edit reward)"
+    configure:
+        title: "&7Configure Reward"
+        set-name:
+            name: "&d&lSet Name"
+            lore: "&7%current_value%
+            \n&r
+            \n&7&o(Click to change name)"
 
