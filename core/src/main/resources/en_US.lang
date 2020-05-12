@@ -21,6 +21,8 @@ rewards:
     list:
         header: "&dLoaded &d&lCustom Fishing &drewards:"
         item: "&d&l* &d%reward%"
+    config:
+        enter-value: "&aEnter a new value to set"
 
 gui:
     admin:

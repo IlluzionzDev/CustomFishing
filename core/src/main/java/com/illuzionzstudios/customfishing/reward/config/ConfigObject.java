@@ -9,17 +9,18 @@
  */
 package com.illuzionzstudios.customfishing.reward.config;
 
-import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 /**
- * Listen to chat events for configuring rewards
+ * Wrap a fishing reward when configuring it
  */
-public class ConfigChatListener implements Listener {
+@Data
+@RequiredArgsConstructor
+public class ConfigObject {
 
-    public ConfigChatListener(Plugin plugin) {
-        Bukkit.getPluginManager().registerEvents(this, plugin);
-    }
+    public final FishingReward reward;
+    public final ConfigType type;
 
 }
