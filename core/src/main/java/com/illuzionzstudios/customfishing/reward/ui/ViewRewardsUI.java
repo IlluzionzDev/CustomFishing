@@ -38,7 +38,7 @@ public class ViewRewardsUI extends DividedInterface {
                                 .processPlaceholder("chance", reward.getChance()))
                             .get())
                     .listener((player, event) -> {
-                        new ConfigureRewardUI(reward).open(player);
+                        new ConfigureRewardUI(reward, this).open(player);
                     })
                     .slot(slot++)
                     .build());

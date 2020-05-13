@@ -15,6 +15,8 @@ import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.config.ConfigObject;
 import com.illuzionzstudios.customfishing.reward.config.ConfigType;
 import com.illuzionzstudios.customfishing.reward.ui.ConfigureRewardUI;
+import com.illuzionzstudios.customfishing.reward.ui.ConfigureUI;
+import com.illuzionzstudios.customfishing.reward.ui.ViewRewardsUI;
 import com.illuzionzstudios.scheduler.MinecraftScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -81,8 +83,9 @@ public enum ConfigController implements BukkitController<Plugin>, Listener {
 
             // Reopen UI
             MinecraftScheduler.get().synchronize(() -> {
-                new ConfigureRewardUI(reward).open(event.getPlayer());
+                new ConfigureUI(new ConfigureRewardUI(reward, new ViewRewardsUI()), config.getType(), reward).open(event.getPlayer());
             });
+            this.activeSessions.remove(playerUuid);
         }
     }
 }

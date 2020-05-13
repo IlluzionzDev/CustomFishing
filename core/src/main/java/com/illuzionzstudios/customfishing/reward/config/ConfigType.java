@@ -25,20 +25,20 @@ import java.util.function.Function;
 @Getter
 public enum ConfigType {
 
-    SET_NAME(Material.NAME_TAG, 0, FishingReward::getName),
-    SET_COMMANDS(Material.COMMAND_BLOCK, 2, reward -> StringUtil.loreListToString(reward.getCommands())),
-    SET_MESSAGES(Material.PAPER, 3, reward -> StringUtil.loreListToString(reward.getMessages())),
-    SET_BROADCASTS(Material.PAPER, 4, reward -> StringUtil.loreListToString(reward.getBroadcasts())),
-    SET_TITLE(Material.PAPER, 5, reward -> reward.getTitle().toString()),
-    SET_SUBTITLE(Material.PAPER, 6, reward -> reward.getSubtitle().toString()),
-    SET_CHANCE(Material.SPAWNER, 7, reward -> "" + reward.getChance()),
-    SET_VANILLA_REWARDS(Material.FISHING_ROD, 8, reward -> "" + reward.isVanillaRewards()),
-    SET_EXP(Material.EXPERIENCE_BOTTLE, 9, reward -> "" + reward.getExperience()),
-    SET_SOUND(Material.NOTE_BLOCK, 10, reward -> reward.getSound().name()),
-    SET_PERMISSION(Material.BARRIER, 11, FishingReward::getPermission),
-    SET_WORLDS(Material.GRASS_BLOCK, 12, reward -> StringUtil.loreListToString(reward.getWorlds())),
-    SET_REGIONS(Material.DIRT, 13, reward -> StringUtil.loreListToString(reward.getRegions())),
-    SET_BLOCKED_REGIONS(Material.BARRIER, 14, reward -> StringUtil.loreListToString(reward.getBlockedRegions())),
+    SET_NAME(Material.NAME_TAG, 10, FishingReward::getName, false),
+    SET_COMMANDS(Material.COMMAND_BLOCK, 11, reward -> StringUtil.loreListToString(reward.getCommands()), true),
+    SET_MESSAGES(Material.PAPER, 12, reward -> StringUtil.loreListToString(reward.getMessages()), true),
+    SET_BROADCASTS(Material.PAPER, 13, reward -> StringUtil.loreListToString(reward.getBroadcasts()), true),
+    SET_TITLE(Material.PAPER, 14, reward -> reward.getTitle().toString(), false),
+    SET_SUBTITLE(Material.PAPER, 15, reward -> reward.getSubtitle().toString(), false),
+    SET_CHANCE(Material.SPAWNER, 16, reward -> "" + reward.getChance(), false),
+    SET_VANILLA_REWARDS(Material.FISHING_ROD, 19, reward -> "" + reward.isVanillaRewards(), false),
+    SET_EXP(Material.EXPERIENCE_BOTTLE, 20, reward -> "" + reward.getExperience(), false),
+    SET_SOUND(Material.NOTE_BLOCK, 21, reward -> reward.getSound().name(), false),
+    SET_PERMISSION(Material.BARRIER, 22, FishingReward::getPermission, false),
+    SET_WORLDS(Material.GRASS_BLOCK, 23, reward -> StringUtil.loreListToString(reward.getWorlds()), true),
+    SET_REGIONS(Material.DIRT, 24, reward -> StringUtil.loreListToString(reward.getRegions()), true),
+    SET_BLOCKED_REGIONS(Material.BARRIER, 25, reward -> StringUtil.loreListToString(reward.getBlockedRegions()), true),
     ;
 
     /**
@@ -56,6 +56,11 @@ public enum ConfigType {
      * as a string
      */
     private final Function<FishingReward, String> currentValue;
+
+    /**
+     * If the option is a list value
+     */
+    private final boolean list;
 
     /**
      * @return The identifier for the config path

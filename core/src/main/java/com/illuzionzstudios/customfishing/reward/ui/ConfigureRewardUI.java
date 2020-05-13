@@ -16,6 +16,7 @@ import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.config.ConfigType;
 import com.illuzionzstudios.ui.button.InterfaceButton;
 import com.illuzionzstudios.ui.types.UserInterface;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -26,6 +27,7 @@ import org.bukkit.event.inventory.InventoryAction;
  * Display all options to configure a reward
  */
 @RequiredArgsConstructor
+@Getter
 public class ConfigureRewardUI extends UserInterface {
 
     /**
@@ -33,9 +35,27 @@ public class ConfigureRewardUI extends UserInterface {
      */
     private final FishingReward reward;
 
+    /**
+     * Previous ui to return to
+     */
+    public final UserInterface previousUi;
+
     @Override
     public void generateInventory() {
-        inventory = Bukkit.createInventory(null, 54, Message.of("gui.configure.title").toString());
+        inventory = Bukkit.createInventory(null, 36, Message.of("gui.configure.title").toString());
+
+        addButton(InterfaceButton.builder()
+                .icon(new ItemStackFactory(Material.ARROW)
+                        .name(Message.of("gui.buttons.back.name"))
+                        .lore(Message.of("gui.buttons.back.lore"))
+                        .get())
+                .listener((player, event) -> {
+                    if (event.getClick() != ClickType.LEFT) return;
+                    // Allow them to set value
+                    previousUi.open(player);
+                })
+                .slot(0)
+                .build());
 
         // For every config type set an item
         for (ConfigType type : ConfigType.values()) {
@@ -48,11 +68,16 @@ public class ConfigureRewardUI extends UserInterface {
                     .listener((player, event) -> {
                         if (event.getClick() != ClickType.LEFT) return;
                         // Allow them to set value
-                        ConfigController.INSTANCE.prepareConfiguration(player, reward, type);
-                        close();
+                        new ConfigureUI(this, type, reward).open(player);
                     })
                     .slot(type.getSlot())
                     .build());
         }
+
+        fillEmptySpaces(InterfaceButton.builder()
+                .icon(new ItemStackFactory(Material.PURPLE_STAINED_GLASS_PANE)
+                        .name(" ")
+                        .get())
+                .build());
     }
 }
