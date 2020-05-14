@@ -11,6 +11,7 @@ package com.illuzionzstudios.customfishing.reward.ui;
 
 import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
 import com.illuzionzstudios.core.locale.player.Message;
+import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.ui.button.InterfaceButton;
@@ -38,7 +39,8 @@ public class ViewRewardsUI extends DividedInterface {
                                 .processPlaceholder("chance", reward.getChance()))
                             .get())
                     .listener((player, event) -> {
-                        new ConfigureRewardUI(reward, this).open(player);
+                        destroy();
+                        new ConfigureRewardUI(reward).open(player);
                     })
                     .slot(slot++)
                     .build());

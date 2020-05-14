@@ -83,7 +83,7 @@ public enum ConfigController implements BukkitController<Plugin>, Listener {
 
             // Reopen UI
             MinecraftScheduler.get().synchronize(() -> {
-                new ConfigureUI(new ConfigureRewardUI(reward, new ViewRewardsUI()), config.getType(), reward).open(event.getPlayer());
+                new ConfigureUI(config.getType(), reward).open(event.getPlayer());
             });
             this.activeSessions.remove(playerUuid);
         }

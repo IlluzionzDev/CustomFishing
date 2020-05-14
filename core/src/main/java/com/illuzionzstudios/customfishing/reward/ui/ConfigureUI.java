@@ -30,11 +30,6 @@ import org.bukkit.event.inventory.ClickType;
 public class ConfigureUI extends UserInterface {
 
     /**
-     * Previous ui to return to
-     */
-    public final UserInterface previousUi;
-
-    /**
      * Option to configure
      */
     public final ConfigType option;
@@ -54,9 +49,8 @@ public class ConfigureUI extends UserInterface {
                         .lore(Message.of("gui.buttons.back.lore"))
                         .get())
                 .listener((player, event) -> {
-                    if (event.getClick() != ClickType.LEFT) return;
-                    // Allow them to set value
-                    previousUi.open(player);
+                    destroy();
+                    new ConfigureRewardUI(reward).open(player);
                 })
                 .slot(0)
                 .build());
@@ -65,14 +59,8 @@ public class ConfigureUI extends UserInterface {
                 .icon(new ItemStackFactory(option.getIcon())
                         .name(Message.of("gui.option.current-value.name"))
                         .lore(Message.of("gui.option.current-value.lore")
-                                .processPlaceholder("current_value", option.getCurrentValue(reward)))
+                                .processPlaceholder("current_value", "&7" + option.getCurrentValue(reward)))
                         .get())
-                .listener((player, event) -> {
-                    if (event.getClick() != ClickType.LEFT) return;
-                    // Allow them to set value
-                    ConfigController.INSTANCE.prepareConfiguration(player, reward, option);
-                    close();
-                })
                 .slot(12)
                 .build());
 
@@ -107,7 +95,7 @@ public class ConfigureUI extends UserInterface {
                                 break;
                         }
 
-                        render();
+                        open(player);
                     })
                     .slot(13)
                     .build());
@@ -118,8 +106,7 @@ public class ConfigureUI extends UserInterface {
                             .lore(Message.of("gui.option.list-add.lore"))
                             .get())
                     .listener((player, event) -> {
-                        if (event.getClick() != ClickType.LEFT) return;
-                        // Clear value
+                        if (event.getClick() == ClickType.LEFT)
                         ConfigController.INSTANCE.prepareConfiguration(player, reward, option);
                         close();
                     })
@@ -132,8 +119,6 @@ public class ConfigureUI extends UserInterface {
                             .lore(Message.of("gui.option.set-option.lore"))
                             .get())
                     .listener((player, event) -> {
-                        if (event.getClick() != ClickType.LEFT) return;
-                        // Clear value
                         ConfigController.INSTANCE.prepareConfiguration(player, reward, option);
                         close();
                     })

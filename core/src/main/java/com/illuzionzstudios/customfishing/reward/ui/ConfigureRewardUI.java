@@ -11,10 +11,12 @@ package com.illuzionzstudios.customfishing.reward.ui;
 
 import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
 import com.illuzionzstudios.core.locale.player.Message;
+import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.controller.ConfigController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.config.ConfigType;
 import com.illuzionzstudios.ui.button.InterfaceButton;
+import com.illuzionzstudios.ui.controller.InterfaceController;
 import com.illuzionzstudios.ui.types.UserInterface;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -35,11 +37,6 @@ public class ConfigureRewardUI extends UserInterface {
      */
     private final FishingReward reward;
 
-    /**
-     * Previous ui to return to
-     */
-    public final UserInterface previousUi;
-
     @Override
     public void generateInventory() {
         inventory = Bukkit.createInventory(null, 36, Message.of("gui.configure.title").toString());
@@ -50,9 +47,8 @@ public class ConfigureRewardUI extends UserInterface {
                         .lore(Message.of("gui.buttons.back.lore"))
                         .get())
                 .listener((player, event) -> {
-                    if (event.getClick() != ClickType.LEFT) return;
-                    // Allow them to set value
-                    previousUi.open(player);
+                    destroy();
+                    new ViewRewardsUI().open(player);
                 })
                 .slot(0)
                 .build());
@@ -66,9 +62,8 @@ public class ConfigureRewardUI extends UserInterface {
                                 .processPlaceholder("current_value", type.getCurrentValue(reward)))
                             .get())
                     .listener((player, event) -> {
-                        if (event.getClick() != ClickType.LEFT) return;
-                        // Allow them to set value
-                        new ConfigureUI(this, type, reward).open(player);
+                        destroy();
+                        new ConfigureUI(type, reward).open(player);
                     })
                     .slot(type.getSlot())
                     .build());
