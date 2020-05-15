@@ -25,20 +25,26 @@ import java.util.function.Function;
 @Getter
 public enum ConfigType {
 
-    SET_NAME(Material.NAME_TAG, 10, FishingReward::getName, false),
-    SET_COMMANDS(Material.COMMAND_BLOCK, 11, reward -> StringUtil.loreListToString(reward.getCommands()), true),
-    SET_MESSAGES(Material.PAPER, 12, reward -> StringUtil.loreListToString(reward.getMessages()), true),
-    SET_BROADCASTS(Material.PAPER, 13, reward -> StringUtil.loreListToString(reward.getBroadcasts()), true),
-    SET_TITLE(Material.PAPER, 14, reward -> reward.getTitle().toString(), false),
-    SET_SUBTITLE(Material.PAPER, 15, reward -> reward.getSubtitle().toString(), false),
-    SET_CHANCE(Material.SPAWNER, 16, reward -> "" + reward.getChance(), false),
-    SET_VANILLA_REWARDS(Material.FISHING_ROD, 19, reward -> "" + reward.isVanillaRewards(), false),
-    SET_EXP(Material.EXPERIENCE_BOTTLE, 20, reward -> "" + reward.getExperience(), false),
-    SET_SOUND(Material.NOTE_BLOCK, 21, reward -> reward.getSound().name(), false),
-    SET_PERMISSION(Material.BARRIER, 22, FishingReward::getPermission, false),
-    SET_WORLDS(Material.GRASS_BLOCK, 23, reward -> StringUtil.loreListToString(reward.getWorlds()), true),
-    SET_REGIONS(Material.DIRT, 24, reward -> StringUtil.loreListToString(reward.getRegions()), true),
-    SET_BLOCKED_REGIONS(Material.BARRIER, 25, reward -> StringUtil.loreListToString(reward.getBlockedRegions()), true),
+    SET_NAME(Material.NAME_TAG, 13, FishingReward::getName, false),
+
+    /**
+     * Custom case when adding items
+     */
+    SET_ITEMS(Material.APPLE, 28, reward -> "", false),
+
+    SET_COMMANDS(Material.COMMAND_BLOCK, 29, reward -> StringUtil.loreListToString(reward.getCommands()), true),
+    SET_MESSAGES(Material.PAPER, 30, reward -> StringUtil.loreListToString(reward.getMessages()), true),
+    SET_BROADCASTS(Material.PAPER, 31, reward -> StringUtil.loreListToString(reward.getBroadcasts()), true),
+    SET_TITLE(Material.PAPER, 32, reward -> reward.getTitle().toString(), false),
+    SET_SUBTITLE(Material.PAPER, 33, reward -> reward.getSubtitle().toString(), false),
+    SET_CHANCE(Material.SPAWNER, 34, reward -> "" + reward.getChance(), false),
+    SET_VANILLA_REWARDS(Material.FISHING_ROD, 37, reward -> "" + reward.isVanillaRewards(), false),
+    SET_EXP(Material.EXPERIENCE_BOTTLE, 38, reward -> "" + reward.getExperience(), false),
+    SET_SOUND(Material.NOTE_BLOCK, 39, reward -> reward.getSound().name(), false),
+    SET_PERMISSION(Material.BARRIER, 40, FishingReward::getPermission, false),
+    SET_WORLDS(Material.GRASS_BLOCK, 41, reward -> StringUtil.loreListToString(reward.getWorlds()), true),
+    SET_REGIONS(Material.DIRT, 42, reward -> StringUtil.loreListToString(reward.getRegions()), true),
+    SET_BLOCKED_REGIONS(Material.BARRIER, 43, reward -> StringUtil.loreListToString(reward.getBlockedRegions()), true),
     ;
 
     /**

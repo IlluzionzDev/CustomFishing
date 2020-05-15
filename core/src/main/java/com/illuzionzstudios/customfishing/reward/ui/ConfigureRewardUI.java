@@ -11,19 +11,14 @@ package com.illuzionzstudios.customfishing.reward.ui;
 
 import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
 import com.illuzionzstudios.core.locale.player.Message;
-import com.illuzionzstudios.core.util.Logger;
-import com.illuzionzstudios.customfishing.controller.ConfigController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.config.ConfigType;
 import com.illuzionzstudios.ui.button.InterfaceButton;
-import com.illuzionzstudios.ui.controller.InterfaceController;
 import com.illuzionzstudios.ui.types.UserInterface;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryAction;
 
 /**
  * Display all options to configure a reward

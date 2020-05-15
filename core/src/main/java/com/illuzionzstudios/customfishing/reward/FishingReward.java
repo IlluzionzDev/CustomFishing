@@ -2,8 +2,11 @@ package com.illuzionzstudios.customfishing.reward;
 
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.reward.item.ItemReward;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.bukkit.Sound;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ import java.util.List;
  * Reward object the player can find.
  */
 @Data
+@Builder
+@NoArgsConstructor
 public class FishingReward {
 
     /**
@@ -37,7 +42,7 @@ public class FishingReward {
     /**
      * Custom items to give
      */
-    private List<ItemReward> items = new ArrayList<>();
+    private List<ItemStack> items = new ArrayList<>();
 
     /**
      * Messages to send
@@ -108,8 +113,5 @@ public class FishingReward {
      * Region the reward can't be found in
      */
     private List<String> blockedRegions = new ArrayList<>();
-
-    public FishingReward() {
-    }
 
 }

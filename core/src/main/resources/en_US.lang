@@ -52,6 +52,11 @@ gui:
             lore: "&7%current_value%
             \n&r
             \n&7&o(Click to change name)"
+        set-items:
+            name: "&d&lSet Items"
+            lore: "&7%current_value%
+            \n&r
+            \n&7&o(Click to change items)"
         set-commands:
             name: "&d&lSet Commands"
             lore: "&7%current_value%

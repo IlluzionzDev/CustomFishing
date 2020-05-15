@@ -5,7 +5,6 @@ import com.illuzionzstudios.config.Config;
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
 import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.command.CustomFishingCommand;
-import com.illuzionzstudios.customfishing.controller.ConfigController;
 import com.illuzionzstudios.customfishing.controller.FishingController;
 import com.illuzionzstudios.customfishing.controller.RequirementController;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
@@ -76,7 +75,6 @@ public final class CustomFishing extends IlluzionzPlugin {
         loadRewards();
 
         // Load FishingController
-        ConfigController.INSTANCE.initialize(this);
         FishingController.INSTANCE.initialize(this);
         RequirementController.INSTANCE.initialize(this);
 
