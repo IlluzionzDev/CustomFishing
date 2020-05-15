@@ -55,14 +55,26 @@ public class ConfigureUI extends UserInterface {
                 .slot(0)
                 .build());
 
-        addButton(InterfaceButton.builder()
-                .icon(new ItemStackFactory(option.getIcon())
-                        .name(Message.of("gui.option.current-value.name"))
-                        .lore(Message.of("gui.option.current-value.lore")
-                                .processPlaceholder("current_value", "&7" + option.getCurrentValue(reward)))
-                        .get())
-                .slot(12)
-                .build());
+        // Set specifically for items
+        if (option == ConfigType.SET_ITEMS) {
+            addButton(InterfaceButton.builder()
+                    .icon(new ItemStackFactory(option.getIcon())
+                            .name(Message.of("gui.option.view-items.name"))
+                            .lore(Message.of("gui.option.view-items.lore"))
+                            .get())
+                    .listener((player, event) -> {
+                        new AddItemsUI(reward).open(player);
+                    })
+                    .slot(13)
+                    .build());
+
+            fillEmptySpaces(InterfaceButton.builder()
+                    .icon(new ItemStackFactory(Material.BLACK_STAINED_GLASS_PANE)
+                            .name(" ")
+                            .get())
+                    .build());
+            return;
+        }
 
         // If configuring list
         if (option.isList()) {
@@ -118,6 +130,15 @@ public class ConfigureUI extends UserInterface {
                     .slot(14)
                     .build());
         }
+
+        addButton(InterfaceButton.builder()
+                .icon(new ItemStackFactory(option.getIcon())
+                        .name(Message.of("gui.option.current-value.name"))
+                        .lore(Message.of("gui.option.current-value.lore")
+                                .processPlaceholder("current_value", "&7" + option.getCurrentValue(reward)))
+                        .get())
+                .slot(12)
+                .build());
 
         fillEmptySpaces(InterfaceButton.builder()
                 .icon(new ItemStackFactory(Material.BLACK_STAINED_GLASS_PANE)

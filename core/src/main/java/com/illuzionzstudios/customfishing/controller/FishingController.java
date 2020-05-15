@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
@@ -91,7 +92,7 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         // Variables to use and check
         List<String> messages = reward.getMessages();
         List<String> commands = reward.getCommands();
-        List<ItemReward> items = reward.getItems();
+        List<ItemStack> items = reward.getItems();
         List<String> broadcasts = reward.getBroadcasts();
 
         boolean shouldBroadcast = reward.isBroadcastEnabled();
@@ -162,11 +163,11 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
 
         // Give custom items
         if (items != null) {
-            items.forEach(item -> {
-                // If chance for item
-                if (ChanceUtil.calculateChance(item.getChance()))
-                player.getInventory().addItem(item.get());
-            });
+//            items.forEach(item -> {
+//                // If chance for item
+//                if (ChanceUtil.calculateChance(item.getChance()))
+//                player.getInventory().addItem(item.get());
+//            });
         }
     }
 

@@ -10,13 +10,10 @@
 package com.illuzionzstudios.customfishing.reward.template.yaml;
 
 import com.illuzionzstudios.compatibility.CompatibleMaterial;
-import com.illuzionzstudios.compatibility.ServerVersion;
 import com.illuzionzstudios.config.Config;
 import com.illuzionzstudios.core.locale.player.Message;
-import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.customfishing.reward.FishingRewardBuilder;
 import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
@@ -26,6 +23,7 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +62,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
         save();
 
         // Lets try build the reward
-        FishingRewardBuilder builder = new FishingRewardBuilder();
+        FishingReward.FishingRewardBuilder builder = FishingReward.builder();
 
         // Cause to send if fails
         String cause = "Failed to load reward file";
@@ -74,12 +72,12 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
         try {
             // Load everything
             cause = "Could not load name";
-            builder.setName(config.getString("Name"));
+            builder.name(config.getString("Name"));
             // Update local name
             this.name = config.getString("Name");
 
             cause = "Could not load commands";
-            builder.setCommands(config.getStringList("Commands"));
+            builder.commands(config.getStringList("Commands"));
 
             // Parse custom items
             if (config.getSections("Items") != null) {
@@ -142,57 +140,57 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
                     itemReward.setHideEnchants(hideEnchants);
 
                     // Finally add item reward
-                    builder.addItem(itemReward);
+                    builder.items(new ArrayList<>());
                 }
             }
 
             cause = "Could not load messages";
-            builder.setMessages(config.getStringList("Messages"));
+            builder.messages(config.getStringList("Messages"));
 
             cause = "Could not load if to broadcast";
-            builder.setBroadcastEnabled(config.getBoolean("Broadcast"));
+            builder.broadcastEnabled(config.getBoolean("Broadcast"));
 
             cause = "Could not load broadcasts";
-            builder.setBroadcasts(config.getStringList("Broadcasts"));
+            builder.broadcasts(config.getStringList("Broadcasts"));
 
             cause = "Could not load if to send titles";
-            builder.setTitleEnabled(config.getBoolean("Title Enabled"));
+            builder.titleEnabled(config.getBoolean("Title Enabled"));
 
             cause = "Could not load title";
-            builder.setTitle(new Message(config.getString("Title")));
+            builder.title(new Message(config.getString("Title")));
 
             cause = "Could not load sub title";
-            builder.setSubTitle(new Message(config.getString("Sub Title")));
+            builder.subtitle(new Message(config.getString("Sub Title")));
 
             cause = "Could not load chance";
-            builder.setChance(config.getDouble("Chance"));
+            builder.chance(config.getDouble("Chance"));
 
             cause = "Could not load if to give vanilla rewards";
-            builder.setVanillaRewards(config.getBoolean("Vanilla Rewards"));
+            builder.vanillaRewards(config.getBoolean("Vanilla Rewards"));
 
             cause = "Could not load exp to give";
-            builder.setExperience(config.getInt("Exp Amount"));
+            builder.experience(config.getInt("Exp Amount"));
 
             // Set sound
             cause = "Sound " + config.getString("Sound") + " is not valid";
             try {
                 Sound sound = Sound.valueOf(config.getString("Sound"));
-                builder.setSound(sound);
+                builder.sound(sound);
             } catch (Exception e) {
-                builder.setSound(null);
+                builder.sound(null);
             }
 
             cause = "Could not load permission";
-            builder.setPermission("customfishing." + config.getString("Requirements.Permission"));
+            builder.permission("customfishing." + config.getString("Requirements.Permission"));
 
             cause = "Could not load worlds";
-            builder.setWorlds(config.getStringList("Requirements.Worlds"));
+            builder.worlds(config.getStringList("Requirements.Worlds"));
 
             cause = "Could not load regions";
-            builder.setRegions(config.getStringList("Requirements.Regions"));
+            builder.regions(config.getStringList("Requirements.Regions"));
 
             cause = "Could not load blocked regions";
-            builder.setBlockedRegions(config.getStringList("Requirements.BlockedRegions"));
+            builder.blockedRegions(config.getStringList("Requirements.BlockedRegions"));
         } catch (Exception ex) {
             ex.printStackTrace();
             // If exception throw load exception

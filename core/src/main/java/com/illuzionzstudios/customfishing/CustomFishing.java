@@ -63,7 +63,7 @@ public final class CustomFishing extends IlluzionzPlugin {
         this.setLocale(Settings.LANGUGE_MODE.getString(), false);
 
         new BukkitScheduler(this).initialize();
-        new InterfaceController<>(this).initialize(this);
+        new InterfaceController<>(this);
 
         loadCommands();
 

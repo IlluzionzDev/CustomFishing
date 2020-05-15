@@ -2,9 +2,7 @@ package com.illuzionzstudios.customfishing.reward;
 
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.reward.item.ItemReward;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
@@ -24,9 +22,11 @@ import java.util.List;
 /**
  * Reward object the player can find.
  */
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class FishingReward {
 
     /**
