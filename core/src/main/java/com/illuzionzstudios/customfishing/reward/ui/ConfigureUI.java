@@ -9,6 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.illuzionzstudios.compatibility.CompatibleMaterial;
 import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
@@ -44,7 +45,7 @@ public class ConfigureUI extends UserInterface {
         inventory = Bukkit.createInventory(null, 27, Message.of("gui.option.title").toString());
 
         addButton(InterfaceButton.builder()
-                .icon(new ItemStackFactory(Material.ARROW)
+                .icon(new ItemStackFactory(CompatibleMaterial.ARROW.getMaterial())
                         .name(Message.of("gui.buttons.back.name"))
                         .lore(Message.of("gui.buttons.back.lore"))
                         .get())
@@ -69,7 +70,7 @@ public class ConfigureUI extends UserInterface {
                     .build());
 
             fillEmptySpaces(InterfaceButton.builder()
-                    .icon(new ItemStackFactory(Material.BLACK_STAINED_GLASS_PANE)
+                    .icon(new ItemStackFactory(CompatibleMaterial.BLACK_STAINED_GLASS_PANE.getItem())
                             .name(" ")
                             .get())
                     .build());
@@ -79,7 +80,7 @@ public class ConfigureUI extends UserInterface {
         // If configuring list
         if (option.isList()) {
             addButton(InterfaceButton.builder()
-                    .icon(new ItemStackFactory(Material.BARRIER)
+                    .icon(new ItemStackFactory(CompatibleMaterial.BARRIER.getMaterial())
                             .name(Message.of("gui.option.list-clear.name"))
                             .lore(Message.of("gui.option.list-clear.lore"))
                             .get())
@@ -113,7 +114,7 @@ public class ConfigureUI extends UserInterface {
                     .build());
 
             addButton(InterfaceButton.builder()
-                    .icon(new ItemStackFactory(Material.STONE_BUTTON)
+                    .icon(new ItemStackFactory(CompatibleMaterial.STONE_BUTTON.getMaterial())
                             .name(Message.of("gui.option.list-add.name"))
                             .lore(Message.of("gui.option.list-add.lore"))
                             .get())
@@ -122,7 +123,7 @@ public class ConfigureUI extends UserInterface {
                     .build());
         } else {
             addButton(InterfaceButton.builder()
-                    .icon(new ItemStackFactory(Material.STONE_BUTTON)
+                    .icon(new ItemStackFactory(CompatibleMaterial.STONE_BUTTON.getMaterial())
                             .name(Message.of("gui.option.set-option.name"))
                             .lore(Message.of("gui.option.set-option.lore"))
                             .get())
@@ -141,7 +142,7 @@ public class ConfigureUI extends UserInterface {
                 .build());
 
         fillEmptySpaces(InterfaceButton.builder()
-                .icon(new ItemStackFactory(Material.BLACK_STAINED_GLASS_PANE)
+                .icon(new ItemStackFactory(CompatibleMaterial.BLACK_STAINED_GLASS_PANE.getItem())
                         .name(" ")
                         .get())
                 .build());

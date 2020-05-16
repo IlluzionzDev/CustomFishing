@@ -9,6 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.illuzionzstudios.compatibility.CompatibleMaterial;
 import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
@@ -43,7 +44,7 @@ public class AddItemsUI extends UserInterface {
 
         // Back button
         addButton(InterfaceButton.builder()
-                .icon(new ItemStackFactory(Material.ARROW)
+                .icon(new ItemStackFactory(CompatibleMaterial.ARROW.getMaterial())
                         .name(Message.of("gui.buttons.back.name"))
                         .lore(Message.of("gui.buttons.back.lore"))
                         .get())

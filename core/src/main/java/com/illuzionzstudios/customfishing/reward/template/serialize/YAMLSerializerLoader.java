@@ -10,9 +10,7 @@
 package com.illuzionzstudios.customfishing.reward.template.serialize;
 
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
-import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +32,16 @@ public class YAMLSerializerLoader {
         File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
 
         // Clear directory so we can load rewards
-        FileUtils.cleanDirectory(dir);
+        if (dir != null)
+            purgeDirectory(dir);
+    }
+
+    private void purgeDirectory(File dir) {
+        for (File file: dir.listFiles()) {
+            if (file.isDirectory())
+                purgeDirectory(file);
+            file.delete();
+        }
     }
 
     /**

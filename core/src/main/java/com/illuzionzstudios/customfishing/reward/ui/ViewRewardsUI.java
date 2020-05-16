@@ -9,6 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.illuzionzstudios.compatibility.CompatibleMaterial;
 import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.Logger;
@@ -17,7 +18,6 @@ import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.ui.button.InterfaceButton;
 import com.illuzionzstudios.ui.types.page.DividedInterface;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 
 /**
  * View all rewards and an option to edit them
@@ -32,7 +32,7 @@ public class ViewRewardsUI extends DividedInterface {
         // Loop through all rewards and show
         for (FishingReward reward : RewardsController.INSTANCE.getLoadedRewards().values()) {
             addButton(InterfaceButton.builder()
-                    .icon(new ItemStackFactory(Material.PAPER)
+                    .icon(new ItemStackFactory(CompatibleMaterial.PAPER.getMaterial())
                             .name(Message.of("gui.view-rewards.item.name")
                                 .processPlaceholder("reward_name", reward.getName()))
                             .lore(Message.of("gui.view-rewards.item.lore")

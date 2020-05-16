@@ -9,6 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.illuzionzstudios.compatibility.CompatibleMaterial;
 import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
@@ -18,7 +19,6 @@ import com.illuzionzstudios.ui.types.UserInterface;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 
 /**
  * Display all options to configure a reward
@@ -38,7 +38,7 @@ public class ConfigureRewardUI extends UserInterface {
                 .processPlaceholder("reward_name", reward.getName()).toString());
 
         addButton(InterfaceButton.builder()
-                .icon(new ItemStackFactory(Material.ARROW)
+                .icon(new ItemStackFactory(CompatibleMaterial.ARROW.getMaterial())
                         .name(Message.of("gui.buttons.back.name"))
                         .lore(Message.of("gui.buttons.back.lore"))
                         .get())
@@ -66,7 +66,7 @@ public class ConfigureRewardUI extends UserInterface {
         }
 
         fillEmptySpaces(InterfaceButton.builder()
-                .icon(new ItemStackFactory(Material.PURPLE_STAINED_GLASS_PANE)
+                .icon(new ItemStackFactory(CompatibleMaterial.PURPLE_STAINED_GLASS_PANE.getItem())
                         .name(" ")
                         .get())
                 .build());

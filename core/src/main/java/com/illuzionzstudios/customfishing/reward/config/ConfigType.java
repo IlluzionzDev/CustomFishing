@@ -9,6 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.config;
 
+import com.illuzionzstudios.compatibility.CompatibleMaterial;
 import com.illuzionzstudios.core.util.StringUtil;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import lombok.Getter;
@@ -25,30 +26,30 @@ import java.util.function.Function;
 @Getter
 public enum ConfigType {
 
-    SET_NAME(Material.NAME_TAG, 13, FishingReward::getName, false),
+    SET_NAME(CompatibleMaterial.NAME_TAG.getMaterial(), 13, FishingReward::getName, false),
 
     /**
      * Custom case when adding items
      */
-    SET_ITEMS(Material.APPLE, 28, reward -> "", false),
+    SET_ITEMS(CompatibleMaterial.APPLE.getMaterial(), 28, reward -> "", false),
 
-    SET_COMMANDS(Material.COMMAND_BLOCK, 29, reward -> StringUtil.loreListToString(reward.getCommands()), true),
-    SET_MESSAGES(Material.PAPER, 30, reward -> StringUtil.loreListToString(reward.getMessages()), true),
-    SET_BROADCASTS(Material.PAPER, 31, reward -> StringUtil.loreListToString(reward.getBroadcasts()), true),
-    SET_TITLE(Material.PAPER, 32, reward -> reward.getTitle().toString(), false),
-    SET_SUBTITLE(Material.PAPER, 33, reward -> reward.getSubtitle().toString(), false),
-    SET_CHANCE(Material.SPAWNER, 34, reward -> "" + reward.getChance(), false),
-    SET_VANILLA_REWARDS(Material.FISHING_ROD, 37, reward -> "" + reward.isVanillaRewards(), false),
-    SET_EXP(Material.EXPERIENCE_BOTTLE, 38, reward -> "" + reward.getExperience(), false),
-    SET_SOUND(Material.NOTE_BLOCK, 39, reward -> {
+    SET_COMMANDS(CompatibleMaterial.COMMAND_BLOCK.getMaterial(), 29, reward -> StringUtil.loreListToString(reward.getCommands()), true),
+    SET_MESSAGES(CompatibleMaterial.PAPER.getMaterial(), 30, reward -> StringUtil.loreListToString(reward.getMessages()), true),
+    SET_BROADCASTS(CompatibleMaterial.PAPER.getMaterial(), 31, reward -> StringUtil.loreListToString(reward.getBroadcasts()), true),
+    SET_TITLE(CompatibleMaterial.PAPER.getMaterial(), 32, reward -> reward.getTitle().toString(), false),
+    SET_SUBTITLE(CompatibleMaterial.PAPER.getMaterial(), 33, reward -> reward.getSubtitle().toString(), false),
+    SET_CHANCE(CompatibleMaterial.SPAWNER.getMaterial(), 34, reward -> "" + reward.getChance(), false),
+    SET_VANILLA_REWARDS(CompatibleMaterial.FISHING_ROD.getMaterial(), 37, reward -> "" + reward.isVanillaRewards(), false),
+    SET_EXP(CompatibleMaterial.EXPERIENCE_BOTTLE.getMaterial(), 38, reward -> "" + reward.getExperience(), false),
+    SET_SOUND(CompatibleMaterial.NOTE_BLOCK.getMaterial(), 39, reward -> {
         if (reward.getSound() != null)
             return reward.getSound().name();
         return null;
     }, false),
-    SET_PERMISSION(Material.BARRIER, 40, FishingReward::getPermission, false),
-    SET_WORLDS(Material.GRASS_BLOCK, 41, reward -> StringUtil.loreListToString(reward.getWorlds()), true),
-    SET_REGIONS(Material.DIRT, 42, reward -> StringUtil.loreListToString(reward.getRegions()), true),
-    SET_BLOCKED_REGIONS(Material.BARRIER, 43, reward -> StringUtil.loreListToString(reward.getBlockedRegions()), true),
+    SET_PERMISSION(CompatibleMaterial.BARRIER.getMaterial(), 40, FishingReward::getPermission, false),
+    SET_WORLDS(CompatibleMaterial.GRASS_BLOCK.getMaterial(), 41, reward -> StringUtil.loreListToString(reward.getWorlds()), true),
+    SET_REGIONS(CompatibleMaterial.DIRT.getMaterial(), 42, reward -> StringUtil.loreListToString(reward.getRegions()), true),
+    SET_BLOCKED_REGIONS(CompatibleMaterial.BARRIER.getMaterial(), 43, reward -> StringUtil.loreListToString(reward.getBlockedRegions()), true),
     ;
 
     /**

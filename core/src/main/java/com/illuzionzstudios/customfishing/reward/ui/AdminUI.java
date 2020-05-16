@@ -35,7 +35,7 @@ public class AdminUI extends UserInterface {
 
         // Add a new reward
         addButton(InterfaceButton.builder()
-                .icon(new ItemStackFactory(Material.GREEN_STAINED_GLASS_PANE)
+                .icon(new ItemStackFactory(CompatibleMaterial.GREEN_STAINED_GLASS_PANE.getItem())
                         .name(Message.of("gui.admin.add-reward.name"))
                         .lore(Message.of("gui.admin.add-reward.lore"))
                         .get())
@@ -66,7 +66,7 @@ public class AdminUI extends UserInterface {
 
         // View all rewards
         addButton(InterfaceButton.builder()
-                .icon(new ItemStackFactory(Material.PAPER)
+                .icon(new ItemStackFactory(CompatibleMaterial.PAPER.getMaterial())
                         .name(Message.of("gui.admin.view-rewards.name"))
                         .lore(Message.of("gui.admin.view-rewards.lore"))
                         .get())
@@ -77,7 +77,7 @@ public class AdminUI extends UserInterface {
                 .build());
 
         fillEmptySpaces(InterfaceButton.builder()
-                .icon(new ItemStackFactory(Material.BLACK_STAINED_GLASS_PANE)
+                .icon(new ItemStackFactory(CompatibleMaterial.BLACK_STAINED_GLASS_PANE.getItem())
                         .name(" ")
                         .get())
                 .build());
