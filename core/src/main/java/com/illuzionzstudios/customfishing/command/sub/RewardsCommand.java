@@ -4,6 +4,7 @@ import com.illuzionzstudios.command.ReturnType;
 import com.illuzionzstudios.command.type.AbstractCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
+import com.illuzionzstudios.customfishing.reward.ui.ViewRewardsUI;
 import com.illuzionzstudios.customfishing.struct.Permission;
 
 /**
@@ -18,25 +19,16 @@ import com.illuzionzstudios.customfishing.struct.Permission;
 
 public class RewardsCommand extends AbstractCommand {
 
-    private final CustomFishing plugin;
-
-    public RewardsCommand(CustomFishing plugin) {
+    public RewardsCommand() {
         super("rewards", "list");
-
-        this.plugin = plugin;
 
         this.requiredPermission = Permission.REWARDS;
     }
 
     @Override
     public ReturnType onCommand(String s, String[] strings) {
-        commandSender.sendMessage(" ");
-        plugin.getLocale().getMessage("rewards.list.header").sendMessage(commandSender);
-        RewardsController.INSTANCE.getLoadedRewards().forEach((name, reward) -> {
-            plugin.getLocale().getMessage("rewards.list.item")
-                    .processPlaceholder("reward", reward.getName()).sendMessage(commandSender);
-        });
-        commandSender.sendMessage(" ");
+        // Open rewards gui
+        new ViewRewardsUI().open(player);
 
         return ReturnType.SUCCESS;
     }

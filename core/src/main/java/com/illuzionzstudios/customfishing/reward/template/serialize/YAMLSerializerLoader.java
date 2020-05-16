@@ -42,8 +42,7 @@ public class YAMLSerializerLoader {
      */
     public void saveRewards() {
         RewardsController.INSTANCE.getLoadedRewards().forEach((name, reward) -> {
-            Logger.debug("Saving reward " + name);
-            new YAMLRewardSerializer(reward, reward.getName().toLowerCase().replace(" ", ""), directory)
+            new YAMLRewardSerializer(reward, reward.getName().toLowerCase().replace(" ", "_"), directory)
                     .save();
         });
     }

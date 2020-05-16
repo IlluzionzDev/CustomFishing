@@ -18,9 +18,6 @@ general:
 
 
 rewards:
-    list:
-        header: "&dLoaded &d&lCustom Fishing &drewards:"
-        item: "&d&l* &d%reward%"
     config:
         enter-value: "&aEnter a new value to set"
 
@@ -46,7 +43,7 @@ gui:
             \n&r
             \n&7&o(Click to edit reward)"
     configure:
-        title: "&7Configure Reward"
+        title: "&7%reward_name%"
         set-name:
             name: "&d&lSet Name"
             lore: "&7Change the name of this
@@ -155,9 +152,7 @@ gui:
         title: "&7Configure Option"
         current-value:
             name: "&a&lCurrent Value"
-            lore: "&r
-            \n%current_value%
-            \n&r"
+            lore: "%current_value%"
         list-clear:
             name: "&c&lClear All Lines"
             lore: "&7Clear all current lines"

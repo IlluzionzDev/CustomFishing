@@ -34,7 +34,8 @@ public class ConfigureRewardUI extends UserInterface {
 
     @Override
     public void generateInventory() {
-        inventory = Bukkit.createInventory(null, 54, Message.of("gui.configure.title").toString());
+        inventory = Bukkit.createInventory(null, 54, Message.of("gui.configure.title")
+                .processPlaceholder("reward_name", reward.getName()).toString());
 
         addButton(InterfaceButton.builder()
                 .icon(new ItemStackFactory(Material.ARROW)

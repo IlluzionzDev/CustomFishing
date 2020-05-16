@@ -12,10 +12,16 @@ package com.illuzionzstudios.customfishing.reward.ui;
 import com.illuzionzstudios.compatibility.CompatibleMaterial;
 import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
 import com.illuzionzstudios.core.locale.player.Message;
+import com.illuzionzstudios.customfishing.controller.RewardsController;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.ui.button.InterfaceButton;
 import com.illuzionzstudios.ui.types.UserInterface;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * This is the main ui for configuring rewards
@@ -33,6 +39,28 @@ public class AdminUI extends UserInterface {
                         .name(Message.of("gui.admin.add-reward.name"))
                         .lore(Message.of("gui.admin.add-reward.lore"))
                         .get())
+                .listener((player, event) -> {
+                    // Insert new reward to edit
+                    FishingReward reward = new FishingReward(
+                            "Undefined",
+                            new ArrayList<>(),
+                            new ArrayList<>(),
+                            new ArrayList<>(),
+                            new ArrayList<>(),
+                            new Message(""),
+                            new Message(""),
+                            0.0,
+                            true,
+                            6,
+                            null,
+                            "",
+                            Collections.singletonList("all"),
+                            Collections.singletonList("global"),
+                            new ArrayList<>()
+                    );
+                    RewardsController.INSTANCE.getLoadedRewards().put("Undefined", reward);
+                    new ConfigureRewardUI(reward).open(player);
+                })
                 .slot(12)
                 .build());
 

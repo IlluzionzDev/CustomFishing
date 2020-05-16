@@ -10,7 +10,10 @@
 package com.illuzionzstudios.customfishing.reward.template.defaults;
 
 import com.illuzionzstudios.compatibility.ServerVersion;
+import com.illuzionzstudios.core.bukkit.util.ItemStackUtil;
 import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemplate;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
@@ -51,38 +54,14 @@ public class FoodDefaultTemplate extends DefaultRewardTemplate {
                 "A list of commands to run when this reward is caught.");
 
         // Items
-        this.config.set("Items.ItemOne.Material", "COOKED_BEEF",
-                "Material enum for the item");
-        this.config.set("Items.ItemOne.Name", "&4Beef",
-                "The custom name of the item");
-        this.config.set("Items.ItemOne.Lore", "&r\n" +
-                        "&7My\n" +
-                        "&7Custom\n" +
-                        "&7Beef",
-                "The lore for this item");
-        this.config.set("Items.ItemOne.Enchantments", Arrays.asList("DURABILITY:1"),
-                "Enchants to apply to item",
-                "Enchants added as",
-                "\"ENCHANTMENT ENUM:LEVEL\"",
-                "So the first side is the enum for the enchantment",
-                "and the second is the level of the enchantment",
-                "So the below would be Unbreaking at level 1");
-        this.config.set("Items.ItemOne.Hide Enchants", false,
-                "If to hide the lore from enchants.",
-                "So Sharpness V won't appear in the lore");
-        this.config.set("Items.ItemOne.Amount", 64,
-                "Amount of items to give");
-        this.config.set("Items.ItemOne.Chance", 100.0f,
-                "Chance of this item reward being given");
+        this.config.set("Items", Arrays.asList(ItemStackUtil.serialize(
+                new ItemStack(Material.COOKED_BEEF, 64))
+        ));
 
         this.config.set("Messages",  Arrays.asList("&a&l(!) &aYou found &a&l64 Beef!"),
                 "A list of messages to send the player when this reward is caught.");
-        this.config.set("Broadcast", false,
-                "If the server should broadcast messages when this reward is caught");
         this.config.set("Broadcasts", Arrays.asList(""),
                 "Broadcasts to send if the above variable is set to true");
-        this.config.set("Title Enabled", true,
-                "If the player should be shown titles when this reward is caught");
         this.config.set("Title", "&a&lYou found a reward!",
                 "Title to send if 'Title Enabled' is set to true");
         this.config.set("Sub Title", "",

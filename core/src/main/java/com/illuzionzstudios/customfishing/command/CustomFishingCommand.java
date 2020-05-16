@@ -27,7 +27,7 @@ public class CustomFishingCommand extends AbstractCommand {
         super("customfishing", "cfishing", "customf");
 
         addSubCommand(new AdminCommand());
-        addSubCommand(new RewardsCommand(plugin));
+        addSubCommand(new RewardsCommand());
         addSubCommand(new ReloadCommand(plugin));
     }
 

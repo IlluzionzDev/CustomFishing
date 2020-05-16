@@ -40,7 +40,11 @@ public enum ConfigType {
     SET_CHANCE(Material.SPAWNER, 34, reward -> "" + reward.getChance(), false),
     SET_VANILLA_REWARDS(Material.FISHING_ROD, 37, reward -> "" + reward.isVanillaRewards(), false),
     SET_EXP(Material.EXPERIENCE_BOTTLE, 38, reward -> "" + reward.getExperience(), false),
-    SET_SOUND(Material.NOTE_BLOCK, 39, reward -> reward.getSound().name(), false),
+    SET_SOUND(Material.NOTE_BLOCK, 39, reward -> {
+        if (reward.getSound() != null)
+            return reward.getSound().name();
+        return null;
+    }, false),
     SET_PERMISSION(Material.BARRIER, 40, FishingReward::getPermission, false),
     SET_WORLDS(Material.GRASS_BLOCK, 41, reward -> StringUtil.loreListToString(reward.getWorlds()), true),
     SET_REGIONS(Material.DIRT, 42, reward -> StringUtil.loreListToString(reward.getRegions()), true),
@@ -76,6 +80,7 @@ public enum ConfigType {
     }
 
     public String getCurrentValue(FishingReward reward) {
-        return currentValue.apply(reward);
+        String base = currentValue.apply(reward);
+        return base == null || base.trim().equals("") ? "Undefined" : base;
     }
 }

@@ -12,6 +12,7 @@ package com.illuzionzstudios.customfishing.reward.template.yaml;
 import com.illuzionzstudios.config.Config;
 import com.illuzionzstudios.core.bukkit.util.ItemStackUtil;
 import com.illuzionzstudios.core.locale.player.Message;
+import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
@@ -73,23 +74,17 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
             cause = "Could not load commands";
             builder.commands(config.getStringList("Commands"));
 
+            ArrayList<ItemStack> items = new ArrayList<>();
             // Parse custom items
             for (String item : config.getStringList("Items")) {
-                ArrayList<ItemStack> items = new ArrayList<>();
-
                 // Deserialize item stack
                 ItemStack stack = ItemStackUtil.deserialize(item);
                 if (stack != null) {
                     items.add(stack);
                 }
-
-                // Finally add item reward
-                builder.items(items);
             }
-
-            // If couldn't load just set empty list
-            if (config.getStringList("Items") == null ||
-                    config.getStringList("Items").isEmpty()) builder.items(new ArrayList<>());
+            // Finally add item reward
+            builder.items(items);
 
             cause = "Could not load messages";
             builder.messages(config.getStringList("Messages"));

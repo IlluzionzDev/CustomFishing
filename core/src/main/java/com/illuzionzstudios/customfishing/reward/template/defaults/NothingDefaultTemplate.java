@@ -10,7 +10,10 @@
 package com.illuzionzstudios.customfishing.reward.template.defaults;
 
 import com.illuzionzstudios.compatibility.ServerVersion;
+import com.illuzionzstudios.core.bukkit.util.ItemStackUtil;
 import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemplate;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
@@ -49,14 +52,14 @@ public class NothingDefaultTemplate extends DefaultRewardTemplate {
                 "relating to what the reward is.");
         this.config.set("Commands", Arrays.asList("msg %player% sorry"),
                 "A list of commands to run when this reward is caught.");
+
+        // Items
+        this.config.set("Items", Arrays.asList(""));
+
         this.config.set("Messages",  Arrays.asList("&c&l(!) &cYou found NOTHING!"),
                 "A list of messages to send the player when this reward is caught.");
-        this.config.set("Broadcast", false,
-                "If the server should broadcast messages when this reward is caught");
         this.config.set("Broadcasts", Arrays.asList(""),
                 "Broadcasts to send if the above variable is set to true");
-        this.config.set("Title Enabled", true,
-                "If the player should be shown titles when this reward is caught");
         this.config.set("Title", "&a&lYou found a reward!",
                 "Title to send if 'Title Enabled' is set to true");
         this.config.set("Sub Title", "",

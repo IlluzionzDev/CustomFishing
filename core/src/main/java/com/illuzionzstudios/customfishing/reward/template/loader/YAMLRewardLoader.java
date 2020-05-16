@@ -70,7 +70,7 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
         if (!dir.exists() || dir.listFiles() == null) {
             // Can't create directory, FATAL
             if (!dir.mkdirs()) return;
-            Logger.info("Loading default rewards as no rewards detected in /" + directory);
+            Logger.info("Loading default rewards as /" + directory + " doesn't exist");
 
             // Add templates from defaults
             // Automatically created
