@@ -12,6 +12,7 @@ general:
     \n&d&lCommand Help
     \n&8&l* &7/customfishing help - Display this page
     \n&8&l* &7/customfishing rewards - View all loaded rewards
+    \n&8&l* &7/customfishing config - Open the GUI to configure rewards
     \n&8&l* &7/customfishing reload - Reload all plugin configuration files
     \n &r
     \n&8&m                                        &r"
