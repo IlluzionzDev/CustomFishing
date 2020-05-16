@@ -29,7 +29,8 @@ public interface AbstractRewardTemplate {
 
     /**
      * Save the template file to disk
+     * @return If saved correctly
      */
-    void save();
+    boolean save();
 
 }

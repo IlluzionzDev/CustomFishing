@@ -34,7 +34,7 @@ public class Settings {
     public static final ConfigSetting TITLE_FADEOUT = new ConfigSetting(config, "Title.Fade Out", 5,
             "Ticks for a title to fade out");
 
-    public static final ConfigSetting LANGUGE_MODE = new ConfigSetting(config, "System.Language Mode", "en_US",
+    public static final ConfigSetting LANGUAGE_MODE = new ConfigSetting(config, "System.Language Mode", "en_US",
             "The language file to use for the plugin",
             "More language files (if available) can be found in the plugins locale folder.");
 

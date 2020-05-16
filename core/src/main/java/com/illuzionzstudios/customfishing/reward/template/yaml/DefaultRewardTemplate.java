@@ -29,12 +29,13 @@ public abstract class DefaultRewardTemplate extends YAMLRewardTemplate {
      * Here save default reward to file
      */
     @Override
-    public void save() {
+    public boolean save() {
         // Set defaults then save
         setDefaults();
         // Set weird spacing
         this.config.setRootNodeSpacing(0).setCommentSpacing(0);
         super.save();
+        return true;
     }
 
     /**

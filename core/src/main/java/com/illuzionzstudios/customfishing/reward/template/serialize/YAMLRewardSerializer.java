@@ -40,46 +40,54 @@ public class YAMLRewardSerializer extends YAMLRewardTemplate {
      * Save to disk
      */
     @Override
-    public void save() {
+    public boolean save() {
         // Save to disk
-        serialize();
+        boolean successful = serialize();
         super.save();
+        return successful;
     }
 
-    public void serialize() {
-        this.config.set("Name", reward.getName());
+    public boolean serialize() {
+        try {
+            this.config.set("Name", reward.getName());
 
-        // Serialize items
-        ArrayList<String> itemBlobs = new ArrayList<>();
-        reward.getItems().forEach(item -> {
-            itemBlobs.add(ItemStackUtil.serialize(item));
-        });
-        this.config.set("Items", itemBlobs);
+            // Serialize items
+            ArrayList<String> itemBlobs = new ArrayList<>();
+            reward.getItems().forEach(item -> {
+                itemBlobs.add(ItemStackUtil.serialize(item));
+            });
+            this.config.set("Items", itemBlobs);
 
-        this.config.set("Commands", reward.getCommands());
+            this.config.set("Commands", reward.getCommands());
 
-        this.config.set("Messages", reward.getMessages());
+            this.config.set("Messages", reward.getMessages());
 
-        this.config.set("Broadcasts", reward.getBroadcasts());
+            this.config.set("Broadcasts", reward.getBroadcasts());
 
-        this.config.set("Title", reward.getTitle() == null ? null : reward.getTitle().getUnformattedMessage());
+            this.config.set("Title", reward.getTitle() == null ? null : reward.getTitle().getUnformattedMessage());
 
-        this.config.set("Sub Title", reward.getSubtitle() == null ? null : reward.getSubtitle().getUnformattedMessage());
+            this.config.set("Sub Title", reward.getSubtitle() == null ? null : reward.getSubtitle().getUnformattedMessage());
 
-        this.config.set("Chance", reward.getChance());
+            this.config.set("Chance", reward.getChance());
 
-        this.config.set("Vanilla Rewards", reward.isVanillaRewards());
+            this.config.set("Vanilla Rewards", reward.isVanillaRewards());
 
-        this.config.set("Exp Amount", reward.getExperience());
+            this.config.set("Exp Amount", reward.getExperience());
 
-        this.config.set("Sound", reward.getSound() == null ? null : reward.getSound().toString());
+            this.config.set("Sound", reward.getSound() == null ? null : reward.getSound().toString());
 
-        this.config.set("Requirements.Permission", reward.getPermission());
+            this.config.set("Requirements.Permission", reward.getPermission());
 
-        this.config.set("Requirements.Worlds", reward.getWorlds());
+            this.config.set("Requirements.Worlds", reward.getWorlds());
 
-        this.config.set("Requirements.Regions", reward.getRegions());
+            this.config.set("Requirements.Regions", reward.getRegions());
 
-        this.config.set("Requirements.BlockedRegions", reward.getBlockedRegions());
+            this.config.set("Requirements.BlockedRegions", reward.getBlockedRegions());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }

@@ -142,8 +142,9 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
     }
 
     @Override
-    public void save() {
+    public boolean save() {
         this.config.load();
         this.config.saveChanges();
+        return true;
     }
 }

@@ -62,7 +62,7 @@ public final class CustomFishing extends IlluzionzPlugin {
 
         // Load configuration
         Settings.loadConfig();
-        this.setLocale(Settings.LANGUGE_MODE.getString(), false);
+        this.setLocale(Settings.LANGUAGE_MODE.getString(), false);
 
         new BukkitScheduler(this).initialize();
         new InterfaceController<>(this);
@@ -97,7 +97,7 @@ public final class CustomFishing extends IlluzionzPlugin {
 
     @Override
     public void onConfigReload() {
-        this.setLocale(Settings.LANGUGE_MODE.getString(), true);
+        this.setLocale(Settings.LANGUAGE_MODE.getString(), true);
         this.locale.reloadMessages();
         loadRewards(); // Reload rewards into memory
     }
@@ -130,6 +130,6 @@ public final class CustomFishing extends IlluzionzPlugin {
 
     @Override
     public String getPluginVersion() {
-        return "3.2.1";
+        return "4.0";
     }
 }

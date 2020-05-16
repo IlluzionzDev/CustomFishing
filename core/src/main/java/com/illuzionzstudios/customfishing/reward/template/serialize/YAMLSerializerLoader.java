@@ -11,6 +11,7 @@ package com.illuzionzstudios.customfishing.reward.template.serialize;
 
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,17 +28,10 @@ public class YAMLSerializerLoader {
 
     public YAMLSerializerLoader(String directory) throws IOException {
         this.directory = directory;
-
-        // Reward directory
-        File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
-
-        // Clear directory so we can load rewards
-        if (dir != null)
-            purgeDirectory(dir);
     }
 
     private void purgeDirectory(File dir) {
-        for (File file: dir.listFiles()) {
+        for (File file : dir.listFiles()) {
             if (file.isDirectory())
                 purgeDirectory(file);
             file.delete();
@@ -48,10 +42,22 @@ public class YAMLSerializerLoader {
      * Create serializers for every reward
      */
     public void saveRewards() {
-        RewardsController.INSTANCE.getLoadedRewards().forEach((name, reward) -> {
-            new YAMLRewardSerializer(reward, reward.getName().toLowerCase().replace(" ", "_"), directory)
+        // Reward directory
+        File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
+
+        // Clear directory so we can load rewards
+        if (dir != null)
+            purgeDirectory(dir);
+
+        boolean loadedSuccessfully;
+
+        for (FishingReward reward : RewardsController.INSTANCE.getLoadedRewards().values()) {
+            loadedSuccessfully = new YAMLRewardSerializer(reward, reward.getName().toLowerCase().replace(" ", "_"), directory)
                     .save();
-        });
+
+            // If didn't save, exit because we don't want to save bad rewards
+            if (!loadedSuccessfully) return;
+        }
     }
 
 }
