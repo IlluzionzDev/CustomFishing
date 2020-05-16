@@ -19,7 +19,7 @@ general:
 
 rewards:
     config:
-        enter-value: "&aEnter a new value to set"
+        enter-value: "&aEnter a new value to set (Type 'cancel' to cancel)"
 
 gui:
     buttons:

@@ -62,9 +62,9 @@ public class YAMLRewardSerializer extends YAMLRewardTemplate {
 
         this.config.set("Broadcasts", reward.getBroadcasts());
 
-        this.config.set("Title", reward.getTitle().getUnformattedMessage());
+        this.config.set("Title", reward.getTitle() == null ? null : reward.getTitle().getUnformattedMessage());
 
-        this.config.set("Sub Title", reward.getSubtitle().getUnformattedMessage());
+        this.config.set("Sub Title", reward.getSubtitle() == null ? null : reward.getSubtitle().getUnformattedMessage());
 
         this.config.set("Chance", reward.getChance());
 
@@ -72,7 +72,7 @@ public class YAMLRewardSerializer extends YAMLRewardTemplate {
 
         this.config.set("Exp Amount", reward.getExperience());
 
-        this.config.set("Sound", reward.getSound().toString());
+        this.config.set("Sound", reward.getSound() == null ? null : reward.getSound().toString());
 
         this.config.set("Requirements.Permission", reward.getPermission());
 

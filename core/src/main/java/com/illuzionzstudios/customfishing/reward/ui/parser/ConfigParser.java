@@ -45,6 +45,8 @@ public class ConfigParser extends StringPromptListener {
     @Override
     public Prompt acceptInput(ConversationContext conversationContext, Player player, String message, MessagePrompt messagePrompt) {
         // Set options based on type
+        // Cancel
+        if (message.equalsIgnoreCase("cancel")) return null;
 
         // Simple single value
         try {
