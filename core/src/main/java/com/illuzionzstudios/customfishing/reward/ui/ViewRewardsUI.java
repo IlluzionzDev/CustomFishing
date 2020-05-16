@@ -30,7 +30,7 @@ public class ViewRewardsUI extends DividedInterface {
 
         int slot = 0;
         // Loop through all rewards and show
-        for (FishingReward reward : RewardsController.INSTANCE.getLoadedRewards()) {
+        for (FishingReward reward : RewardsController.INSTANCE.getLoadedRewards().values()) {
             addButton(InterfaceButton.builder()
                     .icon(new ItemStackFactory(Material.PAPER)
                             .name(Message.of("gui.view-rewards.item.name")

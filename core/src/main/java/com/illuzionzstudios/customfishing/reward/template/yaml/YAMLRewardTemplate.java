@@ -9,24 +9,18 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.yaml;
 
-import com.illuzionzstudios.compatibility.CompatibleMaterial;
 import com.illuzionzstudios.config.Config;
+import com.illuzionzstudios.core.bukkit.util.ItemStackUtil;
 import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
 import lombok.Getter;
-import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A reward loaded from a YAMl file
@@ -80,81 +74,28 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
             builder.commands(config.getStringList("Commands"));
 
             // Parse custom items
-            if (config.getSections("Items") != null) {
-                for (ConfigurationSection item : config.getSections("Items")) {
-                    cause = "Could not load item " + item.getName();
+            for (String item : config.getStringList("Items")) {
+                ArrayList<ItemStack> items = new ArrayList<>();
 
-                    // Material
-                    Material material = CompatibleMaterial.getMaterial(item.getString("Material")).getMaterial();
-                    // Item name
-                    String name = new Message(item.getString("Name")).getMessage();
-                    // Item lore
-                    List<String> lore = new Message(item.getString("Lore")).getMessageLines();
-                    // Enchantments to parse
-                    List<String> enchantmentList = item.getStringList("Enchantments");
-                    // Whether to hide enchants
-                    boolean hideEnchants = item.getBoolean("Hide Enchants");
-                    // Amount of items
-                    int amount = item.getInt("Amount");
-                    // Chance of item
-                    float chance = (float) item.getDouble("Chance");
-
-                    // Can't create if invalid material
-                    if (material == null) continue;
-
-                    // Start constructing item
-                    ItemReward itemReward = new ItemReward(material);
-
-                    if (name != null && !name.equals("")) {
-                        itemReward.setName(name);
-                    }
-
-                    // Null checks and setting
-                    if (lore != null && !lore.isEmpty()) {
-                        itemReward.setLore(lore);
-                    }
-
-                    // Parse enchantments
-                    Map<Enchantment, Integer> enchantments = new HashMap<>();
-
-                    if (enchantmentList != null && !enchantmentList.isEmpty()) {
-                        cause = "Could not load enchantments for item " + item.getName();
-                        enchantmentList.forEach(string -> {
-                            // Parse
-                            String[] tokens = string.split(":");
-                            Enchantment enchantment = Enchantment.getByName(tokens[0].toUpperCase());
-                            int level = Integer.parseInt(tokens[1]);
-
-                            enchantments.put(enchantment, level);
-                        });
-                    }
-
-                    // Set enchantments
-                    if (!enchantments.isEmpty()) {
-                        itemReward.setEnchantments(enchantments);
-                    }
-
-                    cause = "Could not load item " + item.getName();
-                    itemReward.setAmount(amount);
-                    itemReward.setChance(chance);
-                    itemReward.setHideEnchants(hideEnchants);
-
-                    // Finally add item reward
-                    builder.items(new ArrayList<>());
+                // Deserialize item stack
+                ItemStack stack = ItemStackUtil.deserialize(item);
+                if (stack != null) {
+                    items.add(stack);
                 }
+
+                // Finally add item reward
+                builder.items(items);
             }
+
+            // If couldn't load just set empty list
+            if (config.getStringList("Items") == null ||
+                    config.getStringList("Items").isEmpty()) builder.items(new ArrayList<>());
 
             cause = "Could not load messages";
             builder.messages(config.getStringList("Messages"));
 
-            cause = "Could not load if to broadcast";
-            builder.broadcastEnabled(config.getBoolean("Broadcast"));
-
             cause = "Could not load broadcasts";
             builder.broadcasts(config.getStringList("Broadcasts"));
-
-            cause = "Could not load if to send titles";
-            builder.titleEnabled(config.getBoolean("Title Enabled"));
 
             cause = "Could not load title";
             builder.title(new Message(config.getString("Title")));

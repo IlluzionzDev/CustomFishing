@@ -11,6 +11,7 @@ import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplat
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,13 +32,16 @@ public enum RewardsController implements BukkitController<CustomFishing> {
      */
     private final LootTable<FishingReward> lootTable = new LootTable<>();
 
+    /**
+     * Map rewards to their names
+     */
     @Getter
-    private List<FishingReward> loadedRewards;
+    private HashMap<String, FishingReward> loadedRewards;
 
     @Override
     public void initialize(CustomFishing customFishing) {
         // Clear our already loaded data if any
-        this.loadedRewards = new ArrayList<>();
+        this.loadedRewards = new HashMap<>();
         this.lootTable.clear();
         YAMLRewardLoader.clear();
 
@@ -47,7 +51,8 @@ public enum RewardsController implements BukkitController<CustomFishing> {
         // Try load all templates
         loader.loadTemplates().forEach((fileName, template) -> {
             try {
-                this.loadedRewards.add(template.create());
+                FishingReward reward = template.create();
+                this.loadedRewards.put(reward.getName(), reward);
 
                 // Log loaded file
                 Logger.info("Loaded reward " + template.getTemplateFile().getString("Name") + " from file " + fileName + ".yml");
@@ -59,10 +64,15 @@ public enum RewardsController implements BukkitController<CustomFishing> {
 
         // Load chance sum
         if (loadedRewards.isEmpty()) {
+            // If no rewards are loaded, load our
+            // default rewards into memory so we
+            // can edit them and save them.
+            // TODO
+
             return;
         }
 
-        for (FishingReward reward : loadedRewards) {
+        for (FishingReward reward : loadedRewards.values()) {
             lootTable.addLoot(reward, reward.getChance());
         }
     }

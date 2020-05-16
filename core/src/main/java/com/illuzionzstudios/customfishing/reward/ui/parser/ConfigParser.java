@@ -10,6 +10,7 @@
 package com.illuzionzstudios.customfishing.reward.ui.parser;
 
 import com.illuzionzstudios.core.locale.player.Message;
+import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.config.ConfigType;
 import com.illuzionzstudios.customfishing.reward.ui.ConfigureUI;
@@ -48,7 +49,10 @@ public class ConfigParser extends StringPromptListener {
         // Simple single value
         try {
             if (type == ConfigType.SET_NAME) {
+                // Remap reward
+                RewardsController.INSTANCE.getLoadedRewards().remove(reward.getName());
                 reward.setName(message);
+                RewardsController.INSTANCE.getLoadedRewards().put(reward.getName(), reward);
             } else if (type == ConfigType.SET_TITLE) {
                 reward.setTitle(new Message(message));
             } else if (type == ConfigType.SET_SUBTITLE) {
@@ -86,6 +90,7 @@ public class ConfigParser extends StringPromptListener {
             }
         } catch (Exception ex) {
             // If fails conversion, just re prompt them
+            new Message("&cEntered an invalid value").sendMessage(player);
             return messagePrompt;
         }
 

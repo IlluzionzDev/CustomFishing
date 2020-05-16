@@ -8,7 +8,7 @@
 # Any queries join our discord at https://discord.gg/DbJXzWq      #
 ###################################################################
 
-# The name or identifer of the reward. Make it something
+# The name or identifier of the reward. Make it something
 # relating to what the reward is.
 Name: "Demo Reward"
 
@@ -19,32 +19,7 @@ Commands:
 # List of custom item rewards, leave the list blank
 # if you don't want any custom items
 Items:
-  # Our first custom item
-  ItemOne:
-    # Material enum for the item
-    Material: DIAMOND_SWORD
-    # The name of the item
-    Name: "&7My Awesome Sword"
-    # The lore for this item
-    # Each line is separated by "\n"
-    # Begin each new line with this like so
-    # to get multiline lore
-    Lore: "&r
-    \n&7My
-    \n&1Custom
-    \n&4Lore"
-    # Enchants to apply to item
-    Enchantments:
-      # Enchants added as
-      # "ENCHANTMENT ENUM:LEVEL"
-      # So the first side is the enum for the enchantment
-      # and the second is the level of the enchantment
-      # So the below would be Sharpness at level 5
-      - "DAMAGE_ALL:5"
-    # Amount of items to give
-    Amount: 1
-    # Chance of this item reward being given
-    Chance: 100
+  - "uiub&*WG*bdbwDBw9b9awdu9wadan@IND(@dud"
 
 # A list of messages to send the player when this reward is caught.
 Messages:

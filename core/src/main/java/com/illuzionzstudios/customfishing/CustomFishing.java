@@ -12,11 +12,13 @@ import com.illuzionzstudios.customfishing.reward.template.defaults.AppleDefaultT
 import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.defaults.NothingDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
+import com.illuzionzstudios.customfishing.reward.template.serialize.YAMLSerializerLoader;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import com.illuzionzstudios.scheduler.bukkit.BukkitScheduler;
 import com.illuzionzstudios.ui.controller.InterfaceController;
 import lombok.Getter;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -85,6 +87,12 @@ public final class CustomFishing extends IlluzionzPlugin {
 
     @Override
     public void onPluginDisable() {
+        // Save all items into files
+        try {
+            new YAMLSerializerLoader("rewards").saveRewards();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

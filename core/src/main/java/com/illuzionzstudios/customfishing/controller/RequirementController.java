@@ -65,7 +65,7 @@ public enum RequirementController implements BukkitController<CustomFishing> {
     public List<FishingReward> getAvailableRewards(Player player) {
         List<FishingReward> rewards = new ArrayList<>();
 
-        for (FishingReward reward : RewardsController.INSTANCE.getLoadedRewards()) {
+        for (FishingReward reward : RewardsController.INSTANCE.getLoadedRewards().values()) {
             // Add reward if all checks pass
             if (processChecks(player, reward)) rewards.add(reward);
         }

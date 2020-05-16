@@ -32,7 +32,7 @@ public class RewardsCommand extends AbstractCommand {
     public ReturnType onCommand(String s, String[] strings) {
         commandSender.sendMessage(" ");
         plugin.getLocale().getMessage("rewards.list.header").sendMessage(commandSender);
-        RewardsController.INSTANCE.getLoadedRewards().forEach(reward -> {
+        RewardsController.INSTANCE.getLoadedRewards().forEach((name, reward) -> {
             plugin.getLocale().getMessage("rewards.list.item")
                     .processPlaceholder("reward", reward.getName()).sendMessage(commandSender);
         });

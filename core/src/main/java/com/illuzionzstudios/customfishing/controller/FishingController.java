@@ -11,7 +11,6 @@ import com.illuzionzstudios.core.locale.player.Message;
 import com.illuzionzstudios.core.util.ChanceUtil;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -95,10 +94,8 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         List<ItemStack> items = reward.getItems();
         List<String> broadcasts = reward.getBroadcasts();
 
-        boolean shouldBroadcast = reward.isBroadcastEnabled();
         boolean vanillaRewards = reward.isVanillaRewards();
 
-        boolean shouldSendTitle = reward.isTitleEnabled();
         Message title = reward.getTitle();
         Message subtitle = reward.getSubtitle();
 
@@ -127,9 +124,9 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
             title.setFadeOut(Settings.TITLE_FADEOUT.getInt());
 
             // Send titles
-            if (shouldSendTitle) {
+            if (!title.getMessage().trim().equals("")) {
                 // Null checking
-                if (subtitle != null) {
+                if (subtitle != null && !subtitle.getMessage().trim().equals("")) {
                     title.sendTitle(player, subtitle);
                 } else {
                     title.sendTitle(player);
@@ -143,9 +140,10 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         messages.forEach(msg -> player.sendMessage(Locale.color(msg)));
 
         // Send broadcasts
-        if (shouldBroadcast) {
-            if (broadcasts != null) {
+        if (broadcasts != null) {
+            if (!broadcasts.isEmpty()) {
                 broadcasts.forEach(msg -> {
+                    if (msg.trim().equals("")) return;
                     msg = new Message(msg).processPlaceholder("player", player.getName()).getMessage();
                     Bukkit.getServer().broadcastMessage(Locale.color(msg));
                 });
@@ -163,11 +161,9 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
 
         // Give custom items
         if (items != null) {
-//            items.forEach(item -> {
-//                // If chance for item
-//                if (ChanceUtil.calculateChance(item.getChance()))
-//                player.getInventory().addItem(item.get());
-//            });
+            items.forEach(item -> {
+                player.getInventory().addItem(item);
+            });
         }
     }
 

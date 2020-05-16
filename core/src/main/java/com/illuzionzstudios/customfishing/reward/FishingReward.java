@@ -1,7 +1,6 @@
 package com.illuzionzstudios.customfishing.reward;
 
 import com.illuzionzstudios.core.locale.player.Message;
-import com.illuzionzstudios.customfishing.reward.item.ItemReward;
 import lombok.*;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
@@ -50,19 +49,9 @@ public class FishingReward {
     private List<String> messages = new ArrayList<>();
 
     /**
-     * If broadcasting is enabled
-     */
-    private boolean broadcastEnabled;
-
-    /**
      * Broadcast messages to send
      */
     private List<String> broadcasts = new ArrayList<>();
-
-    /**
-     * If titles are enabled
-     */
-    private boolean titleEnabled;
 
     /**
      * Title message

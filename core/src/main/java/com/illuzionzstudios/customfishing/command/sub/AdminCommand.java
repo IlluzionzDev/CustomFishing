@@ -21,7 +21,7 @@ import com.illuzionzstudios.customfishing.struct.Permission;
 public class AdminCommand extends AbstractCommand {
 
     public AdminCommand() {
-        super("admin");
+        super("admin", "config");
 
         this.requiredPermission = Permission.ADMIN;
     }
