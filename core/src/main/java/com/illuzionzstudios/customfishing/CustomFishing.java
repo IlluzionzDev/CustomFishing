@@ -2,6 +2,7 @@ package com.illuzionzstudios.customfishing;
 
 import com.illuzionzstudios.command.CommandManager;
 import com.illuzionzstudios.config.Config;
+import com.illuzionzstudios.core.IlluzionzCore;
 import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
 import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.command.CustomFishingCommand;

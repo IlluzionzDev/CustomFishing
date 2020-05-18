@@ -117,7 +117,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
             }
 
             cause = "Could not load permission";
-            builder.permission("customfishing." + config.getString("Requirements.Permission"));
+            builder.permission(config.getString("Requirements.Permission"));
 
             cause = "Could not load worlds";
             builder.worlds(config.getStringList("Requirements.Worlds"));

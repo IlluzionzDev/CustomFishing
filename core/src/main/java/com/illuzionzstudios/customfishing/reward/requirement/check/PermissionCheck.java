@@ -23,6 +23,6 @@ public class PermissionCheck implements Check {
         String permission = reward.getPermission();
 
         // Simple check for if player has permission or is op
-        return permission.trim().equals("") || player.hasPermission(permission) || player.isOp();
+        return permission.trim().equals("") || player.hasPermission("customfishing." + permission) || player.isOp();
     }
 }
