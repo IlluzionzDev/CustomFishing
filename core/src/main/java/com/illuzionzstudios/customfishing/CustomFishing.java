@@ -132,6 +132,6 @@ public final class CustomFishing extends IlluzionzPlugin {
 
     @Override
     public String getPluginVersion() {
-        return "4.0";
+        return "4.0.1";
     }
 }
