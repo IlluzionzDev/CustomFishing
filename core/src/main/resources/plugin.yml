@@ -12,3 +12,4 @@ permissions:
     children:
       customfishing.rewards: true
       customfishing.reload: true
+      customfishing.save: true

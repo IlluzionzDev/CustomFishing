@@ -7,6 +7,7 @@ import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.command.sub.AdminCommand;
 import com.illuzionzstudios.customfishing.command.sub.ReloadCommand;
 import com.illuzionzstudios.customfishing.command.sub.RewardsCommand;
+import com.illuzionzstudios.customfishing.command.sub.SaveCommand;
 
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
@@ -29,6 +30,7 @@ public class CustomFishingCommand extends AbstractCommand {
         addSubCommand(new AdminCommand());
         addSubCommand(new RewardsCommand());
         addSubCommand(new ReloadCommand(plugin));
+        addSubCommand(new SaveCommand());
     }
 
     @Override

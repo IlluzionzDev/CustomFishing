@@ -7,12 +7,9 @@ import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
-import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
@@ -64,11 +61,6 @@ public enum RewardsController implements BukkitController<CustomFishing> {
 
         // Load chance sum
         if (loadedRewards.isEmpty()) {
-            // If no rewards are loaded, load our
-            // default rewards into memory so we
-            // can edit them and save them.
-            // TODO
-
             return;
         }
 

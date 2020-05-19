@@ -36,18 +36,19 @@ public final class CustomFishing extends IlluzionzPlugin {
 
     private static CustomFishing INSTANCE;
 
+    public static CustomFishing getInstance() {
+        return INSTANCE;
+    }
+
     /**
      * Plugin hooks
      */
     @Getter
     private boolean worldguardLoaded = false;
 
-    public static CustomFishing getInstance() {
-        return INSTANCE;
-    }
-
     @Override
     public void onPluginLoad() {
+        setPlugin(this);
         INSTANCE = this;
     }
 
@@ -99,7 +100,7 @@ public final class CustomFishing extends IlluzionzPlugin {
     @Override
     public void onConfigReload() {
         this.setLocale(Settings.LANGUAGE_MODE.getString(), true);
-        this.locale.reloadMessages();
+        this.getLocale().reloadMessages();
         loadRewards(); // Reload rewards into memory
     }
 

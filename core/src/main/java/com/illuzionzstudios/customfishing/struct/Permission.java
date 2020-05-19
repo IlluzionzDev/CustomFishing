@@ -21,6 +21,7 @@ public enum Permission implements IPermission {
 
     ADMIN("admin"),
     RELOAD("reload"),
+    SAVE("save"),
     REWARDS("rewards");
 
     private static final String PREFIX = "customfishing.";

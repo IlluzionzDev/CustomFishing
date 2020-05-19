@@ -2,9 +2,10 @@
 
 general:
     nametag:
-        prefix: "&d&lCustomFishing &8>&7"
+        prefix: "&d&lCustomFishing &8»&7"
     nopermission: "&cNot enough permissions"
     reload: "&7Reloaded all configuration files"
+    save: "&7Saved all rewards"
     help: "&8&m                                        &r
     \n &r
     \n&d&lCustomFishing &7v%version% by &dIlluzionz Studios
@@ -14,6 +15,7 @@ general:
     \n&8&l* &7/customfishing rewards - View all loaded rewards
     \n&8&l* &7/customfishing config - Open the GUI to configure rewards
     \n&8&l* &7/customfishing reload - Reload all plugin configuration files
+    \n&8&l* &7/customfishing save - Manually save rewards to disk
     \n &r
     \n&8&m                                        &r"
 
