@@ -3,7 +3,7 @@ version: ${project.version}
 author: Illuzionz Studios
 main: com.illuzionzstudios.customfishing.CustomFishing
 description: Customize the fishing system of minecraft
-api-version: "1.15"
+api-version: "1.13"
 
 permissions:
   customfishing.default:
