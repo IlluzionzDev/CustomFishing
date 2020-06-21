@@ -7,24 +7,24 @@
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
-package com.illuzionzstudios.customfishing.command.sub;
+package com.illuzionzstudios.customfishing.settings;
 
-import com.illuzionzstudios.mist.command.SpigotSubCommand;
+import com.illuzionzstudios.mist.config.locale.Locale;
+import com.illuzionzstudios.mist.plugin.SpigotPlugin;
 
-/**
- * Quickly open UI to view all loaded rewards
- */
-public class RewardsCommand extends SpigotSubCommand {
+public class FishingLocale extends Locale {
 
-    public RewardsCommand() {
-        super("rewards", "list");
-
-        setDescription("View all loaded rewards");
+    public FishingLocale(SpigotPlugin plugin) {
+        super(plugin);
     }
 
     @Override
-    protected void onCommand() {
-        checkConsole();
-        // TODO: Open new view rewards UI
+    protected int getConfigVersion() {
+        return 1;
+    }
+
+    @Override
+    public void loadLocale() {
+
     }
 }

@@ -38,6 +38,12 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.illuzionzstudios.mist</pattern>
+                            <shadedPattern>com.illuzionzstudios.customfishing.mist</shadedPattern>
+                        </relocation>
+                    </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <shadedArtifactAttached>false</shadedArtifactAttached>
                     <minimizeJar>true</minimizeJar>
@@ -63,6 +69,13 @@
     <dependencies>
         <dependency>
             <groupId>com.illuzionzstudios</groupId>
+            <artifactId>Mist</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.illuzionzstudios</groupId>
             <artifactId>1_12_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
@@ -74,6 +87,7 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>com.illuzionzstudios</groupId>
             <artifactId>1_13_R1</artifactId>

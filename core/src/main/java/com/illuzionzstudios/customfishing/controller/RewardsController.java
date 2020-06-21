@@ -1,16 +1,3 @@
-package com.illuzionzstudios.customfishing.controller;
-
-import com.illuzionzstudios.chance.LootTable;
-import com.illuzionzstudios.core.bukkit.controller.BukkitController;
-import com.illuzionzstudios.core.util.Logger;
-import com.illuzionzstudios.customfishing.CustomFishing;
-import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
-import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
-import lombok.Getter;
-
-import java.util.HashMap;
-
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
  * All rights reserved. No part of this publication may be reproduced, distributed, or
@@ -20,8 +7,23 @@ import java.util.HashMap;
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
+package com.illuzionzstudios.customfishing.controller;
 
-public enum RewardsController implements BukkitController<CustomFishing> {
+import com.illuzionzstudios.customfishing.CustomFishing;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
+import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
+import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
+import com.illuzionzstudios.mist.Logger;
+import com.illuzionzstudios.mist.controller.PluginController;
+import com.illuzionzstudios.mist.util.LootTable;
+import lombok.Getter;
+
+import java.util.HashMap;
+
+/**
+ * Actual handling loading all rewards
+ */
+public enum RewardsController implements PluginController<CustomFishing> {
     INSTANCE;
 
     /**

@@ -1,10 +1,5 @@
 package com.illuzionzstudios.customfishing;
 
-import com.illuzionzstudios.command.CommandManager;
-import com.illuzionzstudios.config.Config;
-import com.illuzionzstudios.core.IlluzionzCore;
-import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
-import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.command.CustomFishingCommand;
 import com.illuzionzstudios.customfishing.controller.FishingController;
 import com.illuzionzstudios.customfishing.controller.RequirementController;
@@ -14,13 +9,17 @@ import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTe
 import com.illuzionzstudios.customfishing.reward.template.defaults.NothingDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
 import com.illuzionzstudios.customfishing.reward.template.serialize.YAMLSerializerLoader;
+import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.customfishing.settings.Settings;
-import com.illuzionzstudios.scheduler.bukkit.BukkitScheduler;
-import com.illuzionzstudios.ui.controller.InterfaceController;
+import com.illuzionzstudios.mist.Logger;
+import com.illuzionzstudios.mist.config.PluginSettings;
+import com.illuzionzstudios.mist.config.locale.Locale;
+import com.illuzionzstudios.mist.plugin.SpigotPlugin;
 import lombok.Getter;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Objects;
 
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
@@ -32,24 +31,44 @@ import java.util.List;
  * this statement.
  */
 
-public final class CustomFishing extends IlluzionzPlugin {
+public final class CustomFishing extends SpigotPlugin {
 
-    private static CustomFishing INSTANCE;
-
-    public static CustomFishing getInstance() {
-        return INSTANCE;
-    }
-
+    /**
+     * Singleton instance of our {@link SpigotPlugin}
+     */
+    private static volatile CustomFishing INSTANCE;
     /**
      * Plugin hooks
      */
     @Getter
-    private boolean worldguardLoaded = false;
+    private static boolean worldguardLoaded = false;
+
+    /**
+     * Return our instance of the {@link SpigotPlugin}
+     * <p>
+     * Should be overridden in your own {@link SpigotPlugin} class
+     * as a way to implement your own methods per plugin
+     *
+     * @return This instance of the plugin
+     */
+    public static CustomFishing getInstance() {
+        // Assign if null
+        if (INSTANCE == null) {
+            INSTANCE = JavaPlugin.getPlugin(CustomFishing.class);
+
+            Objects.requireNonNull(INSTANCE, "Cannot create instance of plugin. Did you reload?");
+        }
+
+        return INSTANCE;
+    }
 
     @Override
     public void onPluginLoad() {
-        setPlugin(this);
-        INSTANCE = this;
+    }
+
+    @Override
+    public void onPluginPreEnable() {
+
     }
 
     @Override
@@ -62,21 +81,12 @@ public final class CustomFishing extends IlluzionzPlugin {
             Logger.info("Couldn't find WorldGuard so region checks are disabled");
         }
 
-        // Load configuration
-        Settings.loadConfig();
-        this.setLocale(Settings.LANGUAGE_MODE.getString(), false);
-
-        new BukkitScheduler(this).initialize();
-        new InterfaceController<>(this);
-
-        loadCommands();
-
         // Add our default rewards
         YAMLRewardLoader.addDefault(new FoodDefaultTemplate("rewards"));
         YAMLRewardLoader.addDefault(new AppleDefaultTemplate("rewards"));
         YAMLRewardLoader.addDefault(new NothingDefaultTemplate("rewards"));
 
-        loadRewards();
+        RewardsController.INSTANCE.initialize(this);
 
         // Load FishingController
         FishingController.INSTANCE.initialize(this);
@@ -95,43 +105,37 @@ public final class CustomFishing extends IlluzionzPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        RewardsController.INSTANCE.stop(this);
+        FishingController.INSTANCE.stop(this);
+        RequirementController.INSTANCE.stop(this);
     }
 
     @Override
-    public void onConfigReload() {
-        this.setLocale(Settings.LANGUAGE_MODE.getString(), true);
-        this.getLocale().reloadMessages();
-        loadRewards(); // Reload rewards into memory
+    public void onPluginPreReload() {
+
     }
 
-    /**
-     * Load all rewards from config
-     */
-    private void loadRewards() {
+    @Override
+    public void onPluginReload() {
+        // Load rewards again
         RewardsController.INSTANCE.initialize(this);
     }
 
-    /**
-     * Register all plugin commands
-     */
-    private void loadCommands() {
-        new CommandManager().initialize(this);
+    @Override
+    public void onReloadablesStart() {
+        registerMainCommand(new CustomFishingCommand(), "customfishing", "customf", "cfishing");
 
-        CommandManager.get().register(new CustomFishingCommand(this));
+        registerListener(FishingController.INSTANCE);
     }
 
     @Override
-    public List<Config> getExtraConfig() {
-        return null;
+    public PluginSettings getPluginSettings() {
+        return new Settings(this);
     }
 
     @Override
-    public String getPluginName() {
-        return "CustomFishing";
-    }
-
-    @Override
-    public String getPluginVersion() {
-        return "4.0.2";
+    public Locale getPluginLocale() {
+        return new FishingLocale(this);
     }
 }

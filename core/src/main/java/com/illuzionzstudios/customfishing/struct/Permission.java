@@ -1,8 +1,3 @@
-package com.illuzionzstudios.customfishing.struct;
-
-import com.illuzionzstudios.core.bukkit.permission.IPermission;
-import lombok.RequiredArgsConstructor;
-
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
  * All rights reserved. No part of this publication may be reproduced, distributed, or
@@ -12,12 +7,15 @@ import lombok.RequiredArgsConstructor;
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
+package com.illuzionzstudios.customfishing.struct;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * A permission node
  */
 @RequiredArgsConstructor
-public enum Permission implements IPermission {
+public enum Permission {
 
     ADMIN("admin"),
     RELOAD("reload"),
@@ -27,7 +25,6 @@ public enum Permission implements IPermission {
     private static final String PREFIX = "customfishing.";
     private final String node;
 
-    @Override
     public String getPermissionNode() {
         return PREFIX + this.node;
     }

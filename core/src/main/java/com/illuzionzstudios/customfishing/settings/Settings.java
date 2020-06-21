@@ -1,9 +1,3 @@
-package com.illuzionzstudios.customfishing.settings;
-
-import com.illuzionzstudios.config.Config;
-import com.illuzionzstudios.config.ConfigSetting;
-import com.illuzionzstudios.customfishing.CustomFishing;
-
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
  * All rights reserved. No part of this publication may be reproduced, distributed, or
@@ -13,38 +7,72 @@ import com.illuzionzstudios.customfishing.CustomFishing;
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
+package com.illuzionzstudios.customfishing.settings;
 
-public class Settings {
+import com.illuzionzstudios.mist.config.ConfigSetting;
+import com.illuzionzstudios.mist.config.PluginSettings;
+import com.illuzionzstudios.mist.plugin.SpigotPlugin;
 
-    static final Config config = CustomFishing.getInstance().getCoreConfig();
-
-    public static final ConfigSetting REWARD_CHANCE = new ConfigSetting(config, "Main.Reward Chance", 30d,
-            "The chance of finding a custom reward while fishing"
-            , "can be a decimal number.");
-
-    public static final ConfigSetting EXP_REWARD = new ConfigSetting(config, "Main.Exp Reward", 6,
-            "Amount of experience to give the player when they HAVEN'T found a reward");
-
-    public static final ConfigSetting TITLE_FADEIN = new ConfigSetting(config, "Title.Fade In", 5,
-            "Ticks for a title to fade in");
-
-    public static final ConfigSetting TITLE_DISPLAY = new ConfigSetting(config, "Title.Display", 40,
-            "Ticks for a title to stay on screen");
-
-    public static final ConfigSetting TITLE_FADEOUT = new ConfigSetting(config, "Title.Fade Out", 5,
-            "Ticks for a title to fade out");
-
-    public static final ConfigSetting LANGUAGE_MODE = new ConfigSetting(config, "System.Language Mode", "en_US",
-            "The language file to use for the plugin",
-            "More language files (if available) can be found in the plugins locale folder.");
+/**
+ * This is the main settings class relating to config.yml
+ */
+public class Settings extends PluginSettings {
 
     /**
-     * Setup the configuration
+     * Settings dealing with rewards and chances
      */
-    public static void loadConfig() {
-        config.load();
-        config.setAutoremove(true);
+    public static class Reward {
 
-        config.saveChanges();
+        /**
+         * The chance of finding a custom reward
+         */
+        public static ConfigSetting REWARD_CHANCE = new ConfigSetting(SETTINGS_FILE, "Main.Reward Chance", 30d,
+                "The chance of finding a custom reward while fishing"
+                , "can be a decimal number.");
+
+        /**
+         * Amount of EXP rewarded from fishing when no custom reward
+         */
+        public static ConfigSetting EXP_REWARD = new ConfigSetting(SETTINGS_FILE, "Main.Exp Reward", 6,
+                "Amount of experience to give the player when they HAVEN'T found a custom reward");
+    }
+
+    /**
+     * Settings dealing with title messages
+     */
+    public static class Title {
+
+        /**
+         * Ticks for the title to fade in
+         */
+        public static final ConfigSetting TITLE_FADEIN = new ConfigSetting(SETTINGS_FILE, "Title.Fade In", 5,
+                "Ticks for a title to fade in");
+
+        /**
+         * Ticks for the title to actually display
+         */
+        public static final ConfigSetting TITLE_DISPLAY = new ConfigSetting(SETTINGS_FILE, "Title.Display", 40,
+                "Ticks for a title to stay on screen");
+
+        /**
+         * Ticks for the title to fade out
+         */
+        public static final ConfigSetting TITLE_FADEOUT = new ConfigSetting(SETTINGS_FILE, "Title.Fade Out", 5,
+                "Ticks for a title to fade out");
+    }
+
+    public Settings(SpigotPlugin plugin) {
+        super(plugin);
+    }
+
+    @Override
+    protected int getConfigVersion() {
+        return 1;
+    }
+
+    @Override
+    public void loadSettings() {
+        // Only want our settings
+        SETTINGS_FILE.setAutoRemove(true);
     }
 }

@@ -1,17 +1,22 @@
+/**
+ * Copyright © 2020 Property of Illuzionz Studios, LLC
+ * All rights reserved. No part of this publication may be reproduced, distributed, or
+ * transmitted in any form or by any means, including photocopying, recording, or other
+ * electronic or mechanical methods, without the prior written permission of the publisher,
+ * except in the case of brief quotations embodied in critical reviews and certain other
+ * noncommercial uses permitted by copyright law. Any licensing of this software overrides
+ * this statement.
+ */
 package com.illuzionzstudios.customfishing.controller;
 
-/**
- * Created by Illuzionz on 12 2019
- */
-
-import com.illuzionzstudios.chance.LootTable;
-import com.illuzionzstudios.core.bukkit.controller.BukkitController;
-import com.illuzionzstudios.core.locale.Locale;
-import com.illuzionzstudios.core.locale.player.Message;
-import com.illuzionzstudios.core.util.ChanceUtil;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.settings.Settings;
+import com.illuzionzstudios.mist.Mist;
+import com.illuzionzstudios.mist.config.locale.Message;
+import com.illuzionzstudios.mist.controller.PluginController;
+import com.illuzionzstudios.mist.util.LootTable;
+import com.illuzionzstudios.mist.util.MathUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -23,24 +28,13 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 /**
- * Copyright © 2020 Property of Illuzionz Studios, LLC
- * All rights reserved. No part of this publication may be reproduced, distributed, or
- * transmitted in any form or by any means, including photocopying, recording, or other
- * electronic or mechanical methods, without the prior written permission of the publisher,
- * except in the case of brief quotations embodied in critical reviews and certain other
- * noncommercial uses permitted by copyright law. Any licensing of this software overrides
- * this statement.
- */
-
-/**
  * Controls everything related to fishing
  */
-public enum FishingController implements BukkitController<CustomFishing>, Listener {
+public enum FishingController implements PluginController<CustomFishing>, Listener {
     INSTANCE;
 
     @Override
     public void initialize(CustomFishing customFishing) {
-        Bukkit.getServer().getPluginManager().registerEvents(this, customFishing);
     }
 
     @Override
@@ -55,10 +49,10 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
         // Detect if they catch a fish
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             // Set experience default reward
-            event.setExpToDrop(Settings.EXP_REWARD.getInt());
+            event.setExpToDrop(Settings.Reward.EXP_REWARD.getInt());
 
             // Detect if they actually get a reward
-            if (!ChanceUtil.calculateChance(Settings.REWARD_CHANCE.getDouble())) return;
+            if (!MathUtil.chance(Settings.Reward.REWARD_CHANCE.getDouble() / 100)) return;
             processRewards(event.getPlayer(), event);
         }
     }
@@ -119,9 +113,9 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
 
         if (title != null) {
             // Set title times
-            title.setFadeIn(Settings.TITLE_FADEIN.getInt());
-            title.setStay(Settings.TITLE_DISPLAY.getInt());
-            title.setFadeOut(Settings.TITLE_FADEOUT.getInt());
+            title.setFadeIn(Settings.Title.TITLE_FADEIN.getInt());
+            title.setStay(Settings.Title.TITLE_DISPLAY.getInt());
+            title.setFadeOut(Settings.Title.TITLE_FADEOUT.getInt());
 
             // Send titles
             if (!title.getMessage().trim().equals("")) {
@@ -137,7 +131,7 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
 
         // Send messages
         if (messages != null)
-        messages.forEach(msg -> player.sendMessage(Locale.color(msg)));
+        messages.forEach(msg -> player.sendMessage(Mist.colorize(msg)));
 
         // Send broadcasts
         if (broadcasts != null) {
@@ -145,7 +139,7 @@ public enum FishingController implements BukkitController<CustomFishing>, Listen
                 broadcasts.forEach(msg -> {
                     if (msg.trim().equals("")) return;
                     msg = new Message(msg).processPlaceholder("player", player.getName()).getMessage();
-                    Bukkit.getServer().broadcastMessage(Locale.color(msg));
+                    Bukkit.getServer().broadcastMessage(Mist.colorize(msg));
                 });
             }
         }

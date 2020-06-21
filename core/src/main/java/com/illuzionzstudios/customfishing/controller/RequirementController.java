@@ -1,22 +1,3 @@
-package com.illuzionzstudios.customfishing.controller;
-
-import com.illuzionzstudios.compatibility.ServerVersion;
-import com.illuzionzstudios.core.bukkit.controller.BukkitController;
-import com.illuzionzstudios.customfishing.CustomFishing;
-import com.illuzionzstudios.customfishing.controller.worldguard.IWorldGuardCheck;
-import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_12_R1;
-import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_13_R1;
-import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.customfishing.reward.requirement.check.PermissionCheck;
-import com.illuzionzstudios.customfishing.reward.requirement.check.RegionCheck;
-import com.illuzionzstudios.customfishing.reward.requirement.check.WorldCheck;
-import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
  * All rights reserved. No part of this publication may be reproduced, distributed, or
@@ -26,8 +7,28 @@ import java.util.List;
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
+package com.illuzionzstudios.customfishing.controller;
 
-public enum RequirementController implements BukkitController<CustomFishing> {
+import com.illuzionzstudios.customfishing.CustomFishing;
+import com.illuzionzstudios.customfishing.controller.worldguard.IWorldGuardCheck;
+import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_12_R1;
+import com.illuzionzstudios.customfishing.controller.worldguard.WorldGuardCheck_1_13_R1;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
+import com.illuzionzstudios.customfishing.reward.requirement.check.PermissionCheck;
+import com.illuzionzstudios.customfishing.reward.requirement.check.RegionCheck;
+import com.illuzionzstudios.customfishing.reward.requirement.check.WorldCheck;
+import com.illuzionzstudios.mist.compatibility.ServerVersion;
+import com.illuzionzstudios.mist.controller.PluginController;
+import lombok.Getter;
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Control certain requirements to find certain rewards
+ */
+public enum RequirementController implements PluginController<CustomFishing> {
     INSTANCE;
 
     public static final String GLOBAL_WORLD = "all";
@@ -41,10 +42,10 @@ public enum RequirementController implements BukkitController<CustomFishing> {
     @Override
     public void initialize(CustomFishing customFishing) {
         // Checks for version
-        if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_13)) {
+        if (ServerVersion.atLeast(ServerVersion.V.v1_13)) {
             this.worldGuardCheck = new WorldGuardCheck_1_13_R1();
 
-        } else if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_8)) {
+        } else if (ServerVersion.atLeast(ServerVersion.V.v1_8)) {
             this.worldGuardCheck = new WorldGuardCheck_1_12_R1();
         }
     }

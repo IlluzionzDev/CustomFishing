@@ -9,8 +9,8 @@
  */
 package com.illuzionzstudios.customfishing.reward.template;
 
-import com.illuzionzstudios.config.Config;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
+import com.illuzionzstudios.mist.config.YamlConfig;
 
 /**
  * Base template for a new {@link FishingReward}
@@ -25,7 +25,7 @@ public interface AbstractRewardTemplate {
     /**
      * @return The file used as the template
      */
-    Config getTemplateFile();
+    YamlConfig getTemplateFile();
 
     /**
      * Save the template file to disk

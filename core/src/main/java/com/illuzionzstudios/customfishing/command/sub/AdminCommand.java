@@ -9,33 +9,22 @@
  */
 package com.illuzionzstudios.customfishing.command.sub;
 
-import com.illuzionzstudios.command.ReturnType;
-import com.illuzionzstudios.command.type.AbstractCommand;
-import com.illuzionzstudios.customfishing.CustomFishing;
-import com.illuzionzstudios.customfishing.reward.ui.AdminUI;
-import com.illuzionzstudios.customfishing.struct.Permission;
+import com.illuzionzstudios.mist.command.SpigotSubCommand;
 
 /**
  * Open up the admin gui to configure rewards
  */
-public class AdminCommand extends AbstractCommand {
+public class AdminCommand extends SpigotSubCommand {
 
     public AdminCommand() {
         super("admin", "config");
 
-        this.requiredPermission = Permission.ADMIN;
+        setDescription("Open the GUI to configure rewards");
     }
 
     @Override
-    public ReturnType onCommand(String s, String[] strings) {
-        new AdminUI().open(player);
-
-        return ReturnType.SUCCESS;
+    protected void onCommand() {
+        checkConsole();
+        // TODO: Open new config UI
     }
-
-    @Override
-    public boolean isConsoleAllowed() {
-        return false;
-    }
-
 }

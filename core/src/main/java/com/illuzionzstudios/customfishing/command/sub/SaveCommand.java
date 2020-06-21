@@ -9,40 +9,33 @@
  */
 package com.illuzionzstudios.customfishing.command.sub;
 
-import com.illuzionzstudios.command.ReturnType;
-import com.illuzionzstudios.command.type.AbstractCommand;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.template.serialize.YAMLSerializerLoader;
-import com.illuzionzstudios.customfishing.struct.Permission;
+import com.illuzionzstudios.mist.command.SpigotSubCommand;
 
 import java.io.IOException;
 
-public class SaveCommand extends AbstractCommand {
+/**
+ * Save all the plugin rewards and data
+ */
+public class SaveCommand extends SpigotSubCommand {
 
     public SaveCommand() {
         super("save", "s");
 
-        this.requiredPermission = Permission.SAVE;
+        setDescription("Manually save rewards to disk");
     }
 
     @Override
-    public ReturnType onCommand(String s, String[] strings) {
+    protected void onCommand() {
         // Save all items into files
         try {
             new YAMLSerializerLoader("rewards").saveRewards();
         } catch (IOException e) {
             e.printStackTrace();
-            return ReturnType.ERROR;
         }
 
-        CustomFishing.getInstance().getLocale().getMessage("general.save").sendPrefixedMessage(commandSender);
-
-        return ReturnType.SUCCESS;
+        // Send message from locale
+//        CustomFishing.getInstance().getLocale().getMessage("general.save").sendPrefixedMessage(getSender());
     }
-
-    @Override
-    public boolean isConsoleAllowed() {
-        return true;
-    }
-
 }
