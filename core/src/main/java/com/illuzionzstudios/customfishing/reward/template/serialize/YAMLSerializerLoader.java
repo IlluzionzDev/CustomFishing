@@ -9,7 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.serialize;
 
-import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
+import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 
@@ -43,7 +43,7 @@ public class YAMLSerializerLoader {
      */
     public void saveRewards() {
         // Reward directory
-        File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
+        File dir = new File(CustomFishing.getInstance().getDataFolder().getPath() + File.separator + directory);
 
         // Clear directory so we can load rewards
         if (dir != null)

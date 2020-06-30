@@ -9,7 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.template;
 
-import com.illuzionzstudios.core.util.Logger;
+import com.illuzionzstudios.mist.Logger;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

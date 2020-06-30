@@ -9,12 +9,11 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.serialize;
 
-import com.illuzionzstudios.core.bukkit.util.ItemStackUtil;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
+import com.illuzionzstudios.mist.util.ItemStackUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Save rewards as a template to disk

@@ -36,7 +36,7 @@ public class RegionCheck implements Check {
         IWorldGuardCheck worldGuardCheck = RequirementController.INSTANCE.getWorldGuardCheck();
 
         // Only check if worldguard enabled
-        if (CustomFishing.getInstance().isWorldguardLoaded()) {
+        if (CustomFishing.isWorldguardLoaded()) {
             // Check if in the region
             boolean inRegion = false;
             for (String region : regions) {

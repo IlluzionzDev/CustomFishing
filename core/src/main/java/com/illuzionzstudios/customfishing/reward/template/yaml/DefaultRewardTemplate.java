@@ -9,8 +9,6 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.yaml;
 
-import java.util.Arrays;
-
 /**
  * A default reward template for if no
  * rewards exist
@@ -32,8 +30,6 @@ public abstract class DefaultRewardTemplate extends YAMLRewardTemplate {
     public boolean save() {
         // Set defaults then save
         setDefaults();
-        // Set weird spacing
-        this.config.setRootNodeSpacing(0).setCommentSpacing(0);
         super.save();
         return true;
     }

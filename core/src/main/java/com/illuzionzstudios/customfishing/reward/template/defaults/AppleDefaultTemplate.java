@@ -9,9 +9,9 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.defaults;
 
-import com.illuzionzstudios.compatibility.ServerVersion;
-import com.illuzionzstudios.core.bukkit.util.ItemStackUtil;
 import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemplate;
+import com.illuzionzstudios.mist.compatibility.ServerVersion;
+import com.illuzionzstudios.mist.util.ItemStackUtil;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

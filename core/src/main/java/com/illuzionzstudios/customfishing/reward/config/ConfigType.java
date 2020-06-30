@@ -9,8 +9,6 @@
  */
 package com.illuzionzstudios.customfishing.reward.config;
 
-import com.illuzionzstudios.compatibility.CompatibleMaterial;
-import com.illuzionzstudios.core.util.StringUtil;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

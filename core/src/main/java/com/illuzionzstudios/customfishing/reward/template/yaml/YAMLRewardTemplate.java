@@ -9,14 +9,13 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.yaml;
 
-import com.illuzionzstudios.config.Config;
-import com.illuzionzstudios.core.bukkit.util.ItemStackUtil;
-import com.illuzionzstudios.core.locale.player.Message;
-import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
+import com.illuzionzstudios.mist.config.YamlConfig;
+import com.illuzionzstudios.mist.config.locale.Message;
+import com.illuzionzstudios.mist.util.ItemStackUtil;
 import lombok.Getter;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
@@ -31,7 +30,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
     /**
      * Config to load data from
      */
-    protected final Config config;
+    protected final YamlConfig config;
 
     /**
      * Name of the reward
@@ -45,7 +44,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
      */
     public YAMLRewardTemplate(String fileName, String directory) {
         // Load config
-        this.config = new Config(CustomFishing.getInstance(), "/" + directory, fileName + ".yml");
+        this.config = new YamlConfig(CustomFishing.getInstance(), "/" + directory, fileName + ".yml");
 
         // Load the config
         this.name = fileName;
@@ -137,7 +136,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
     }
 
     @Override
-    public Config getTemplateFile() {
+    public YamlConfig getTemplateFile() {
         return this.config;
     }
 

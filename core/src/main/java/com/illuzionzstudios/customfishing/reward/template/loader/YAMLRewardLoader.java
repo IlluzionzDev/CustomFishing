@@ -9,16 +9,12 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.loader;
 
-import com.illuzionzstudios.core.plugin.IlluzionzPlugin;
-import com.illuzionzstudios.core.util.Logger;
+import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
-import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
+import com.illuzionzstudios.mist.Logger;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 
 import java.io.File;
 import java.util.*;
@@ -64,7 +60,7 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
         // Add defaults only when initialized
 
         // Reward directory
-        File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
+        File dir = new File(CustomFishing.getInstance().getDataFolder().getPath() + File.separator + directory);
 
         // No files in directory
         if (!dir.exists() || dir.listFiles() == null) {
@@ -83,7 +79,7 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
     @Override
     public Map<String, AbstractRewardTemplate> loadTemplates() {
         // Reward directory
-        File dir = new File(IlluzionzPlugin.getInstance().getDataFolder().getPath() + File.separator + directory);
+        File dir = new File(CustomFishing.getInstance().getDataFolder().getPath() + File.separator + directory);
 
         // Ensure exists
         if (dir.listFiles() == null || !dir.exists()) return templates;

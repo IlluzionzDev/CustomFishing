@@ -1,13 +1,3 @@
-package com.illuzionzstudios.customfishing.reward;
-
-import com.illuzionzstudios.core.locale.player.Message;
-import lombok.*;
-import org.bukkit.Sound;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Copyright © 2020 Property of Illuzionz Studios, LLC
  * All rights reserved. No part of this publication may be reproduced, distributed, or
@@ -17,6 +7,15 @@ import java.util.List;
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
+package com.illuzionzstudios.customfishing.reward;
+
+import com.illuzionzstudios.mist.compatibility.XSound;
+import com.illuzionzstudios.mist.config.locale.Message;
+import lombok.*;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Reward object the player can find.
@@ -81,7 +80,7 @@ public class FishingReward {
     /**
      * Sound to play
      */
-    private Sound sound;
+    private XSound sound;
 
     /**
      * Required permission
