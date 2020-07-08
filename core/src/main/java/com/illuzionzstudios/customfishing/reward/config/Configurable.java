@@ -7,25 +7,18 @@
  * noncommercial uses permitted by copyright law. Any licensing of this software overrides
  * this statement.
  */
-package com.illuzionzstudios.customfishing.command.sub;
+package com.illuzionzstudios.customfishing.reward.config;
 
-import com.illuzionzstudios.customfishing.reward.ui.AdminUI;
-import com.illuzionzstudios.mist.command.SpigotSubCommand;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Open up the admin gui to configure rewards
+ * Simple tag for fields which we want to configure for an object.
+ * Examples through a GUI to expose certain values
  */
-public class AdminCommand extends SpigotSubCommand {
-
-    public AdminCommand() {
-        super("config", "admin");
-
-        setDescription("Open the GUI to configure rewards");
-    }
-
-    @Override
-    protected void onCommand() {
-        checkConsole();
-        new AdminUI().show(getPlayer());
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Configurable {
 }

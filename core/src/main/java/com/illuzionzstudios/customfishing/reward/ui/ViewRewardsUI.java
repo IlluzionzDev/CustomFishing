@@ -9,41 +9,47 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
-import com.illuzionzstudios.compatibility.CompatibleMaterial;
-import com.illuzionzstudios.core.bukkit.item.ItemStackFactory;
-import com.illuzionzstudios.core.locale.player.Message;
-import com.illuzionzstudios.core.util.Logger;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.ui.button.InterfaceButton;
-import com.illuzionzstudios.ui.types.page.DividedInterface;
-import org.bukkit.Bukkit;
+import com.illuzionzstudios.mist.compatibility.XMaterial;
+import com.illuzionzstudios.mist.ui.UserInterface;
+import com.illuzionzstudios.mist.ui.render.ItemCreator;
+import com.illuzionzstudios.mist.ui.type.PagedInterface;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Arrays;
 
 /**
- * View all rewards and an option to edit them
+ * Menu to view all rewards in a paged interface
  */
-public class ViewRewardsUI extends DividedInterface {
+public class ViewRewardsUI extends PagedInterface<FishingReward> {
+
+    protected ViewRewardsUI(UserInterface parent) {
+        // All loaded rewards
+        super(parent, RewardsController.INSTANCE.getLoadedRewards().values());
+
+        setTitle("&8Custom Rewards");
+    }
 
     @Override
-    public void generateInventory() {
-        inventory = Bukkit.createInventory(null, 54, Message.of("gui.view-rewards.title").toString());
+    protected ItemStack convertToItemStack(FishingReward reward) {
+        // Nicely display the reward
+        // TODO: Format from lang
+        return ItemCreator.builder().material(XMaterial.PAPER)
+                .name("&d&l" + reward.getName())
+                .lores(Arrays.asList("&7Chance: &d" + reward.getChance(),
+                        "",
+                        "&7&o(Click to edit reward)"))
+                .build().makeUIItem();
+    }
 
-        int slot = 0;
-        // Loop through all rewards and show
-        for (FishingReward reward : RewardsController.INSTANCE.getLoadedRewards().values()) {
-            addButton(InterfaceButton.builder()
-                    .icon(new ItemStackFactory(CompatibleMaterial.PAPER.getMaterial())
-                            .name(Message.of("gui.view-rewards.item.name")
-                                .processPlaceholder("reward_name", reward.getName()))
-                            .lore(Message.of("gui.view-rewards.item.lore")
-                                .processPlaceholder("chance", reward.getChance()))
-                            .get())
-                    .listener((player, event) -> {
-                        destroy();
-                        new ConfigureRewardUI(reward).open(player);
-                    })
-                    .slot(slot++)
-                    .build());
-        }
+    @Override
+    protected void onPageClick(Player player, FishingReward reward, ClickType clickType, InventoryClickEvent event) {
+        // Don't want to modify items
+        event.setCancelled(true);
+        new ConfigureOptionsUI<>(this, reward).show(player);
     }
 }

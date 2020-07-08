@@ -13,6 +13,7 @@ import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
+import com.illuzionzstudios.mist.compatibility.XSound;
 import com.illuzionzstudios.mist.config.YamlConfig;
 import com.illuzionzstudios.mist.config.locale.Message;
 import com.illuzionzstudios.mist.util.ItemStackUtil;
@@ -110,7 +111,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
             cause = "Sound " + config.getString("Sound") + " is not valid";
             try {
                 Sound sound = Sound.valueOf(config.getString("Sound"));
-                builder.sound(sound);
+                builder.sound(XSound.matchXSound(sound));
             } catch (Exception e) {
                 builder.sound(null);
             }

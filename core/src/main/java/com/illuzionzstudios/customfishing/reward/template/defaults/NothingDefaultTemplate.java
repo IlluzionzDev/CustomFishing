@@ -9,11 +9,8 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.defaults;
 
-import com.illuzionzstudios.compatibility.ServerVersion;
-import com.illuzionzstudios.core.bukkit.util.ItemStackUtil;
 import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemplate;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
+import com.illuzionzstudios.mist.compatibility.ServerVersion;
 
 import java.util.Arrays;
 
@@ -31,11 +28,11 @@ public class NothingDefaultTemplate extends DefaultRewardTemplate {
         // Changes based on version for default config
         String soundName = "";
 
-        if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_13)) {
+        if (ServerVersion.atLeast(ServerVersion.V.v1_13)) {
             soundName = "ENTITY_FIREWORK_ROCKET_LAUNCH";
-        } else if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_12)) {
+        } else if (ServerVersion.atLeast(ServerVersion.V.v1_12)) {
             soundName = "ENTITY_FIREWORK_LAUNCH";
-        } else if (ServerVersion.isServerVersionAtLeast(ServerVersion.V1_8)) {
+        } else if (ServerVersion.atLeast(ServerVersion.V.v1_8)) {
             soundName = "FIREWORK_LAUNCH";
         }
 

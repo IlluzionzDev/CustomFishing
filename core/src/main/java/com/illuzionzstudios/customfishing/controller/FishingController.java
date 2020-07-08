@@ -93,7 +93,7 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
         Message title = reward.getTitle();
         Message subtitle = reward.getSubtitle();
 
-        Sound sound = reward.getSound();
+        Sound sound = reward.getSound().parseSound();
 
         int experience = reward.getExperience();
 

@@ -26,15 +26,20 @@ public class Settings extends PluginSettings {
         /**
          * The chance of finding a custom reward
          */
-        public static ConfigSetting REWARD_CHANCE = new ConfigSetting(SETTINGS_FILE, "Main.Reward Chance", 30d,
-                "The chance of finding a custom reward while fishing"
-                , "can be a decimal number.");
+        public static ConfigSetting REWARD_CHANCE;
 
         /**
          * Amount of EXP rewarded from fishing when no custom reward
          */
-        public static ConfigSetting EXP_REWARD = new ConfigSetting(SETTINGS_FILE, "Main.Exp Reward", 6,
-                "Amount of experience to give the player when they HAVEN'T found a custom reward");
+        public static ConfigSetting EXP_REWARD;
+
+        public static void init() {
+            REWARD_CHANCE = new ConfigSetting(SETTINGS_FILE, "Main.Reward Chance", 30d,
+                    "The chance of finding a custom reward while fishing"
+                    , "can be a decimal number.");
+            EXP_REWARD = new ConfigSetting(SETTINGS_FILE, "Main.Exp Reward", 6,
+                    "Amount of experience to give the player when they HAVEN'T found a custom reward");
+        }
     }
 
     /**
@@ -45,20 +50,26 @@ public class Settings extends PluginSettings {
         /**
          * Ticks for the title to fade in
          */
-        public static final ConfigSetting TITLE_FADEIN = new ConfigSetting(SETTINGS_FILE, "Title.Fade In", 5,
-                "Ticks for a title to fade in");
+        public static ConfigSetting TITLE_FADEIN;
 
         /**
          * Ticks for the title to actually display
          */
-        public static final ConfigSetting TITLE_DISPLAY = new ConfigSetting(SETTINGS_FILE, "Title.Display", 40,
-                "Ticks for a title to stay on screen");
+        public static ConfigSetting TITLE_DISPLAY;
 
         /**
          * Ticks for the title to fade out
          */
-        public static final ConfigSetting TITLE_FADEOUT = new ConfigSetting(SETTINGS_FILE, "Title.Fade Out", 5,
-                "Ticks for a title to fade out");
+        public static ConfigSetting TITLE_FADEOUT;
+
+        public static void init() {
+            TITLE_FADEIN = new ConfigSetting(SETTINGS_FILE, "Title.Fade In", 5,
+                    "Ticks for a title to fade in");
+            TITLE_DISPLAY = new ConfigSetting(SETTINGS_FILE, "Title.Display", 40,
+                    "Ticks for a title to stay on screen");
+            TITLE_FADEOUT = new ConfigSetting(SETTINGS_FILE, "Title.Fade Out", 5,
+                    "Ticks for a title to fade out");
+        }
     }
 
     public Settings(SpigotPlugin plugin) {
@@ -72,6 +83,9 @@ public class Settings extends PluginSettings {
 
     @Override
     public void loadSettings() {
+        Reward.init();
+        Title.init();
+
         // Only want our settings
         SETTINGS_FILE.setAutoRemove(true);
     }
