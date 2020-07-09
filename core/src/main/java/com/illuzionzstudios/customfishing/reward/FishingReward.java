@@ -10,6 +10,7 @@
 package com.illuzionzstudios.customfishing.reward;
 
 import com.illuzionzstudios.customfishing.reward.config.Configurable;
+import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.mist.compatibility.XSound;
 import com.illuzionzstudios.mist.config.locale.Message;
 import lombok.*;
@@ -31,91 +32,91 @@ public class FishingReward {
     /**
      * Name of the reward
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.name")
     private String name;
 
     /**
      * Commands to execute
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.commands")
     private List<String> commands = new ArrayList<>();
 
     /**
      * Custom items to give
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.items")
     private List<ItemStack> items = new ArrayList<>();
 
     /**
      * Messages to send
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.messages")
     private List<String> messages = new ArrayList<>();
 
     /**
      * Broadcast messages to send
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.broadcasts")
     private List<String> broadcasts = new ArrayList<>();
 
     /**
      * Title message
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.title")
     private Message title;
 
     /**
      * Subtitle message
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.subtitle")
     private Message subtitle;
 
     /**
      * Chance to find this reward
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.chance")
     private double chance;
 
     /**
      * If default vanilla rewards are enabled
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.vanillaRewards")
     private boolean vanillaRewards;
 
     /**
      * Experience to give the player
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.experience")
     private int experience;
 
     /**
      * Sound to play
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.sound")
     private XSound sound;
 
     /**
      * Required permission
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.permission")
     private String permission;
 
     /**
      * Worlds the reward can be found in
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.worlds")
     private List<String> worlds = new ArrayList<>();
 
     /**
      * Region the reward can be found in
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.regions")
     private List<String> regions = new ArrayList<>();
 
     /**
      * Region the reward can't be found in
      */
-    @Configurable
+    @Configurable(description = "rewards.config.descriptions.blockedRegions")
     private List<String> blockedRegions = new ArrayList<>();
 
 }

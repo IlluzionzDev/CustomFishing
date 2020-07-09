@@ -7,153 +7,29 @@ general:
 rewards:
     config:
         enter-value: "&7Enter a new value to set (Type 'cancel' to cancel)"
+        descriptions:
+            name: "The name of the reward. Helps you identify the different rewards"
+            commands: "The commands that are executed. Use %player% for player's name"
+            items: "The items that are given. Simply drop items into the given menu."
+            messages: "Messages that are sent to the player"
+            broadcasts: "Messages that are sent to the entire server"
+            title: "Title to display to the player"
+            subtitle: "Subtitle to display to the player"
+            chance: "The chance this reward is found"
+            vanillaRewards: "If default vanilla rewards can be found. For example, enchanted books, fish etc"
+            experience: "Amount of experience points to award"
+            sound: "Sound to play when found. Set to null for no sound"
+            permission: "Permission to find reward. Syntax is customfishing.{value}. If blank, no permission required"
+            worlds: "Worlds this reward can be found in. If set to all, can be found in all worlds"
+            regions: "Regions this reward can be found in. If set to all, can be found in all regions"
+            blockedRegions: "Regions this reward can't be found in. If empty, no blocked regions"
 
-gui:
-    buttons:
-        back:
-            name: "&7Go Back"
-            lore: ""
-
-    admin:
-        title: "&7Custom Fishing Configuration"
-        add-reward:
-            name: "&a&lAdd New Reward"
-            lore: "&7Add a new custom fishing reward"
-        view-rewards:
-            name: "&d&lView All Rewards"
-            lore: "&7View/Edit current rewards"
-    view-rewards:
-        title: "&7Custom Rewards"
-        item:
-            name: "&d&l%reward_name%"
-            lore: "&7Chance: &d%chance%
-            \n&r
-            \n&7&o(Click to edit reward)"
-    configure:
-        title: "&7%reward_name%"
-        set-name:
-            name: "&d&lSet Name"
-            lore: "&7Change the name of this
-            \n&7reward, this is only so you
-            \n&7know which reward is which.
-            \n&r
-            \n&7&o(Click to change name)"
-        set-items:
-            name: "&d&lSet Items"
-            lore: "&7Set the custom items that
-            \n&7can be caught. Simply drop
-            \n&7your items into the menu.
-            \n&r
-            \n&7&o(Click to change items)"
-        set-commands:
-            name: "&d&lSet Commands"
-            lore: "&7Set what commands are
-            \n&7executed when this reward is
-            \n&7caught. Use %player% for the
-            \n&7player's name.
-            \n&r
-            \n&7&o(Click to change commands)"
-        set-messages:
-            name: "&d&lSet Messages"
-            lore: "&7Set the messages to send
-            \n&7the player when this reward
-            \n&7is caught.
-            \n&r
-            \n&7&o(Click to change messages)"
-        set-broadcasts:
-            name: "&d&lSet Broadcasts"
-            lore: "&7Set the messages to broadcast
-            \n&7when this reward is caught. If blank,
-            \n&7no broadcasts will be sent.
-            \n&r
-            \n&7&o(Click to change broadcasts)"
-        set-title:
-            name: "&d&lSet Title"
-            lore: "&7Set the title to display
-            \n&7to the player. If blank, no
-            \n&7title will be shown.
-            \n&r
-            \n&7&o(Click to change title)"
-        set-subtitle:
-            name: "&d&lSet Subtitle"
-            lore: "&7Set the sub title to display
-            \n&7to the player. If blank, no
-            \n&7title will be shown.
-            \n&7&o(Click to change subtitle)"
-        set-chance:
-            name: "&d&lSet Chance"
-            lore: "&7Set the chance for this
-            \n&7reward to be caught.
-            \n&r
-            \n&7&o(Click to change chance)"
-        set-vanilla-rewards:
-            name: "&d&lSet Vanilla Rewards"
-            lore: "&7If enabled, default rewards
-            \n&7like enchanted books, fish, etc
-            \n&7can still be found alongside this
-            \n&7custom reward.
-            \n&r
-            \n&7&o(Click to change vanilla rewards)"
-        set-exp:
-            name: "&d&lSet Exp"
-            lore: "&7Set the amount of exp to
-            \n&7give the player when this reward
-            \n&7is caught.
-            \n&r
-            \n&7&o(Click to change exp)"
-        set-sound:
-            name: "&d&lSet Sound"
-            lore: "&7Set the sound enum to play
-            \n&7when this reward is caught. If
-            \n&7blank, no sound will be played
-            \n&r
-            \n&7&o(Click to change sound)"
-        set-permission:
-            name: "&d&lSet Permission"
-            lore: "&7Set the permission required
-            \n&7for this reward to be caught. The
-            \n&7final permission is customfishing.<value>.
-            \n&7If blank, no permission is required.
-            \n&r
-            \n&7&o(Click to change permission)"
-        set-worlds:
-            name: "&d&lSet Worlds"
-            lore: "&7Set the worlds this can
-            \n&7be found in. If set to all,
-            \n&7it will be found in all worlds.
-            \n&r
-            \n&7&o(Click to change worlds)"
-        set-regions:
-            name: "&d&lSet Regions"
-            lore: "&7Set the regions this can
-            \n&7be found in. If set to global,
-            \n&7it will be found in all worlds.
-            \n&7&o(Click to change regions)"
-        set-blocked-regions:
-            name: "&d&lSet Blocked Regions"
-            lore: "&7Set the regions this reward
-            \n&7is blocked in. If empty, no regions
-            \n&7will be blocked.
-            \n&7&o(Click to change blocked regions)"
+interface:
     option:
-        title: "&7Configure Option"
-        current-value:
-            name: "&a&lCurrent Value"
-            lore: "%current_value%"
-        list-clear:
-            name: "&c&lClear All Lines"
-            lore: "&7Clear all current lines"
-        list-add:
-            name: "&a&lAdd a new line"
-            lore: "&7Add a new line to the config option"
-        set-option:
-            name: "&a&lChange Option"
-            lore: "&7Change the current option"
-        view-items:
-            name: "&d&lView All Items"
-            lore: "&7View all current items to give.
-            \n&7To edit, drag items in and out of
-            \n&7the gui."
-    add-items:
-        title: "&7Add Items"
+        name: "&d&l{valueName}"
+        lore: "&7Value: {value}
+        \n&r
+        \n&7{description}
+        \n&r
+        \n&7&o(Click to edit value)"
 

@@ -23,6 +23,7 @@ import com.illuzionzstudios.mist.ui.render.ItemCreator;
 import com.illuzionzstudios.mist.util.ReflectionUtil;
 import com.illuzionzstudios.mist.util.TextUtil;
 import com.illuzionzstudios.mist.util.Valid;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
@@ -110,6 +111,10 @@ public class ConfigureOptionsUI<T> extends UserInterface {
         for (final Field f : lookup.getDeclaredFields()) {
             // Make sure field is annotated
             if (f.getAnnotationsByType(Configurable.class).length == 0) continue;
+
+            // Get raw field description
+            // Describes what the field is
+            String valueDescriptionKey = f.getAnnotation(Configurable.class).description();
 
             // Get the type of field for checking
             Class<?> type = f.getType();
@@ -287,22 +292,26 @@ public class ConfigureOptionsUI<T> extends UserInterface {
             // Set listener for configuring UI based on type
             // Set final to pass to implementation
             final Prompt finalValuePrompt = valuePrompt;
-            Button.ButtonListener listener = (player, ui, clickType) -> {
-                new SimpleConversation() {
-                    @Override
-                    protected Prompt getFirstPrompt() {
-                        return finalValuePrompt;
-                    }
-                }.start(player);
-            };
+            Button.ButtonListener listener = Button.ButtonListener.ofNull();
+            if (finalValuePrompt != null) {
+                listener = (player, ui, clickType) -> {
+                    new SimpleConversation() {
+                        @Override
+                        protected Prompt getFirstPrompt() {
+                            return finalValuePrompt;
+                        }
+                    }.start(player);
+                };
+            }
 
             // Finally construct button
             Button button = Button.of(ItemCreator.builder()
                             .material(XMaterial.PAPER)
-                            .name(ChatColor.LIGHT_PURPLE + ChatColor.BOLD.toString() + TextUtil.convertCamelCase(f.getName()))
-                            .lores(Arrays.asList(
-                                    "&7Value: " + ReflectionUtil.getFieldContent(f, object),
-                                    "&7&o(Click to edit value)"))
+                            .name(FishingLocale.getMessage("interface.option.name")
+                                    .processPlaceholder("valueName", TextUtil.convertCamelCase(f.getName())).getMessage())
+                            .lore(FishingLocale.getMessage("interface.option.lore")
+                                    .processPlaceholder("value", ReflectionUtil.getFieldContent(f, object))
+                                    .processPlaceholder("description", WordUtils.wrap(FishingLocale.getMessage(valueDescriptionKey).getMessage(), 30)).getMessage())
                             .build(),
                     listener);
             options.add(button);

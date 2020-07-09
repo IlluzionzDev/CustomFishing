@@ -21,4 +21,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Configurable {
+
+    /**
+     * Node for the description of this value
+     *
+     * @return Message in locale with this node
+     */
+    String description();
+
 }
