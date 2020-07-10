@@ -50,7 +50,7 @@ public class AdminUI extends UserInterface {
                     // Insert new reward to edit
                     FishingReward defaultReward = FishingReward.ofDefault();
                     RewardsController.INSTANCE.getLoadedRewards().put("New Reward", defaultReward);
-                    new ConfigureOptionsUI<>(new ViewRewardsUI(this), defaultReward).show(player);
+                    new ConfigureOptionsUI<>(new ViewRewardsUI(newInstance()), defaultReward).show(player);
                 });
     }
 

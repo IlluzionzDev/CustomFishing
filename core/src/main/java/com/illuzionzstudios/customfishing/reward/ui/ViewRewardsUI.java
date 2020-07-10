@@ -11,6 +11,7 @@ package com.illuzionzstudios.customfishing.reward.ui;
 
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
+import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.mist.compatibility.XMaterial;
 import com.illuzionzstudios.mist.ui.UserInterface;
 import com.illuzionzstudios.mist.ui.render.ItemCreator;
@@ -37,12 +38,12 @@ public class ViewRewardsUI extends PagedInterface<FishingReward> {
     @Override
     protected ItemStack convertToItemStack(FishingReward reward) {
         // Nicely display the reward
-        // TODO: Format from lang
-        return ItemCreator.builder().material(XMaterial.PAPER)
-                .name("&d&l" + reward.getName())
-                .lores(Arrays.asList("&7Chance: &d" + reward.getChance(),
-                        "",
-                        "&7&o(Click to edit reward)"))
+        return ItemCreator.builder()
+                .material(XMaterial.PAPER)
+                .name(FishingLocale.getMessage("interface.reward.name")
+                        .processPlaceholder("rewardName", reward.getName()).getMessage())
+                .lore(FishingLocale.getMessage("interface.reward.lore")
+                        .processPlaceholder("chance", reward.getChance()).getMessage())
                 .build().makeUIItem();
     }
 
@@ -50,6 +51,25 @@ public class ViewRewardsUI extends PagedInterface<FishingReward> {
     protected void onPageClick(Player player, FishingReward reward, ClickType clickType, InventoryClickEvent event) {
         // Don't want to modify items
         event.setCancelled(true);
+
+        // Delete if right click
+        if (clickType.isRightClick()) {
+            new ConfirmUI(accepted -> {
+                if (accepted) {
+                    // Delete
+                    RewardsController.INSTANCE.getLoadedRewards().remove(reward.getName());
+                    newInstance().show(player);
+                } else {
+                    show(player);
+                }
+            }).show(player);
+            return;
+        }
+
         new ConfigureOptionsUI<>(this, reward).show(player);
+    }
+
+    public UserInterface newInstance() {
+        return new ViewRewardsUI(getParent().newInstance());
     }
 }

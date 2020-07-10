@@ -9,6 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.config.Configurable;
 import com.illuzionzstudios.customfishing.settings.FishingLocale;
@@ -130,6 +131,9 @@ public class ConfigureOptionsUI<T> extends UserInterface {
 
             // The prompt to accept value
             Prompt valuePrompt = null;
+            // Value object to display
+            // Auto calls .toString() method if not a string
+            Object value = ReflectionUtil.getFieldContent(f, object);
             Button.ButtonListener listener = Button.ButtonListener.ofNull();
 
             // Message to indicate to input a value
@@ -302,10 +306,13 @@ public class ConfigureOptionsUI<T> extends UserInterface {
                 // For now only strings and item stacks since that's all we're dealing with
                 // TODO: Add more when abstracting to library
                 if (String.class.isAssignableFrom(listType)) {
+                    value = TextUtil.listToString((List<?>) ReflectionUtil.getFieldContent(f, object));
                     listener = (player, ui, clickType, event) -> {
                         new ConfigureListUI(this, object, f).show(getViewer());
                     };
                 } else if (ItemStack.class.isAssignableFrom(listType)) {
+                    // TODO: Show sneak peek of items
+                    value = "Click to view";
                     listener = (player, ui, clickType, event) -> {
                         new ConfigureItemsUI(this, object, f).show(getViewer());
                     };
@@ -333,7 +340,7 @@ public class ConfigureOptionsUI<T> extends UserInterface {
                             .name(FishingLocale.getMessage("interface.option.name")
                                     .processPlaceholder("valueName", TextUtil.convertCamelCase(f.getName())).getMessage())
                             .lore(FishingLocale.getMessage("interface.option.lore")
-                                    .processPlaceholder("value", ReflectionUtil.getFieldContent(f, object))
+                                    .processPlaceholder("value", value)
                                     .processPlaceholder("description", WordUtils.wrap(FishingLocale.getMessage(valueDescriptionKey).getMessage(), 30)).getMessage())
                             .build(),
                     listener);
