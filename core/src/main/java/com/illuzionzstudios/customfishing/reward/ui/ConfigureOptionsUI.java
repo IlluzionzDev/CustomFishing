@@ -304,7 +304,7 @@ public class ConfigureOptionsUI<T> extends UserInterface {
                     // TODO: Open GUI to change lines
                 } else if (ItemStack.class.isAssignableFrom(listType)) {
                     listener = (player, ui, clickType, event) -> {
-                        new ConfigureItemsUI<>(this, object, f).show(getViewer());
+                        new ConfigureItemsUI(this, object, f).show(getViewer());
                     };
                 }
             }
@@ -362,7 +362,7 @@ public class ConfigureOptionsUI<T> extends UserInterface {
      * Internal class for separate UI's.
      * For instance, dragging item stacks, string lists
      */
-    private final class ConfigureItemsUI<T> extends UserInterface {
+    private final class ConfigureItemsUI extends UserInterface {
 
         /**
          * Items displayed in the menu
