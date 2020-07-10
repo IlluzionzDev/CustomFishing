@@ -28,13 +28,6 @@
         <module>1_13_R1</module>
     </modules>
 
-    <repositories>
-        <repository>
-            <id>maven</id>
-            <url>http://192.168.20.16:8081/repository/maven-releases/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>

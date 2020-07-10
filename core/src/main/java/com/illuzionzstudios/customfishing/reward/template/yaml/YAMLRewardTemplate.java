@@ -110,8 +110,7 @@ public class YAMLRewardTemplate implements AbstractRewardTemplate {
             // Set sound
             cause = "Sound " + config.getString("Sound") + " is not valid";
             try {
-                Sound sound = Sound.valueOf(config.getString("Sound"));
-                builder.sound(XSound.matchXSound(sound));
+                builder.sound(XSound.matchXSound(config.getString("Sound")).get());
             } catch (Exception e) {
                 builder.sound(null);
             }

@@ -9,6 +9,7 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.config.Configurable;
 import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.mist.compatibility.XMaterial;
@@ -25,13 +26,20 @@ import com.illuzionzstudios.mist.util.TextUtil;
 import com.illuzionzstudios.mist.util.Valid;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -121,6 +129,7 @@ public class ConfigureOptionsUI<T> extends UserInterface {
 
             // The prompt to accept value
             Prompt valuePrompt = null;
+            Button.ButtonListener listener = Button.ButtonListener.ofNull();
 
             // Message to indicate to input a value
             String enterValueMessage = FishingLocale.getMessage("rewards.config.enter-value").getMessage();
@@ -284,17 +293,28 @@ public class ConfigureOptionsUI<T> extends UserInterface {
                         return null;
                     }
                 };
-            } else if (ItemStack.class.isAssignableFrom(type)) {
-                // TODO: Open GUI to place items
+                // Collections of types
+            } else if (List.class.isAssignableFrom(type)) {
+                // Get the class type of the list. Messy reflection stuff
+                Class<?> listType = (Class<?>) ((ParameterizedType) f.getGenericType()).getActualTypeArguments()[0];
+
+                // For now only strings and item stacks since that's all we're dealing with
+                // TODO: Add more when abstracting to library
+                if (String.class.isAssignableFrom(listType)) {
+                    // TODO: Open GUI to change lines
+                } else if (ItemStack.class.isAssignableFrom(listType)) {
+                    listener = (player, ui, clickType, event) -> {
+                        new ConfigureItemsUI<>(this, object, f).show(getViewer());
+                    };
+                }
             }
 
             // Construct listener from prompt
             // Set listener for configuring UI based on type
             // Set final to pass to implementation
             final Prompt finalValuePrompt = valuePrompt;
-            Button.ButtonListener listener = Button.ButtonListener.ofNull();
             if (finalValuePrompt != null) {
-                listener = (player, ui, clickType) -> {
+                listener = (player, ui, clickType, event) -> {
                     new SimpleConversation() {
                         @Override
                         protected Prompt getFirstPrompt() {
@@ -336,6 +356,123 @@ public class ConfigureOptionsUI<T> extends UserInterface {
     @Override
     protected List<Button> getButtonsToRegister() {
         return options;
+    }
+
+    /**
+     * Internal class for separate UI's.
+     * For instance, dragging item stacks, string lists
+     */
+    private final class ConfigureItemsUI<T> extends UserInterface {
+
+        /**
+         * Items displayed in the menu
+         */
+        private final List<Button> items;
+
+        /**
+         * Actual list of items displayed
+         */
+        private final List<ItemStack> itemStacks;
+
+        /**
+         * The object to configure
+         */
+        public final T object;
+
+        /**
+         * Field we are setting
+         * We know it's a {@link List} of {@link ItemStack}
+         */
+        public final Field field;
+
+        /**
+         * @param parent Parent {@link UserInterface}
+         * @param object The object instance to configure
+         */
+        public ConfigureItemsUI(UserInterface parent, T object, Field field) {
+            super(parent, false);
+            setTitle("&8Configure Items");
+            setSize(54);
+
+            this.items = new ArrayList<>();
+            this.object = object;
+            this.field = field;
+
+            // Assign items
+            this.itemStacks = (ArrayList<ItemStack>) ReflectionUtil.getFieldContent(field, object);
+            loadItems();
+        }
+
+        /**
+         * Load the items from the list into the interface
+         */
+        private void loadItems() {
+            this.itemStacks.forEach(itemStack -> {
+                // Finally construct button
+                Button button = Button.of(ItemCreator.builder().item(itemStack)
+                                .build(),
+                        (player, ui, clickType, event) -> {
+                        });
+                items.add(button);
+            });
+        }
+
+        protected void onInterfaceClick(final Player player, final int slot, final ItemStack clicked, final InventoryClickEvent event) {
+            // Allow to place items in interface
+        }
+
+        protected void onItemPlace(final Player player, final int slot, final ItemStack placed, final InventoryClickEvent event) {
+            // Allow to place items in interface
+        }
+
+        @Override
+        protected void onButtonClick(final Player player, final int slot, final InventoryAction action,
+                                     final ClickType click, final Button button, final InventoryClickEvent event) {
+            // Allow to freely drag items
+            button.getListener().onClickInInterface(player, this, click, event);
+        }
+
+        /**
+         * Save all item contents into reward
+         */
+        protected void onInterfaceClose(final Player player, final Inventory inventory) {
+            List<ItemStack> contents = new ArrayList<>();
+
+            for (int i = 0; i < inventory.getSize(); i++) {
+                // Don't save return button
+                if (i == getReturnButtonPosition()) continue;
+
+                ItemStack stack = inventory.getItem(i);
+
+                if (stack == null || stack.getType() == Material.AIR) continue;
+
+                contents.add(stack);
+            }
+
+            try {
+                field.set(object, contents);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * Map options to each slot
+         */
+        public ItemStack getItemAt(final int slot) {
+            if (slot >= items.size())
+                return null;
+            return items.get(slot) != null ? items.get(slot).getItem() : null;
+        }
+
+        /**
+         * @return List of each button for each item
+         */
+        @Override
+        protected List<Button> getButtonsToRegister() {
+            return items;
+        }
+
     }
 
 }
