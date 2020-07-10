@@ -19,7 +19,6 @@ import com.illuzionzstudios.mist.config.locale.Message;
 import com.illuzionzstudios.mist.conversation.SimpleConversation;
 import com.illuzionzstudios.mist.conversation.SimplePrompt;
 import com.illuzionzstudios.mist.conversation.type.SimpleDecimalPrompt;
-import com.illuzionzstudios.mist.exception.PluginException;
 import com.illuzionzstudios.mist.ui.UserInterface;
 import com.illuzionzstudios.mist.ui.button.Button;
 import com.illuzionzstudios.mist.ui.render.ItemCreator;
@@ -27,7 +26,6 @@ import com.illuzionzstudios.mist.util.ReflectionUtil;
 import com.illuzionzstudios.mist.util.TextUtil;
 import com.illuzionzstudios.mist.util.Valid;
 import org.apache.commons.lang.WordUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
@@ -43,7 +41,6 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -74,14 +71,13 @@ import java.util.List;
 public class ConfigureOptionsUI<T> extends UserInterface {
 
     /**
-     * The object to configure
-     */
-    public T object;
-
-    /**
      * List of option buttons
      */
     private final List<Button> options;
+    /**
+     * The object to configure
+     */
+    public T object;
 
     /**
      * @param object The object instance to configure
@@ -205,7 +201,17 @@ public class ConfigureOptionsUI<T> extends UserInterface {
                     @Override
                     protected Prompt acceptValidatedInput(@NotNull ConversationContext conversationContext, @NotNull String s) {
                         try {
+                            // Re inset into database if name
+                            // TODO: A lot more abstraction to do
+                            if (f.getName().equalsIgnoreCase("name")) {
+                                RewardsController.INSTANCE.getLoadedRewards().remove(((FishingReward) object).getName());
+                            }
+
                             f.set(object, s);
+
+                            if (f.getName().equalsIgnoreCase("name")) {
+                                RewardsController.INSTANCE.getLoadedRewards().put(s, (FishingReward) object);
+                            }
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         }
@@ -382,25 +388,22 @@ public class ConfigureOptionsUI<T> extends UserInterface {
     private final class ConfigureItemsUI extends UserInterface {
 
         /**
-         * Items displayed in the menu
-         */
-        private final List<Button> items;
-
-        /**
-         * Actual list of items displayed
-         */
-        private final List<ItemStack> itemStacks;
-
-        /**
          * The object to configure
          */
         public final T object;
-
         /**
          * Field we are setting
          * We know it's a {@link List} of {@link ItemStack}
          */
         public final Field field;
+        /**
+         * Items displayed in the menu
+         */
+        private final List<Button> items;
+        /**
+         * Actual list of items displayed
+         */
+        private final List<ItemStack> itemStacks;
 
         /**
          * @param parent Parent {@link UserInterface}
@@ -562,10 +565,10 @@ public class ConfigureOptionsUI<T> extends UserInterface {
                     });
 
             addValue = Button.of(ItemCreator.builder()
-                    .material(XMaterial.LIME_DYE)
-                    .name(FishingLocale.getMessage("interface.list.add.name").getMessage())
-                    .lore(FishingLocale.getMessage("interface.list.add.lore").getMessage())
-                    .build(),
+                            .material(XMaterial.LIME_DYE)
+                            .name(FishingLocale.getMessage("interface.list.add.name").getMessage())
+                            .lore(FishingLocale.getMessage("interface.list.add.lore").getMessage())
+                            .build(),
                     (player, ui, clickType, event) -> {
                         // Attempt to add value
                         new SimpleConversation() {
