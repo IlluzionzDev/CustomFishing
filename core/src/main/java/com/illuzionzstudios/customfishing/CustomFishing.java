@@ -103,7 +103,7 @@ public final class CustomFishing extends SpigotPlugin {
         try {
             new YAMLSerializerLoader("rewards").saveRewards();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.displayError(e, "Couldn't save rewards");
         }
 
         RewardsController.INSTANCE.stop(this);

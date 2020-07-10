@@ -9,9 +9,11 @@
  */
 package com.illuzionzstudios.customfishing.command.sub;
 
-import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.template.serialize.YAMLSerializerLoader;
+import com.illuzionzstudios.customfishing.settings.FishingLocale;
+import com.illuzionzstudios.mist.Logger;
 import com.illuzionzstudios.mist.command.SpigotSubCommand;
+import com.illuzionzstudios.mist.config.locale.Message;
 
 import java.io.IOException;
 
@@ -21,7 +23,7 @@ import java.io.IOException;
 public class SaveCommand extends SpigotSubCommand {
 
     public SaveCommand() {
-        super("save", "s");
+        super("save");
 
         setDescription("Manually save rewards to disk");
     }
@@ -32,10 +34,10 @@ public class SaveCommand extends SpigotSubCommand {
         try {
             new YAMLSerializerLoader("rewards").saveRewards();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.displayError(e, "Couldn't save rewards manually");
         }
 
         // Send message from locale
-//        CustomFishing.getInstance().getLocale().getMessage("general.save").sendPrefixedMessage(getSender());
+        new Message(FishingLocale.General.PLUGIN_SAVE).sendPrefixedMessage(getSender());
     }
 }

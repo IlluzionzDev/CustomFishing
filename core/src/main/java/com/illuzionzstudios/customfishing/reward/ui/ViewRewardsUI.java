@@ -28,7 +28,7 @@ import java.util.Arrays;
  */
 public class ViewRewardsUI extends PagedInterface<FishingReward> {
 
-    protected ViewRewardsUI(UserInterface parent) {
+    public ViewRewardsUI(UserInterface parent) {
         // All loaded rewards
         super(parent, RewardsController.INSTANCE.getLoadedRewards().values());
 

@@ -18,6 +18,22 @@ public class FishingLocale extends Locale {
         super(plugin);
     }
 
+    /**
+     * General messages
+     */
+    public static class General extends Locale.General {
+
+        /**
+         * Indicate saving objects
+         */
+        public static String PLUGIN_SAVE = "&7Saved all rewards";
+
+        public static void init() {
+            PLUGIN_SAVE = loadMessage("general.save", PLUGIN_SAVE);
+        }
+    }
+
+
     @Override
     protected int getConfigVersion() {
         return 1;
@@ -25,6 +41,6 @@ public class FishingLocale extends Locale {
 
     @Override
     public void loadLocale() {
-
+        General.init();
     }
 }
