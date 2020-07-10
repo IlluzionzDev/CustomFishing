@@ -31,5 +31,15 @@ interface:
         \n&r
         \n&7{description}
         \n&r
-        \n&7&o(Click to edit value)"
+        \n&7&o(Left click to edit value)
+        \n&c&o(Right click to delete reward)"
+    list:
+        current:
+            name: "&d&lCurrent Values"
+        clear:
+            name: "&c&lClear Values"
+            lore: "&7&o(Click to clear values)"
+        add:
+            name: "&a&lAdd value"
+            lore: "&7&o(Click to add a value)"
 

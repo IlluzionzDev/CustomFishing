@@ -9,8 +9,11 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.illuzionzstudios.customfishing.controller.RewardsController;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.mist.compatibility.XMaterial;
 import com.illuzionzstudios.mist.ui.UserInterface;
+import com.illuzionzstudios.mist.ui.button.Button;
 import com.illuzionzstudios.mist.ui.button.type.InterfaceButton;
 import com.illuzionzstudios.mist.ui.render.ItemCreator;
 import org.bukkit.inventory.ItemStack;
@@ -21,32 +24,35 @@ import org.bukkit.inventory.ItemStack;
  */
 public class AdminUI extends UserInterface {
 
-    public AdminUI() {
-        setTitle("&8Configure Rewards");
-    }
-
     /**
      * Set our button to add a new item
-     *
-     * TODO: Link other menu
      */
-    public final InterfaceButton addRewardButton = new InterfaceButton(new UserInterface() {
-    }, ItemCreator.of(
-            XMaterial.LIME_DYE,
-            "&a&lCreate New Reward",
-            "&7Create a new custom reward")
-    .glow(true));
+    public final Button addRewardButton;
 
     /**
      * View all current rewards to configure
-     *
-     * TODO: Link other menu
      */
     public final InterfaceButton viewRewardsButton = new InterfaceButton(new ViewRewardsUI(this), ItemCreator.of(
             XMaterial.PAPER,
             "&a&lView All Rewards",
             "&7View all current rewards to configure")
-    .glow(true));
+            .glow(true));
+
+    public AdminUI() {
+        setTitle("&8Configure Rewards");
+
+        addRewardButton = Button.of(ItemCreator.of(
+                XMaterial.LIME_DYE,
+                "&a&lCreate New Reward",
+                "&7Create a new custom reward")
+                .glow(true).build(),
+                (player, ui, clickType, event) -> {
+                    // Insert new reward to edit
+                    FishingReward defaultReward = FishingReward.ofDefault();
+                    RewardsController.INSTANCE.getLoadedRewards().put("New Reward", defaultReward);
+                    new ConfigureOptionsUI<>(new ViewRewardsUI(this), defaultReward).show(player);
+                });
+    }
 
     @Override
     public ItemStack getItemAt(final int slot) {

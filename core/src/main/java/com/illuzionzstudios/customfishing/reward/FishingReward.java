@@ -17,6 +17,7 @@ import lombok.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -118,5 +119,28 @@ public class FishingReward {
      */
     @Configurable(description = "rewards.config.descriptions.blockedRegions")
     private List<String> blockedRegions = new ArrayList<>();
+
+    /**
+     * @return Basic default {@link FishingReward} to be configured
+     */
+    public static FishingReward ofDefault() {
+        return new FishingReward(
+                "New Reward",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new Message(""),
+                new Message(""),
+                0.0,
+                true,
+                6,
+                null,
+                "",
+                Collections.singletonList("all"),
+                Collections.singletonList("global"),
+                new ArrayList<>()
+        );
+    }
 
 }

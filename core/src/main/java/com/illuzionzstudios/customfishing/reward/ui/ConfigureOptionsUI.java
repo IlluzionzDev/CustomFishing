@@ -18,6 +18,7 @@ import com.illuzionzstudios.mist.config.locale.Message;
 import com.illuzionzstudios.mist.conversation.SimpleConversation;
 import com.illuzionzstudios.mist.conversation.SimplePrompt;
 import com.illuzionzstudios.mist.conversation.type.SimpleDecimalPrompt;
+import com.illuzionzstudios.mist.exception.PluginException;
 import com.illuzionzstudios.mist.ui.UserInterface;
 import com.illuzionzstudios.mist.ui.button.Button;
 import com.illuzionzstudios.mist.ui.render.ItemCreator;
@@ -301,7 +302,9 @@ public class ConfigureOptionsUI<T> extends UserInterface {
                 // For now only strings and item stacks since that's all we're dealing with
                 // TODO: Add more when abstracting to library
                 if (String.class.isAssignableFrom(listType)) {
-                    // TODO: Open GUI to change lines
+                    listener = (player, ui, clickType, event) -> {
+                        new ConfigureListUI(this, object, f).show(getViewer());
+                    };
                 } else if (ItemStack.class.isAssignableFrom(listType)) {
                     listener = (player, ui, clickType, event) -> {
                         new ConfigureItemsUI(this, object, f).show(getViewer());
@@ -359,6 +362,13 @@ public class ConfigureOptionsUI<T> extends UserInterface {
     }
 
     /**
+     * For when returning to update values
+     */
+    public UserInterface newInstance() {
+        return new ConfigureOptionsUI<>(getParent(), object);
+    }
+
+    /**
      * Internal class for separate UI's.
      * For instance, dragging item stacks, string lists
      */
@@ -390,7 +400,7 @@ public class ConfigureOptionsUI<T> extends UserInterface {
          * @param object The object instance to configure
          */
         public ConfigureItemsUI(UserInterface parent, T object, Field field) {
-            super(parent, false);
+            super(parent, true);
             setTitle("&8Configure Items");
             setSize(54);
 
@@ -471,6 +481,134 @@ public class ConfigureOptionsUI<T> extends UserInterface {
         @Override
         protected List<Button> getButtonsToRegister() {
             return items;
+        }
+
+    }
+
+    /**
+     * Allows us to configure a string list
+     */
+    private final class ConfigureListUI extends UserInterface {
+
+        /**
+         * The object to configure
+         */
+        public final T object;
+
+        /**
+         * Field we are setting
+         * We know it's a {@link List} of {@link ItemStack}
+         */
+        public final Field field;
+
+        /**
+         * Display current values in the list
+         */
+        public final Button currentValues;
+
+        /**
+         * Clear all values from the list
+         */
+        public final Button clearValues;
+
+        /**
+         * Append a value to the end of the list
+         */
+        public final Button addValue;
+
+        /**
+         * @param parent Parent {@link UserInterface}
+         * @param object The object instance to configure
+         */
+        public ConfigureListUI(UserInterface parent, T object, Field field) {
+            super(parent, true);
+            setTitle("&8Configure List");
+            setSize(27);
+
+            this.object = object;
+            this.field = field;
+
+            // Set here as we need to get field content
+            currentValues = Button.makeIcon(ItemCreator.builder()
+                    .material(XMaterial.PAPER)
+                    .name(FishingLocale.getMessage("interface.list.current.name").getMessage())
+                    .lores((List<String>) ReflectionUtil.getFieldContent(field, object))
+                    .build());
+
+            clearValues = Button.of(ItemCreator.builder()
+                            .material(XMaterial.RED_DYE)
+                            .name(FishingLocale.getMessage("interface.list.clear.name").getMessage())
+                            .lore(FishingLocale.getMessage("interface.list.clear.lore").getMessage())
+                            .build(),
+                    (player, ui, clickType, event) -> {
+                        // Clear list
+                        try {
+                            List<?> list = (List<?>) ReflectionUtil.getFieldContent(field, object);
+                            list.clear();
+                            field.set(object, list);
+
+                            // Return as we cleared values
+                            getParent().show(player);
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+            addValue = Button.of(ItemCreator.builder()
+                    .material(XMaterial.LIME_DYE)
+                    .name(FishingLocale.getMessage("interface.list.add.name").getMessage())
+                    .lore(FishingLocale.getMessage("interface.list.add.lore").getMessage())
+                    .build(),
+                    (player, ui, clickType, event) -> {
+                        // Attempt to add value
+                        new SimpleConversation() {
+                            @Override
+                            protected Prompt getFirstPrompt() {
+                                return new SimplePrompt() {
+                                    @Override
+                                    protected String getPrompt(ConversationContext conversationContext) {
+                                        return FishingLocale.getMessage("rewards.config.enter-value").getMessage();
+                                    }
+
+                                    @Nullable
+                                    @Override
+                                    protected Prompt acceptValidatedInput(@NotNull ConversationContext conversationContext, @NotNull String s) {
+                                        try {
+                                            List<String> list = (List<String>) ReflectionUtil.getFieldContent(field, object);
+
+                                            // Weird things where contains one blank object so clear then add
+                                            if (list.size() == 1 && list.get(0).trim().equalsIgnoreCase("")) {
+                                                list.clear();
+                                            }
+
+                                            list.add(s);
+                                            field.set(object, list);
+                                        } catch (IllegalAccessException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        // We have to recreate menu with updated object
+                                        new ConfigureListUI(getParent(), object, field).show(getViewer());
+                                        return null;
+                                    }
+                                };
+                            }
+                        }.start(player);
+                    });
+        }
+
+        @Override
+        public ItemStack getItemAt(final int slot) {
+            if (slot == 11) {
+                return currentValues.getItem();
+            } else if (slot == 13) {
+                return clearValues.getItem();
+            } else if (slot == 15) {
+                return addValue.getItem();
+            }
+
+            // Else placeholder item
+            return ItemCreator.builder().name(" ").material(XMaterial.BLACK_STAINED_GLASS_PANE).build().makeUIItem();
         }
 
     }
