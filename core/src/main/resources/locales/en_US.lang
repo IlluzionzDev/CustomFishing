@@ -47,10 +47,4 @@ interface:
         add:
             name: "&a&lAdd value"
             lore: "&7&o(Click to add a value)"
-    confirm:
-        name: "&a&lConfirm"
-        lore: "&7&o(Click to confirm)"
-    deny:
-        name: "&c&lDeny"
-        lore: "&7&o(Click to deny)"
 

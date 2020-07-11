@@ -15,13 +15,12 @@ import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.mist.compatibility.XMaterial;
 import com.illuzionzstudios.mist.ui.UserInterface;
 import com.illuzionzstudios.mist.ui.render.ItemCreator;
+import com.illuzionzstudios.mist.ui.type.ConfirmUI;
 import com.illuzionzstudios.mist.ui.type.PagedInterface;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Arrays;
 
 /**
  * Menu to view all rewards in a paged interface
