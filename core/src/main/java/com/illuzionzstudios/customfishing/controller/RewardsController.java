@@ -13,11 +13,13 @@ import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
+import com.illuzionzstudios.customfishing.reward.template.serialize.YAMLSerializerLoader;
 import com.illuzionzstudios.mist.Logger;
 import com.illuzionzstudios.mist.controller.PluginController;
 import com.illuzionzstudios.mist.util.LootTable;
 import lombok.Getter;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -54,12 +56,30 @@ public enum RewardsController implements PluginController<CustomFishing> {
                 this.loadedRewards.put(reward.getName(), reward);
 
                 // Log loaded file
-                Logger.info("Loaded reward " + template.getTemplateFile().getString("Name") + " from file " + fileName + ".yml");
+                Logger.info("Loaded reward " + reward.getName() + " from file " + fileName + ".yml");
             } catch (RewardLoadException ex) {
                 // Throw trace
-                ex.printStackTrace();
+                Logger.displayError(ex, "Couldn't load reward from file " + fileName + ".yml");
             }
         });
+
+        // If should load defaults, add those
+        if (YAMLRewardLoader.shouldLoadDefaults) {
+            YAMLRewardLoader.defaults.forEach(reward -> {
+                this.loadedRewards.put(reward.getName(), reward);
+                Logger.info("Loaded default reward " + reward.getName());
+            });
+
+            // Save created rewards to file
+            try {
+                new YAMLSerializerLoader("rewards").saveRewards();
+            } catch (IOException e) {
+                Logger.displayError(e, "Couldn't save default rewards");
+            }
+
+            // Loaded defaults
+            YAMLRewardLoader.shouldLoadDefaults = false;
+        }
 
         // Load chance sum
         if (loadedRewards.isEmpty()) {

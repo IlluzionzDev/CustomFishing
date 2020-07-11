@@ -10,6 +10,7 @@
 package com.illuzionzstudios.customfishing.reward.template.loader;
 
 import com.illuzionzstudios.customfishing.CustomFishing;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.DefaultRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.yaml.YAMLRewardTemplate;
@@ -27,14 +28,19 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
     /**
      * Static list of all defaults to load
      */
-    public static ArrayList<DefaultRewardTemplate> defaults = new ArrayList<>();
+    public static ArrayList<FishingReward> defaults = new ArrayList<>();
 
     /**
      * @param template Add a new default template
      */
-    public static void addDefault(DefaultRewardTemplate template) {
+    public static void addDefault(FishingReward template) {
         defaults.add(template);
     }
+
+    /**
+     * Indicates if to load our default rewards
+     */
+    public static boolean shouldLoadDefaults = false;
 
     /**
      * Loaded templates
@@ -68,11 +74,7 @@ public class YAMLRewardLoader implements AbstractRewardLoader {
             if (!dir.mkdirs()) return;
             Logger.info("Loading default rewards as /" + directory + " doesn't exist");
 
-            // Add templates from defaults
-            // Automatically created
-            defaults.forEach(template -> {
-                templates.put(template.getName(), template);
-            });
+            shouldLoadDefaults = true;
         }
     }
 

@@ -10,7 +10,6 @@
 package com.illuzionzstudios.customfishing.reward;
 
 import com.illuzionzstudios.customfishing.reward.config.Configurable;
-import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.mist.compatibility.XSound;
 import com.illuzionzstudios.mist.config.locale.Message;
 import lombok.*;

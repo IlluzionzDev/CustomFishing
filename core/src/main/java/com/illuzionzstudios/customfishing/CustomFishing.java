@@ -4,21 +4,26 @@ import com.illuzionzstudios.customfishing.command.CustomFishingCommand;
 import com.illuzionzstudios.customfishing.controller.FishingController;
 import com.illuzionzstudios.customfishing.controller.RequirementController;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
-import com.illuzionzstudios.customfishing.reward.template.defaults.AppleDefaultTemplate;
-import com.illuzionzstudios.customfishing.reward.template.defaults.FoodDefaultTemplate;
-import com.illuzionzstudios.customfishing.reward.template.defaults.NothingDefaultTemplate;
+import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
 import com.illuzionzstudios.customfishing.reward.template.serialize.YAMLSerializerLoader;
 import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import com.illuzionzstudios.mist.Logger;
+import com.illuzionzstudios.mist.compatibility.XSound;
 import com.illuzionzstudios.mist.config.PluginSettings;
 import com.illuzionzstudios.mist.config.locale.Locale;
+import com.illuzionzstudios.mist.config.locale.Message;
 import com.illuzionzstudios.mist.plugin.SpigotPlugin;
 import lombok.Getter;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -82,9 +87,59 @@ public final class CustomFishing extends SpigotPlugin {
         }
 
         // Add our default rewards
-        YAMLRewardLoader.addDefault(new FoodDefaultTemplate("rewards"));
-        YAMLRewardLoader.addDefault(new AppleDefaultTemplate("rewards"));
-        YAMLRewardLoader.addDefault(new NothingDefaultTemplate("rewards"));
+        YAMLRewardLoader.addDefault(FishingReward.builder()
+                .name("Golden Apples")
+                .commands(new ArrayList<>())
+                .items(Collections.singletonList(new ItemStack(Material.GOLDEN_APPLE, 5)))
+                .messages(Collections.singletonList("&a&l(!) &aYou found &a&l5 Golden Apples!"))
+                .broadcasts(new ArrayList<>())
+                .title(new Message("&a&lYou found a reward!"))
+                .subtitle(new Message(""))
+                .chance(50)
+                .vanillaRewards(false)
+                .experience(6)
+                .sound(XSound.ENTITY_FIREWORK_ROCKET_LAUNCH)
+                .permission("default")
+                .worlds(Collections.singletonList("all"))
+                .regions(Collections.singletonList("global"))
+                .blockedRegions(new ArrayList<>())
+                .build());
+
+        YAMLRewardLoader.addDefault(FishingReward.builder()
+                .name("Food")
+                .commands(new ArrayList<>())
+                .items(Collections.singletonList(new ItemStack(Material.COOKED_BEEF, 64)))
+                .messages(Collections.singletonList("&a&l(!) &aYou found &a&l64 Beef!"))
+                .broadcasts(new ArrayList<>())
+                .title(new Message("&a&lYou found a reward!"))
+                .subtitle(new Message(""))
+                .chance(50)
+                .vanillaRewards(false)
+                .experience(6)
+                .sound(XSound.ENTITY_FIREWORK_ROCKET_LAUNCH)
+                .permission("default")
+                .worlds(Collections.singletonList("all"))
+                .regions(Collections.singletonList("global"))
+                .blockedRegions(new ArrayList<>())
+                .build());
+
+        YAMLRewardLoader.addDefault(FishingReward.builder()
+                .name("Nothing")
+                .commands(Collections.singletonList("msg %player% sorry"))
+                .items(new ArrayList<>())
+                .messages(Collections.singletonList("&c&l(!) &cYou found NOTHING!"))
+                .broadcasts(Collections.singletonList(""))
+                .title(new Message("&a&lYou found a reward!"))
+                .subtitle(new Message(""))
+                .chance(50)
+                .vanillaRewards(false)
+                .experience(6)
+                .sound(XSound.ENTITY_FIREWORK_ROCKET_LAUNCH)
+                .permission("default")
+                .worlds(Collections.singletonList("all"))
+                .regions(Collections.singletonList("global"))
+                .blockedRegions(new ArrayList<>())
+                .build());
 
         RewardsController.INSTANCE.initialize(this);
 
