@@ -10,6 +10,7 @@ permissions:
     default: not op
   customfishing.admin:
     children:
-      customfishing.rewards: true
-      customfishing.reload: true
-      customfishing.save: true
+      customfishing.command.rewards: true
+      customfishing.command.reload: true
+      customfishing.command.save: true
+      customfishing.command.config: true
