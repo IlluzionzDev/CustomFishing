@@ -31,8 +31,6 @@ import java.util.List;
 public enum RequirementController implements PluginController<CustomFishing> {
     INSTANCE;
 
-    public static final String GLOBAL_WORLD = "all";
-    public static final String GLOBAL_REGION = "global";
     /**
      * Used in multi-version support for WorldGuard
      */
@@ -61,7 +59,7 @@ public enum RequirementController implements PluginController<CustomFishing> {
      * a ton
      *
      * @param player Player to check
-     * @return List of all fishingrewards
+     * @return List of all fishing rewards
      */
     public List<FishingReward> getAvailableRewards(Player player) {
         List<FishingReward> rewards = new ArrayList<>();

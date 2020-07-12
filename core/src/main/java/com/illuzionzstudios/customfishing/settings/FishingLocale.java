@@ -33,6 +33,27 @@ public class FishingLocale extends Locale {
         }
     }
 
+    /**
+     * Language to do with interface
+     */
+    public static class Interface extends Locale.Interface {
+
+        /**
+         * Name for adding values in the edit list inventory
+         */
+        public static String VIEW_REWARDS_REWARD_NAME = "&d&l{rewardName}";
+
+        /**
+         * Lore for adding values in the edit list inventory
+         */
+        public static String VIEW_REWARDS_REWARD_LORE = "&7Chance: &d{chance}\n&r\n&7&o(Left click to edit reward)\n&c&o(Right click to delete reward)";
+
+        public static void init() {
+            VIEW_REWARDS_REWARD_NAME = loadMessage("interface.view-rewards.reward.name", VIEW_REWARDS_REWARD_NAME);
+            VIEW_REWARDS_REWARD_LORE = loadMessage("interface.view-rewards.reward.lore", VIEW_REWARDS_REWARD_LORE);
+        }
+    }
+
 
     @Override
     protected int getConfigVersion() {
@@ -42,5 +63,6 @@ public class FishingLocale extends Locale {
     @Override
     public void loadLocale() {
         General.init();
+        Interface.init();
     }
 }

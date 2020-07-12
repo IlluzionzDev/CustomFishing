@@ -13,6 +13,7 @@ import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.mist.compatibility.XMaterial;
+import com.illuzionzstudios.mist.config.locale.Message;
 import com.illuzionzstudios.mist.ui.UserInterface;
 import com.illuzionzstudios.mist.ui.render.ItemCreator;
 import com.illuzionzstudios.mist.ui.type.ConfirmUI;
@@ -39,9 +40,9 @@ public class ViewRewardsUI extends PagedInterface<FishingReward> {
         // Nicely display the reward
         return ItemCreator.builder()
                 .material(XMaterial.PAPER)
-                .name(FishingLocale.getMessage("interface.reward.name")
+                .name(new Message(FishingLocale.Interface.VIEW_REWARDS_REWARD_NAME)
                         .processPlaceholder("rewardName", reward.getName()).getMessage())
-                .lore(FishingLocale.getMessage("interface.reward.lore")
+                .lore(new Message(FishingLocale.Interface.VIEW_REWARDS_REWARD_LORE)
                         .processPlaceholder("chance", reward.getChance()).getMessage())
                 .build().makeUIItem();
     }
@@ -65,7 +66,7 @@ public class ViewRewardsUI extends PagedInterface<FishingReward> {
             return;
         }
 
-        new ConfigureOptionsUI<>(this, reward).show(player);
+        new ConfigureRewardUI(this, reward).show(player);
     }
 
     public UserInterface newInstance() {

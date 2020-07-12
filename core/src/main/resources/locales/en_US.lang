@@ -6,7 +6,6 @@ general:
 
 rewards:
     config:
-        enter-value: "&7Enter a new value to set (Type 'cancel' to cancel)"
         descriptions:
             name: "The name of the reward. Helps you identify the different rewards"
             commands: "The commands that are executed. Use %player% for player's name"
@@ -23,28 +22,4 @@ rewards:
             worlds: "Worlds this reward can be found in. If set to all, can be found in all worlds"
             regions: "Regions this reward can be found in. If set to global, can be found in all regions"
             blockedRegions: "Regions this reward can't be found in. If empty, no blocked regions"
-
-interface:
-    reward:
-        name: "&d&l{rewardName}"
-        lore: "&7Chance: &d{chance}
-        \n&r
-        \n&7&o(Left click to edit reward)
-        \n&c&o(Right click to delete reward)"
-    option:
-        name: "&d&l{valueName}"
-        lore: "&7Value: {value}
-        \n&r
-        \n&7{description}
-        \n&r
-        \n&7&o(Left click to edit value)"
-    list:
-        current:
-            name: "&d&lCurrent Values"
-        clear:
-            name: "&c&lClear Values"
-            lore: "&7&o(Click to clear values)"
-        add:
-            name: "&a&lAdd value"
-            lore: "&7&o(Click to add a value)"
 

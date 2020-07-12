@@ -9,8 +9,8 @@
  */
 package com.illuzionzstudios.customfishing.reward;
 
-import com.illuzionzstudios.customfishing.reward.config.Configurable;
 import com.illuzionzstudios.mist.compatibility.XSound;
+import com.illuzionzstudios.mist.config.Configurable;
 import com.illuzionzstudios.mist.config.locale.Message;
 import lombok.*;
 import org.bukkit.inventory.ItemStack;
