@@ -1,5 +1,6 @@
 package com.illuzionzstudios.customfishing;
 
+import com.cryptomorin.xseries.XSound;
 import com.illuzionzstudios.customfishing.command.CustomFishingCommand;
 import com.illuzionzstudios.customfishing.controller.FishingController;
 import com.illuzionzstudios.customfishing.controller.RequirementController;
@@ -10,7 +11,6 @@ import com.illuzionzstudios.customfishing.reward.template.serialize.YAMLSerializ
 import com.illuzionzstudios.customfishing.settings.FishingLocale;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import com.illuzionzstudios.mist.Logger;
-import com.illuzionzstudios.mist.compatibility.XSound;
 import com.illuzionzstudios.mist.config.PluginSettings;
 import com.illuzionzstudios.mist.config.locale.Locale;
 import com.illuzionzstudios.mist.config.locale.Message;
@@ -22,7 +22,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 

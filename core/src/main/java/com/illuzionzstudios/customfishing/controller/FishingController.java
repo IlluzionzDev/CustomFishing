@@ -52,7 +52,7 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
             event.setExpToDrop(Settings.Reward.EXP_REWARD.getInt());
 
             // Detect if they actually get a reward
-            if (!MathUtil.chance(Settings.Reward.REWARD_CHANCE.getDouble() / 100)) return;
+            if (!MathUtil.chance(Settings.Reward.REWARD_CHANCE.getDouble())) return;
             processRewards(event.getPlayer(), event);
         }
     }

@@ -9,8 +9,8 @@
  */
 package com.illuzionzstudios.customfishing.reward;
 
-import com.illuzionzstudios.mist.compatibility.XMaterial;
-import com.illuzionzstudios.mist.compatibility.XSound;
+import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XSound;
 import com.illuzionzstudios.mist.config.Configurable;
 import com.illuzionzstudios.mist.config.locale.Message;
 import lombok.*;

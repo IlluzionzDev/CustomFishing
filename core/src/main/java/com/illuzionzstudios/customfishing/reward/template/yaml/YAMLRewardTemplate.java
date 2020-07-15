@@ -9,11 +9,11 @@
  */
 package com.illuzionzstudios.customfishing.reward.template.yaml;
 
+import com.cryptomorin.xseries.XSound;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.template.AbstractRewardTemplate;
 import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
-import com.illuzionzstudios.mist.compatibility.XSound;
 import com.illuzionzstudios.mist.config.YamlConfig;
 import com.illuzionzstudios.mist.config.locale.Message;
 import com.illuzionzstudios.mist.util.ItemStackUtil;

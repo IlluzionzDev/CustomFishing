@@ -9,10 +9,10 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.settings.FishingLocale;
-import com.illuzionzstudios.mist.compatibility.XMaterial;
 import com.illuzionzstudios.mist.config.locale.Message;
 import com.illuzionzstudios.mist.ui.UserInterface;
 import com.illuzionzstudios.mist.ui.render.ItemCreator;

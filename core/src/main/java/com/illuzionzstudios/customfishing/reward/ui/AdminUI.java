@@ -9,9 +9,9 @@
  */
 package com.illuzionzstudios.customfishing.reward.ui;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.illuzionzstudios.customfishing.controller.RewardsController;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.mist.compatibility.XMaterial;
 import com.illuzionzstudios.mist.ui.UserInterface;
 import com.illuzionzstudios.mist.ui.button.Button;
 import com.illuzionzstudios.mist.ui.button.type.InterfaceButton;
