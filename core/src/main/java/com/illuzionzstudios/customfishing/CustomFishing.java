@@ -41,6 +41,7 @@ public final class CustomFishing extends SpigotPlugin {
      * Singleton instance of our {@link SpigotPlugin}
      */
     private static volatile CustomFishing INSTANCE;
+
     /**
      * Plugin hooks
      */
@@ -72,7 +73,6 @@ public final class CustomFishing extends SpigotPlugin {
 
     @Override
     public void onPluginPreEnable() {
-
     }
 
     @Override
@@ -148,7 +148,7 @@ public final class CustomFishing extends SpigotPlugin {
 
         // Plugin metrics
         int pluginId = 7247;
-        Metrics metrics = new Metrics(this, pluginId);
+        new Metrics(this, pluginId);
     }
 
     @Override
@@ -167,7 +167,6 @@ public final class CustomFishing extends SpigotPlugin {
 
     @Override
     public void onPluginPreReload() {
-
     }
 
     @Override
