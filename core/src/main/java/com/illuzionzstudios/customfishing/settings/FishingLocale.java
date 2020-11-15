@@ -29,7 +29,8 @@ public class FishingLocale extends Locale {
         public static String PLUGIN_SAVE = "&7Saved all rewards";
 
         public static void init() {
-            PLUGIN_SAVE = loadMessage("general.save", PLUGIN_SAVE);
+            if (LOCALE_FILE.isSet("general.save"))
+                PLUGIN_SAVE = LOCALE_FILE.getString("general.save");
         }
     }
 
@@ -49,15 +50,12 @@ public class FishingLocale extends Locale {
         public static String VIEW_REWARDS_REWARD_LORE = "&7Chance: &d{chance}\n&r\n&7&o(Left click to edit reward)\n&c&o(Right click to delete reward)";
 
         public static void init() {
-            VIEW_REWARDS_REWARD_NAME = loadMessage("interface.view-rewards.reward.name", VIEW_REWARDS_REWARD_NAME);
-            VIEW_REWARDS_REWARD_LORE = loadMessage("interface.view-rewards.reward.lore", VIEW_REWARDS_REWARD_LORE);
+            if (LOCALE_FILE.isSet("interface.view-rewards.reward.name"))
+                VIEW_REWARDS_REWARD_NAME = LOCALE_FILE.getString("interface.view-rewards.reward.name");
+
+            if (LOCALE_FILE.isSet("interface.view-rewards.reward.lore"))
+                VIEW_REWARDS_REWARD_LORE = LOCALE_FILE.getString("interface.view-rewards.reward.lore");
         }
-    }
-
-
-    @Override
-    protected int getConfigVersion() {
-        return 1;
     }
 
     @Override

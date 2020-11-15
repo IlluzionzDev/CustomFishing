@@ -177,7 +177,7 @@ public final class CustomFishing extends SpigotPlugin {
 
     @Override
     public void onReloadablesStart() {
-        registerMainCommand(new CustomFishingCommand(), "customfishing", "customf", "cfishing");
+        registerMainCommand(new CustomFishingCommand(), "customfishing", "fishing");
 
         registerListener(FishingController.INSTANCE);
     }
@@ -190,5 +190,10 @@ public final class CustomFishing extends SpigotPlugin {
     @Override
     public Locale getPluginLocale() {
         return new FishingLocale(this);
+    }
+
+    @Override
+    public int getPluginId() {
+        return 53634;
     }
 }

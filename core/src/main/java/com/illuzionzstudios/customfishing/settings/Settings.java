@@ -77,11 +77,6 @@ public class Settings extends PluginSettings {
     }
 
     @Override
-    protected int getConfigVersion() {
-        return 1;
-    }
-
-    @Override
     public void loadSettings() {
         Reward.init();
         Title.init();
