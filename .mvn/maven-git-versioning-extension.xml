@@ -1,0 +1,15 @@
+<configuration xmlns="https://github.com/qoomon/maven-git-versioning-extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="https://github.com/qoomon/maven-git-versioning-extension https://qoomon.github.io/maven-git-versioning-extension/configuration-6.4.0.xsd">
+    <branch>
+        <pattern>master</pattern>
+        <versionFormat>${version}</versionFormat>
+    </branch>
+    <branch>
+        <pattern>development</pattern>
+        <versionFormat>${version}-DEV</versionFormat>
+    </branch>
+    <branch>
+        <pattern>(.+)</pattern>
+        <versionFormat>${1}-DEV</versionFormat>
+    </branch>
+</configuration>

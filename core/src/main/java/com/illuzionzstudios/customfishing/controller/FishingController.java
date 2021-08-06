@@ -1,12 +1,3 @@
-/**
- * Copyright © 2020 Property of Illuzionz Studios, LLC
- * All rights reserved. No part of this publication may be reproduced, distributed, or
- * transmitted in any form or by any means, including photocopying, recording, or other
- * electronic or mechanical methods, without the prior written permission of the publisher,
- * except in the case of brief quotations embodied in critical reviews and certain other
- * noncommercial uses permitted by copyright law. Any licensing of this software overrides
- * this statement.
- */
 package com.illuzionzstudios.customfishing.controller;
 
 import com.illuzionzstudios.customfishing.CustomFishing;
@@ -17,6 +8,7 @@ import com.illuzionzstudios.mist.config.locale.Message;
 import com.illuzionzstudios.mist.controller.PluginController;
 import com.illuzionzstudios.mist.util.LootTable;
 import com.illuzionzstudios.mist.util.MathUtil;
+import com.illuzionzstudios.mist.util.TextUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -49,10 +41,10 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
         // Detect if they catch a fish
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             // Set experience default reward
-            event.setExpToDrop(Settings.Reward.EXP_REWARD.getInt());
+            event.setExpToDrop(Settings.EXP_REWARD.getInt());
 
             // Detect if they actually get a reward
-            if (!MathUtil.chance(Settings.Reward.REWARD_CHANCE.getDouble())) return;
+            if (!MathUtil.chance(Settings.REWARD_CHANCE.getDouble())) return;
             processRewards(event.getPlayer(), event);
         }
     }
@@ -113,9 +105,9 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
 
         if (title != null) {
             // Set title times
-            title.setFadeIn(Settings.Title.TITLE_FADEIN.getInt());
-            title.setStay(Settings.Title.TITLE_DISPLAY.getInt());
-            title.setFadeOut(Settings.Title.TITLE_FADEOUT.getInt());
+            title.setFadeIn(Settings.TITLE_FADEIN.getInt());
+            title.setStay(Settings.TITLE_DISPLAY.getInt());
+            title.setFadeOut(Settings.TITLE_FADEOUT.getInt());
 
             // Send titles
             if (!title.getMessage().trim().equals("")) {
@@ -131,7 +123,7 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
 
         // Send messages
         if (messages != null)
-        messages.forEach(msg -> player.sendMessage(Mist.colorize(msg)));
+        messages.forEach(msg -> player.sendMessage(TextUtil.formatText(msg)));
 
         // Send broadcasts
         if (broadcasts != null) {
@@ -139,7 +131,7 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
                 broadcasts.forEach(msg -> {
                     if (msg.trim().equals("")) return;
                     msg = new Message(msg).processPlaceholder("player", player.getName()).getMessage();
-                    Bukkit.getServer().broadcastMessage(Mist.colorize(msg));
+                    Bukkit.getServer().broadcastMessage(TextUtil.formatText(msg));
                 });
             }
         }

@@ -60,3 +60,6 @@ dist/
 manifest.mf
 Thumbs.db
 *.sh
+
+# Generated
+.git-versioned-pom.xml

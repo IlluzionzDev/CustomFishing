@@ -1,66 +1,31 @@
-/**
- * Copyright © 2020 Property of Illuzionz Studios, LLC
- * All rights reserved. No part of this publication may be reproduced, distributed, or
- * transmitted in any form or by any means, including photocopying, recording, or other
- * electronic or mechanical methods, without the prior written permission of the publisher,
- * except in the case of brief quotations embodied in critical reviews and certain other
- * noncommercial uses permitted by copyright law. Any licensing of this software overrides
- * this statement.
- */
 package com.illuzionzstudios.customfishing.settings;
 
-import com.illuzionzstudios.mist.config.locale.Locale;
+import com.illuzionzstudios.mist.config.locale.MistString;
+import com.illuzionzstudios.mist.config.locale.PluginLocale;
 import com.illuzionzstudios.mist.plugin.SpigotPlugin;
 
-public class FishingLocale extends Locale {
+public class FishingLocale extends PluginLocale {
 
     public FishingLocale(SpigotPlugin plugin) {
         super(plugin);
     }
 
     /**
-     * General messages
+     * Indicate saving objects
      */
-    public static class General extends Locale.General {
-
-        /**
-         * Indicate saving objects
-         */
-        public static String PLUGIN_SAVE = "&7Saved all rewards";
-
-        public static void init() {
-            if (LOCALE_FILE.isSet("general.save"))
-                PLUGIN_SAVE = LOCALE_FILE.getString("general.save");
-        }
-    }
+    public static MistString GENERAL_PLUGIN_SAVE = GENERAL_GROUP.create("general.save", "&7Saved all rewards");
 
     /**
-     * Language to do with interface
+     * Name for adding values in the edit list inventory
      */
-    public static class Interface extends Locale.Interface {
+    public static MistString INTERFACE_VIEW_REWARDS_REWARD_NAME = INTERFACE_GROUP.create("interface.view-rewards.reward.name", "&d&l{rewardName}");
 
-        /**
-         * Name for adding values in the edit list inventory
-         */
-        public static String VIEW_REWARDS_REWARD_NAME = "&d&l{rewardName}";
-
-        /**
-         * Lore for adding values in the edit list inventory
-         */
-        public static String VIEW_REWARDS_REWARD_LORE = "&7Chance: &d{chance}\n&r\n&7&o(Left click to edit reward)\n&c&o(Right click to delete reward)";
-
-        public static void init() {
-            if (LOCALE_FILE.isSet("interface.view-rewards.reward.name"))
-                VIEW_REWARDS_REWARD_NAME = LOCALE_FILE.getString("interface.view-rewards.reward.name");
-
-            if (LOCALE_FILE.isSet("interface.view-rewards.reward.lore"))
-                VIEW_REWARDS_REWARD_LORE = LOCALE_FILE.getString("interface.view-rewards.reward.lore");
-        }
-    }
+    /**
+     * Lore for adding values in the edit list inventory
+     */
+    public static MistString INTERFACE_VIEW_REWARDS_REWARD_LORE = INTERFACE_GROUP.create("interface.view-rewards.reward.lore", "&7Chance: &d{chance}\n&r\n&7&o(Left click to edit reward)\n&c&o(Right click to delete reward)");
 
     @Override
     public void loadLocale() {
-        General.init();
-        Interface.init();
     }
 }
