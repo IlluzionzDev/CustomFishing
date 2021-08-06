@@ -1,7 +1,7 @@
 # General Messages
 
 general:
-    prefix: "&d&lCustomFishing &8»&7"
+    prefix: "&d&lCustomFishing &8\u00BB&7"
     save: "&7Saved all rewards"
 
 rewards:
