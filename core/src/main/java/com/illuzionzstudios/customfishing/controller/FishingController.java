@@ -3,21 +3,15 @@ package com.illuzionzstudios.customfishing.controller;
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.settings.Settings;
-import com.illuzionzstudios.mist.Mist;
-import com.illuzionzstudios.mist.config.locale.Message;
+import com.illuzionzstudios.mist.compatibility.ServerVersion;
 import com.illuzionzstudios.mist.controller.PluginController;
 import com.illuzionzstudios.mist.util.LootTable;
 import com.illuzionzstudios.mist.util.MathUtil;
-import com.illuzionzstudios.mist.util.TextUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.Sound;
+import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.List;
 
 /**
  * Controls everything related to fishing
@@ -26,18 +20,25 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
     INSTANCE;
 
     @Override
-    public void initialize(CustomFishing customFishing) {
+    public void initialize(final CustomFishing customFishing) {
     }
 
     @Override
-    public void stop(CustomFishing customFishing) {
+    public void stop(final CustomFishing customFishing) {
     }
 
     /**
      * Used to detect when a fish is caught
      */
     @EventHandler
-    public void onFish(PlayerFishEvent event) {
+    public void onFish(final PlayerFishEvent event) {
+        if (ServerVersion.atLeast(ServerVersion.V.v1_16)) {
+            // Custom hook features
+            FishHook hook = event.getHook();
+            hook.setMinWaitTime(Settings.MIN_WAIT_TIME.getInt());
+            hook.setMaxWaitTime(Settings.MAX_WAIT_TIME.getInt());
+        }
+
         // Detect if they catch a fish
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             // Set experience default reward
@@ -56,7 +57,7 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
      * @param player Player to reward
      * @param event  The fishing event
      */
-    public void processRewards(Player player, PlayerFishEvent event) {
+    public void processRewards(final Player player, final PlayerFishEvent event) {
         // Null check
         if (RewardsController.INSTANCE.pickReward() == null) return;
 
@@ -74,83 +75,8 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
         // Don't want a somehow null reward
         if (reward == null) return;
 
-        // Variables to use and check
-        List<String> messages = reward.getMessages();
-        List<String> commands = reward.getCommands();
-        List<ItemStack> items = reward.getItems();
-        List<String> broadcasts = reward.getBroadcasts();
-
-        boolean vanillaRewards = reward.isVanillaRewards();
-
-        Message title = reward.getTitle();
-        Message subtitle = reward.getSubtitle();
-
-        Sound sound = reward.getSound() != null ? reward.getSound().parseSound() : null;
-
-        int experience = reward.getExperience();
-
-        // Set exp reward
-        event.setExpToDrop(experience);
-
-        // Play sound, no need for null check as was handled loading rewards
-        if (sound != null) {
-            player.playSound(player.getLocation(), sound, 10, 1);
-        }
-
-        // If should have default rewards
-        if (!vanillaRewards) {
-            if (event.getCaught() != null)
-                event.getCaught().remove();
-        }
-
-        if (title != null) {
-            // Set title times
-            title.setFadeIn(Settings.TITLE_FADEIN.getInt());
-            title.setStay(Settings.TITLE_DISPLAY.getInt());
-            title.setFadeOut(Settings.TITLE_FADEOUT.getInt());
-
-            // Send titles
-            if (!title.getMessage().trim().equals("")) {
-                // Null checking
-                if (subtitle != null && !subtitle.getMessage().trim().equals("")) {
-                    title.sendTitle(player, subtitle);
-                } else {
-                    title.sendTitle(player);
-                }
-            }
-        }
-
-
-        // Send messages
-        if (messages != null)
-        messages.forEach(msg -> player.sendMessage(TextUtil.formatText(msg)));
-
-        // Send broadcasts
-        if (broadcasts != null) {
-            if (!broadcasts.isEmpty()) {
-                broadcasts.forEach(msg -> {
-                    if (msg.trim().equals("")) return;
-                    msg = new Message(msg).processPlaceholder("player", player.getName()).getMessage();
-                    Bukkit.getServer().broadcastMessage(TextUtil.formatText(msg));
-                });
-            }
-        }
-
-        // Execute commands
-        if (commands != null) {
-            commands.forEach(command -> {
-                // Do placeholders
-                command = new Message(command).processPlaceholder("player", player.getName()).getMessage();
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
-            });
-        }
-
-        // Give custom items
-        if (items != null) {
-            items.forEach(item -> {
-                player.getInventory().addItem(item);
-            });
-        }
+        // Invoke reward methods on reward
+        reward.reward(player, event);
     }
 
 }

@@ -4,22 +4,3 @@ general:
     prefix: "&d&lCustomFishing &8\\u00BB&7"
     save: "&7Saved all rewards"
 
-rewards:
-    config:
-        descriptions:
-            name: "The name of the reward. Helps you identify the different rewards"
-            commands: "The commands that are executed. Use %player% for player's name"
-            items: "The items that are given. Simply drop items into the given menu."
-            messages: "Messages that are sent to the player"
-            broadcasts: "Messages that are sent to the entire server"
-            title: "Title to display to the player"
-            subtitle: "Subtitle to display to the player"
-            chance: "The chance this reward is found"
-            vanillaRewards: "If default vanilla rewards can be found. For example, enchanted books, fish etc"
-            experience: "Amount of experience points to award"
-            sound: "Sound to play when found. Set to null for no sound"
-            permission: "Permission to find reward. Syntax is customfishing.{value}. If blank, no permission required"
-            worlds: "Worlds this reward can be found in. If set to all, can be found in all worlds"
-            regions: "Regions this reward can be found in. If set to global, can be found in all regions"
-            blockedRegions: "Regions this reward can't be found in. If empty, no blocked regions"
-

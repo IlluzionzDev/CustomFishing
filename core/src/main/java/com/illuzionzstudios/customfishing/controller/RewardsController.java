@@ -2,15 +2,13 @@ package com.illuzionzstudios.customfishing.controller;
 
 import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.customfishing.reward.template.RewardLoadException;
-import com.illuzionzstudios.customfishing.reward.template.loader.YAMLRewardLoader;
-import com.illuzionzstudios.customfishing.reward.template.serialize.YAMLSerializerLoader;
+import com.illuzionzstudios.customfishing.reward.loader.FishingRewardLoader;
 import com.illuzionzstudios.mist.Logger;
+import com.illuzionzstudios.mist.config.serialization.loader.DirectoryLoader;
 import com.illuzionzstudios.mist.controller.PluginController;
 import com.illuzionzstudios.mist.util.LootTable;
 import lombok.Getter;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -35,41 +33,26 @@ public enum RewardsController implements PluginController<CustomFishing> {
         // Clear our already loaded data if any
         this.loadedRewards = new HashMap<>();
         this.lootTable.clear();
-        YAMLRewardLoader.clear();
 
-        // Reward loader for "/rewards" dir
-        YAMLRewardLoader loader = new YAMLRewardLoader("rewards");
+        DirectoryLoader<FishingRewardLoader> directoryLoader = new DirectoryLoader<>(FishingRewardLoader.class, "rewards");
 
-        // Try load all templates
-        loader.loadTemplates().forEach((fileName, template) -> {
+        directoryLoader.getLoaders().forEach(loader -> {
             try {
-                FishingReward reward = template.create();
+                FishingReward reward = loader.getObject();
                 this.loadedRewards.put(reward.getName(), reward);
+                Logger.info(reward.toString());
 
                 // Log loaded file
-                Logger.info("Loaded reward " + reward.getName() + " from file " + fileName + ".yml");
-            } catch (RewardLoadException ex) {
+                Logger.info("Loaded reward " + reward.getName() + " from file " + loader.getName() + ".yml");
+            } catch (final Throwable ex) {
                 // Throw trace
-                Logger.displayError(ex, "Couldn't load reward from file " + fileName + ".yml");
+                Logger.displayError(ex, "Couldn't load reward from file " + loader.getName() + ".yml");
             }
         });
 
-        // If should load defaults, add those
-        if (YAMLRewardLoader.shouldLoadDefaults) {
-            YAMLRewardLoader.defaults.forEach(reward -> {
-                this.loadedRewards.put(reward.getName(), reward);
-                Logger.info("Loaded default reward " + reward.getName());
-            });
-
-            // Save created rewards to file
-            try {
-                new YAMLSerializerLoader("rewards").saveRewards();
-            } catch (IOException e) {
-                Logger.displayError(e, "Couldn't save default rewards");
-            }
-
-            // Loaded defaults
-            YAMLRewardLoader.shouldLoadDefaults = false;
+        // Only load defaults if no files to load
+        if (directoryLoader.getLoaders().isEmpty()) {
+            // TODO
         }
 
         // Load chance sum

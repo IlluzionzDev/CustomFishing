@@ -9,20 +9,21 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+/**
+ * WorldGuard for 1.12+
+ */
 public class WorldGuardCheck_1_13_R1 implements IWorldGuardCheck {
 
     @Override
-    public boolean playerInRegion(String regionName, Player player) {
+    public boolean locationInRegion(String regionName, Location location) {
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         // BukkitAdapter turns normal world into WorldGuard world
-        RegionManager regions = container.get(BukkitAdapter.adapt(player.getWorld())); // Get regions from player world
+        RegionManager regions = container.get(BukkitAdapter.adapt(location.getWorld())); // Get regions from player world
 
         // Make sure world has regions and region data isn't null
         if (regions != null) {
-
-            Location playerPos = player.getLocation();
             // Check if region contains where the player is so hence they will be in this region
-            ApplicableRegionSet regionSet = regions.getApplicableRegions(BukkitAdapter.asBlockVector(playerPos));
+            ApplicableRegionSet regionSet = regions.getApplicableRegions(BukkitAdapter.asBlockVector(location));
 
             for (ProtectedRegion checkRegion : regionSet) {
                 if (checkRegion.getId().equalsIgnoreCase(regionName)) {
@@ -33,5 +34,4 @@ public class WorldGuardCheck_1_13_R1 implements IWorldGuardCheck {
 
         return false;
     }
-
 }

@@ -16,12 +16,14 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * Menu to view all rewards in a paged interface
+ *
+ * TODO: Recode
  */
 public class ViewRewardsUI extends PagedInterface<FishingReward> {
 
-    public ViewRewardsUI(UserInterface parent) {
+    public ViewRewardsUI() {
         // All loaded rewards
-        super(parent, RewardsController.INSTANCE.getLoadedRewards().values());
+        super(RewardsController.INSTANCE.getLoadedRewards().values());
 
         setTitle("&8Custom Rewards");
     }
@@ -31,10 +33,8 @@ public class ViewRewardsUI extends PagedInterface<FishingReward> {
         // Nicely display the reward
         return ItemCreator.builder()
                 .material(XMaterial.PAPER)
-                .name(new Message(FishingLocale.INTERFACE_VIEW_REWARDS_REWARD_NAME.toString())
-                        .processPlaceholder("rewardName", reward.getName()).getMessage())
-                .lore(new Message(FishingLocale.INTERFACE_VIEW_REWARDS_REWARD_LORE.toString())
-                        .processPlaceholder("chance", reward.getChance()).getMessage())
+                .name(FishingLocale.INTERFACE_VIEW_REWARDS_REWARD_NAME.toString("rewardName", reward.getName()).toString())
+                .lore(FishingLocale.INTERFACE_VIEW_REWARDS_REWARD_LORE.toString("chance", reward.getChance()).toString())
                 .build().makeUIItem();
     }
 
@@ -42,25 +42,9 @@ public class ViewRewardsUI extends PagedInterface<FishingReward> {
     protected void onPageClick(Player player, FishingReward reward, ClickType clickType, InventoryClickEvent event) {
         // Don't want to modify items
         event.setCancelled(true);
-
-        // Delete if right click
-        if (clickType.isRightClick()) {
-            new ConfirmUI(accepted -> {
-                if (accepted) {
-                    // Delete
-                    RewardsController.INSTANCE.getLoadedRewards().remove(reward.getName());
-                    newInstance().show(player);
-                } else {
-                    show(player);
-                }
-            }).show(player);
-            return;
-        }
-
-        new ConfigureRewardUI(this, reward).show(player);
     }
 
     public UserInterface newInstance() {
-        return new ViewRewardsUI(getParent().newInstance());
+        return new ViewRewardsUI();
     }
 }

@@ -1,6 +1,5 @@
 package com.illuzionzstudios.customfishing.command.sub;
 
-import com.illuzionzstudios.customfishing.reward.ui.AdminUI;
 import com.illuzionzstudios.customfishing.reward.ui.ViewRewardsUI;
 import com.illuzionzstudios.mist.command.SpigotSubCommand;
 import com.illuzionzstudios.mist.command.response.ReturnType;
@@ -19,7 +18,7 @@ public class RewardsCommand extends SpigotSubCommand {
     @Override
     protected ReturnType onCommand() {
         checkConsole();
-        new ViewRewardsUI(new AdminUI()).show(getPlayer());
+        new ViewRewardsUI().show(getPlayer());
 
         return ReturnType.SUCCESS;
     }

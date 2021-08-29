@@ -8,75 +8,74 @@
 # Any queries join our discord at https://discord.gg/DbJXzWq      #
 ###################################################################
 
+# Placeholders
+# {player} : The player's name
+
 # The name or identifier of the reward. Make it something
 # relating to what the reward is.
-Name: "Demo Reward"
+name: "Demo Reward"
 
 # A list of commands to run when this reward is caught.
-Commands:
+commands:
   - "msg %player% demo"
 
 # List of custom item rewards, leave the list blank
-# if you don't want any custom items
-Items:
-  - "uiub&*WG*bdbwDBw9b9awdu9wadan@IND(@dud"
+# if you don't want any custom items or remove this section
+items:
+  sword:
+    item-name: "&a&lMy Custom Sword"
+    amount: 1
 
 # A list of messages to send the player when this reward is caught.
-Messages:
+messages:
   - '&7&l(!) &aYou found an awesome sword!'
 
-# If the server should broadcast messages when this reward is caught
-Broadcast: false
+# A list of messages to broadcast to the server when this reward is caught.
+broadcasts:
+  - '&4&l(!) &c{player} &7found a &c&lLEGENDARY &7reward!'
 
-# Broadcasts to send if the above variable is set to true
-Broadcasts:
-  - ''
+# Title to send to the player. Leave blank if none.
+title: "&a&lYou found a reward"
 
-# If the player should be shown titles when this reward is caught
-Title Enabled: false
+# Subtitle to send to the player. Leave blank if none.
+sub-title: "&7&oFound: Sword"
 
-# Title to send if 'Title Enabled' is set to true
-Title:
-
-# Sub Title to send if 'Title Enabled' is set to true
-Sub Title:
-
-# The chance of this reward being caught when the player
-# finds a custom reward. Can be a decimal number
-Chance: 4.5
+# The weight (chance) of this reward being found. The higher the weight
+# the more likely it is to be caught.
+weight: 4.5
 
 # If the player should still receive default minecraft rewards.
 # This means fish, enchanted books, enchanted items etc.
 # If set to false only the custom reward will be given
-Vanilla Rewards: false
+vanilla-rewards: false
 
 # The amount of experience to give the player
-# when they find this reward
-Exp Amount: 15
+# as a range, the "x--y" meaning from x to y (inclusive)
+exp-amount: "1--6"
 
-# The sound to play when this reward is caught
-Sound: ENTITY_FIREWORK_ROCKET_TWINKLE
+# The sound to play when this reward is caught. Leave blank
+# for no sound
+sound: ENTITY_FIREWORK_ROCKET_TWINKLE
 
-Requirements:
-
-  # The permission required to find this reward. Defined as
-  # customfishing.<value>. So the above would be the permission customfishing.default.
-  # Make sure to give this to players by default to receive rewards
-  Permission: "default"
+# Requirements if the player can find this reward
+requirements:
+  # The permission the player must have to be able to find this reward.
+  # If left as "" then can be found by default (no perm required)
+  perission: ""
 
   # The worlds this reward can be found in. Set
   # to 'all' for all worlds
-  Worlds:
-    - all
+  worlds:
+    - "all"
 
   # The WorldGuard regions this reward can be found in.
   # Set to 'global' for all regions
   # MUST HAVE WORLDGUARD TO WORK
-  Regions:
-    - global
+  regions:
+    - "global"
 
   # The WorldGuard regions this reward is blocked
   # in. This means if the player is in this region,
-  # they can't find this reward
-  BlockedRegions:
+  # they can't find this reward. Set to none for none blocked (default)
+  blocked-regions:
     -

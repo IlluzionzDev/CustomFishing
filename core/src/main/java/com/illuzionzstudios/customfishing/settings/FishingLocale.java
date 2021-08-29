@@ -4,6 +4,9 @@ import com.illuzionzstudios.mist.config.locale.MistString;
 import com.illuzionzstudios.mist.config.locale.PluginLocale;
 import com.illuzionzstudios.mist.plugin.SpigotPlugin;
 
+/**
+ * All configured locale in this plugin
+ */
 public class FishingLocale extends PluginLocale {
 
     public FishingLocale(SpigotPlugin plugin) {
