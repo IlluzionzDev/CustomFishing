@@ -39,7 +39,7 @@ public class Settings extends PluginSettings {
             "The minimum amount of ticks to wait for a bite. This is before processing lore and other things"
             , "REQUIRES 1.16+");
 
-    public static ConfigSetting MAX_WAIT_TIME = FISHING_GROUP.create("fishing.min-wait-time", 600,
+    public static ConfigSetting MAX_WAIT_TIME = FISHING_GROUP.create("fishing.max-wait-time", 600,
             "The maximum amount of ticks to wait for a bite. This is before processing lore and other things"
             , "REQUIRES 1.16+");
 

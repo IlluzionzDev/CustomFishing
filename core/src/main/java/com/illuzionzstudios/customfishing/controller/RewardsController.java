@@ -4,6 +4,7 @@ import com.illuzionzstudios.customfishing.CustomFishing;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
 import com.illuzionzstudios.customfishing.reward.loader.FishingRewardLoader;
 import com.illuzionzstudios.mist.Logger;
+import com.illuzionzstudios.mist.config.YamlConfig;
 import com.illuzionzstudios.mist.config.serialization.loader.DirectoryLoader;
 import com.illuzionzstudios.mist.controller.PluginController;
 import com.illuzionzstudios.mist.util.LootTable;
@@ -52,7 +53,8 @@ public enum RewardsController implements PluginController<CustomFishing> {
 
         // Only load defaults if no files to load
         if (directoryLoader.getLoaders().isEmpty()) {
-            // TODO
+            // Example
+            YamlConfig.loadInternalYaml(customFishing, "rewards", "default_reward.yml");
         }
 
         // Load chance sum

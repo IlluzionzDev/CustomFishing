@@ -22,9 +22,21 @@ commands:
 # List of custom item rewards, leave the list blank
 # if you don't want any custom items or remove this section
 items:
+  # The section for an item
   sword:
+    # The custom display name of the item
     item-name: "&a&lMy Custom Sword"
+    # The amount of this item
     amount: 1
+    # The material of the item
+    material: DIAMOND_SWORD
+    # Damage number for items such as spawn eggs
+    damage: 0
+    # A list of enchants as "ENCHANT:LEVEL"
+    enchants:
+      - "SHARPNESS:5"
+    # If the item appears as glowing like it's enchanted
+    glowing: true
 
 # A list of messages to send the player when this reward is caught.
 messages:

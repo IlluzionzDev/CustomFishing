@@ -2,6 +2,7 @@ package com.illuzionzstudios.customfishing.reward.loader;
 
 import com.cryptomorin.xseries.XSound;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
+import com.illuzionzstudios.mist.Logger;
 import com.illuzionzstudios.mist.config.locale.MistString;
 import com.illuzionzstudios.mist.config.serialization.loader.YamlFileLoader;
 import com.illuzionzstudios.mist.util.ItemStackUtil;
@@ -113,7 +114,7 @@ public class FishingRewardLoader extends YamlFileLoader<FishingReward> {
             builder.vanillaRewards(config.getBoolean("Vanilla Rewards"));
 
             cause = "Could not load exp to give";
-            builder.experienceRange(config.getString("Exp Amount"));
+            builder.experienceRange(config.get("Exp Amount").toString());
 
             // Set sound
             cause = "Sound " + config.getString("Sound") + " is not valid";
