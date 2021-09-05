@@ -20,19 +20,21 @@ public class WorldCheck implements Check {
 
         // Check if in worlds
         boolean inWorld = false;
-        for (String world : worlds) {
-            if (world.equalsIgnoreCase(GLOBAL_WORLD)) {
-                inWorld = true;
-                break;
-            }
-
-            if (Bukkit.getWorld(world) != null) {
-                if (player.getWorld().equals(Bukkit.getWorld(world))) {
+        if (worlds != null) {
+            for (String world : worlds) {
+                if (world.equalsIgnoreCase(GLOBAL_WORLD)) {
                     inWorld = true;
-                    break; // Don't need any more checks if true
+                    break;
                 }
-            }
 
+                if (Bukkit.getWorld(world) != null) {
+                    if (player.getWorld().equals(Bukkit.getWorld(world))) {
+                        inWorld = true;
+                        break; // Don't need any more checks if true
+                    }
+                }
+
+            }
         }
         return inWorld;
     }

@@ -1,6 +1,7 @@
 package com.illuzionzstudios.customfishing.reward;
 
 import com.cryptomorin.xseries.XSound;
+import com.illuzionzstudios.customfishing.reward.loader.FishingItemLoader;
 import com.illuzionzstudios.customfishing.settings.Settings;
 import com.illuzionzstudios.mist.config.locale.MistString;
 import com.illuzionzstudios.mist.util.MathUtil;
@@ -39,7 +40,7 @@ public class FishingReward {
     /**
      * Custom items to give. Built in the reward loader
      */
-    private List<ItemStack> items = new ArrayList<>();
+    private List<FishingItemLoader> items = new ArrayList<>();
 
     /**
      * Messages to send
@@ -160,7 +161,9 @@ public class FishingReward {
         // Give custom items
         if (items != null) {
             items.forEach(item -> {
-                player.getInventory().addItem(item);
+                // Only add if meets chance
+                if (MathUtil.chance(item.getObject().getChance()))
+                    item.getObject().givePlayer(player);
             });
         }
     }

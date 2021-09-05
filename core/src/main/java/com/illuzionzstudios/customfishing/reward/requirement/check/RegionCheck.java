@@ -30,21 +30,25 @@ public class RegionCheck implements Check {
         if (CustomFishing.isWorldguardLoaded()) {
             // Check if in the region
             boolean inRegion = false;
-            for (String region : regions) {
-                if (worldGuardCheck.locationInRegion(region, player.getLocation()) || region.equalsIgnoreCase(GLOBAL_REGION)) {
-                    inRegion = true;
-                    break; // Don't need any more checks if true
+            if (regions != null) {
+                for (String region : regions) {
+                    if (worldGuardCheck.locationInRegion(region, player.getLocation()) || region.equalsIgnoreCase(GLOBAL_REGION)) {
+                        inRegion = true;
+                        break; // Don't need any more checks if true
+                    }
                 }
             }
 
-            // Check blocked regions
-            for (String region : blockedRegions) {
-                if (worldGuardCheck.locationInRegion(region, player.getLocation())) {
-                    // Here if in blocked region
-                    // Instantly set to false as technically
-                    // not in region
-                    inRegion = false;
-                    break;
+            if (blockedRegions != null) {
+                // Check blocked regions
+                for (String region : blockedRegions) {
+                    if (worldGuardCheck.locationInRegion(region, player.getLocation())) {
+                        // Here if in blocked region
+                        // Instantly set to false as technically
+                        // not in region
+                        inRegion = false;
+                        break;
+                    }
                 }
             }
             return inRegion;

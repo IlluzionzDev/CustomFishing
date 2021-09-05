@@ -17,7 +17,7 @@ name: "Demo Reward"
 
 # A list of commands to run when this reward is caught.
 commands:
-  - "msg %player% demo"
+  - "msg {player} demo"
 
 # List of custom item rewards, leave the list blank
 # if you don't want any custom items or remove this section
@@ -29,7 +29,7 @@ items:
     # The custom display name of the item.
     # If an empty string has no custom name
     item-name: "&a&lMy Custom Sword"
-    # The lore of the item
+    # The lore of the item. Set to null for no lore
     lore:
       - "&7Made from CustomFishing!"
     # The amount of this item
@@ -38,11 +38,15 @@ items:
     material: DIAMOND_SWORD
     # If has custom model data
     model-data: 0
-    # A list of enchants as "ENCHANT:LEVEL"
+    # A list of enchants as "ENCHANT:LEVEL". Set to null for no enchants
     enchants:
       - "SHARPNESS:5"
     # If the item appears as glowing like it's enchanted
-    glowing: true
+    glowing: false
+    # If the item is unbreakable
+    unbreakable: false
+    # If to hide flags like unbreakable and enchants
+    hide-flags: false
 
 # A list of messages to send the player when this reward is caught.
 messages:
@@ -68,8 +72,9 @@ weight: 4.5
 vanilla-rewards: false
 
 # The amount of experience to give the player
-# as a range, the "x--y" meaning from x to y (inclusive)
-exp-amount: "1--6"
+# as a range, the "x to y" meaning from x to y (inclusive)
+# Can just be a singular number
+exp-amount: "1 to 6"
 
 # The sound to play when this reward is caught. Leave blank
 # for no sound

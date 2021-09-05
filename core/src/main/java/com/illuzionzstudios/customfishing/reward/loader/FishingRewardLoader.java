@@ -2,11 +2,10 @@ package com.illuzionzstudios.customfishing.reward.loader;
 
 import com.cryptomorin.xseries.XSound;
 import com.illuzionzstudios.customfishing.reward.FishingReward;
-import com.illuzionzstudios.mist.Logger;
+import com.illuzionzstudios.mist.config.ConfigSection;
 import com.illuzionzstudios.mist.config.locale.MistString;
 import com.illuzionzstudios.mist.config.serialization.loader.YamlFileLoader;
-import com.illuzionzstudios.mist.util.ItemStackUtil;
-import org.bukkit.inventory.ItemStack;
+import com.illuzionzstudios.mist.exception.PluginException;
 
 import java.util.ArrayList;
 
@@ -21,44 +20,7 @@ public class FishingRewardLoader extends YamlFileLoader<FishingReward> {
 
     @Override
     public void saveYaml() {
-        try {
-            this.config.set("Name", object.getName());
-
-            // TODO: Make custom item parser
-            ArrayList<String> itemBlobs = new ArrayList<>();
-            object.getItems().forEach(item -> {
-                itemBlobs.add(ItemStackUtil.serialize(item));
-            });
-            this.config.set("Items", itemBlobs);
-
-            this.config.set("Commands", object.getCommands());
-
-            this.config.set("Messages", object.getMessages());
-
-            this.config.set("Broadcasts", object.getBroadcasts());
-
-            this.config.set("Title", object.getTitle() == null ? null : object.getTitle());
-
-            this.config.set("Sub Title", object.getSubtitle() == null ? null : object.getSubtitle());
-
-            this.config.set("Chance", object.getChance());
-
-            this.config.set("Vanilla Rewards", object.isVanillaRewards());
-
-            this.config.set("Exp Amount", object.getExperienceRange());
-
-            this.config.set("Sound", object.getSound() == null ? null : object.getSound().toString());
-
-            this.config.set("Requirements.Permission", object.getPermission());
-
-            this.config.set("Requirements.Worlds", object.getWorlds());
-
-            this.config.set("Requirements.Regions", object.getRegions());
-
-            this.config.set("Requirements.BlockedRegions", object.getBlockedRegions());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        // TODO: Implement saving
     }
 
     @Override
@@ -74,69 +36,65 @@ public class FishingRewardLoader extends YamlFileLoader<FishingReward> {
         try {
             // Load everything
             cause = "Could not load name";
-            builder.name(config.getString("Name"));
+            builder.name(config.getString("name"));
 
             cause = "Could not load commands";
-            builder.commands(config.getStringList("Commands"));
+            builder.commands(config.getStringList("commands"));
 
-            ArrayList<ItemStack> items = new ArrayList<>();
+            cause = "Could not load items";
+            ArrayList<FishingItemLoader> items = new ArrayList<>();
             // Parse custom items
-            for (String item : config.getStringList("Items")) {
-                // Deserialize item stack
-                ItemStack stack = ItemStackUtil.deserialize(item);
-                if (stack != null) {
-                    items.add(stack);
-                }
+            for (ConfigSection section : config.getSections("items")) {
+                items.add(new FishingItemLoader(section));
             }
-            // Finally add item reward
             builder.items(items);
 
             cause = "Could not load messages";
             ArrayList<MistString> messages = new ArrayList<>();
-            config.getStringList("Messages").forEach(string -> messages.add(new MistString(string)));
+            config.getStringList("messages").forEach(string -> messages.add(new MistString(string)));
             builder.messages(messages);
 
             cause = "Could not load broadcasts";
             ArrayList<MistString> broadcasts = new ArrayList<>();
-            config.getStringList("Broadcasts").forEach(string -> broadcasts.add(new MistString(string)));
+            config.getStringList("broadcasts").forEach(string -> broadcasts.add(new MistString(string)));
             builder.broadcasts(broadcasts);
 
             cause = "Could not load title";
-            builder.title(new MistString(config.getString("Title")));
+            builder.title(new MistString(config.getString("title")));
 
             cause = "Could not load sub title";
-            builder.subtitle(new MistString(config.getString("Sub Title")));
+            builder.subtitle(new MistString(config.getString("sub-title")));
 
             cause = "Could not load chance";
-            builder.chance(config.getDouble("Chance"));
+            builder.chance(config.getDouble("weight"));
 
             cause = "Could not load if to give vanilla rewards";
-            builder.vanillaRewards(config.getBoolean("Vanilla Rewards"));
+            builder.vanillaRewards(config.getBoolean("vanilla-rewards"));
 
             cause = "Could not load exp to give";
-            builder.experienceRange(config.get("Exp Amount").toString());
+            builder.experienceRange(config.get("exp-amount") != null ? config.get("exp-amount").toString() : "0");
 
             // Set sound
-            cause = "Sound " + config.getString("Sound") + " is not valid";
+            cause = "Sound " + config.getString("sound") + " is not valid";
             try {
-                builder.sound(XSound.matchXSound(config.getString("Sound")).get());
+                builder.sound(XSound.matchXSound(config.getString("sound")).get());
             } catch (Exception e) {
                 builder.sound(null);
             }
 
             cause = "Could not load permission";
-            builder.permission(config.getString("Requirements.Permission"));
+            builder.permission(config.getString("requirements.permission"));
 
             cause = "Could not load worlds";
-            builder.worlds(config.getStringList("Requirements.Worlds"));
+            builder.worlds(config.getStringList("requirements.worlds"));
 
             cause = "Could not load regions";
-            builder.regions(config.getStringList("Requirements.Regions"));
+            builder.regions(config.getStringList("requirements.regions"));
 
             cause = "Could not load blocked regions";
-            builder.blockedRegions(config.getStringList("Requirements.BlockedRegions"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            builder.blockedRegions(config.getStringList("requirements.blocked-regions"));
+        } catch (final Throwable ex) {
+            throw new PluginException(cause);
         }
 
         return builder.build();

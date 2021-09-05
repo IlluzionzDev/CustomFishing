@@ -13,7 +13,10 @@ public class PermissionCheck implements Check {
     public boolean processCheck(Player player, FishingReward reward) {
         String permission = reward.getPermission();
 
+        // If null is allowed
+        if (permission == null) return true;
+
         // Simple check for if player has permission or is op
-        return permission.trim().equals("") || player.hasPermission("customfishing." + permission) || player.isOp();
+        return permission.trim().equals("") || player.hasPermission(permission) || player.isOp();
     }
 }

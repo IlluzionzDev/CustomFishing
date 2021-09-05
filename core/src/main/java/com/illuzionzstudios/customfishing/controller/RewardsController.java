@@ -37,11 +37,18 @@ public enum RewardsController implements PluginController<CustomFishing> {
 
         DirectoryLoader<FishingRewardLoader> directoryLoader = new DirectoryLoader<>(FishingRewardLoader.class, "rewards");
 
+        // Only load defaults if no files to load
+        if (directoryLoader.getLoaders().isEmpty()) {
+            // Example
+            YamlConfig.loadInternalYaml(customFishing, "rewards", "demo_reward.yml");
+            // Now load
+            directoryLoader.load();
+        }
+
         directoryLoader.getLoaders().forEach(loader -> {
             try {
                 FishingReward reward = loader.getObject();
                 this.loadedRewards.put(reward.getName(), reward);
-                Logger.info(reward.toString());
 
                 // Log loaded file
                 Logger.info("Loaded reward " + reward.getName() + " from file " + loader.getName() + ".yml");
@@ -50,12 +57,6 @@ public enum RewardsController implements PluginController<CustomFishing> {
                 Logger.displayError(ex, "Couldn't load reward from file " + loader.getName() + ".yml");
             }
         });
-
-        // Only load defaults if no files to load
-        if (directoryLoader.getLoaders().isEmpty()) {
-            // Example
-            YamlConfig.loadInternalYaml(customFishing, "rewards", "default_reward.yml");
-        }
 
         // Load chance sum
         if (loadedRewards.isEmpty()) {
