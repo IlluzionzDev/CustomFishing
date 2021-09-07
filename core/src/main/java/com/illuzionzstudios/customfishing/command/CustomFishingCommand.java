@@ -12,7 +12,6 @@ public class CustomFishingCommand extends SpigotCommandGroup {
     @Override
     public void registerSubcommands() {
         registerSubCommand(new ReloadCommand());
-        registerSubCommand(new RewardsCommand());
     }
 
 }

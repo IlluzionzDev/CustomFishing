@@ -30,7 +30,7 @@ public class Settings extends PluginSettings {
     /**
      * Amount of EXP rewarded from fishing when no custom reward
      */
-    public static ConfigSetting EXP_REWARD = FISHING_GROUP.create("fishing.exp-reward", "1--6",
+    public static ConfigSetting EXP_REWARD = FISHING_GROUP.create("fishing.exp-reward", "1 to 6",
             "Amount of experience to give the player when they HAVEN'T found a custom reward."
             , "\"--\" indicates a range between two numbers."
             ,"-1 indicates to not reward exp.");
