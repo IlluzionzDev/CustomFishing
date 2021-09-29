@@ -10,14 +10,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerFishEvent;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 /**
  * Reward object the player can find. Contains all logic for checks and giving so
  * we can just call methods from here
+ *
+ * Anything annotated with @Nullable isn't required for the reward to be
+ * loaded, it simply means it won't apply this reward
  */
 @Getter
 @Setter
@@ -35,31 +38,37 @@ public class FishingReward {
     /**
      * Commands to execute
      */
+    @Nullable
     private List<String> commands = new ArrayList<>();
 
     /**
      * Custom items to give. Built in the reward loader
      */
+    @Nullable
     private List<FishingItemLoader> items = new ArrayList<>();
 
     /**
      * Messages to send
      */
+    @Nullable
     private List<MistString> messages = new ArrayList<>();
 
     /**
      * Broadcast messages to send
      */
+    @Nullable
     private List<MistString> broadcasts = new ArrayList<>();
 
     /**
      * Title message
      */
+    @Nullable
     private MistString title;
 
     /**
      * Subtitle message
      */
+    @Nullable
     private MistString subtitle;
 
     /**
@@ -75,31 +84,37 @@ public class FishingReward {
     /**
      * Experience to give the player in a range. E.g "1--6"
      */
+    @Nullable
     private String experienceRange;
 
     /**
      * Sound to play
      */
+    @Nullable
     private XSound sound;
 
     /**
      * Required permission
      */
+    @Nullable
     private String permission;
 
     /**
      * Worlds the reward can be found in
      */
+    @Nullable
     private List<String> worlds = new ArrayList<>();
 
     /**
      * Region the reward can be found in
      */
+    @Nullable
     private List<String> regions = new ArrayList<>();
 
     /**
      * Region the reward can't be found in
      */
+    @Nullable
     private List<String> blockedRegions = new ArrayList<>();
 
     /**
@@ -116,9 +131,11 @@ public class FishingReward {
             player.playSound(player.getLocation(), sound, 1, 1);
         }
 
-        // Set exp reward
-        int expToDrop = (int) MathUtil.range(experienceRange);
-        event.setExpToDrop(expToDrop < 1 ? 0 : expToDrop);
+        if (experienceRange != null) {
+            // Set exp reward
+            int expToDrop = (int) MathUtil.range(experienceRange);
+            event.setExpToDrop(expToDrop < 1 ? 0 : expToDrop);
+        }
 
         // If you should have default rewards
         if (!vanillaRewards) {
@@ -136,12 +153,15 @@ public class FishingReward {
         }
 
         // Send messages
-        if (messages != null)
-            messages.forEach(mistString -> mistString.sendMessage(player));
+        if (messages != null) {
+            if (!(messages.size() == 1 && messages.get(0).toString().isEmpty())) {
+                messages.forEach(mistString -> mistString.sendMessage(player));
+            }
+        }
 
         // Send broadcasts
         if (broadcasts != null) {
-            if (!broadcasts.isEmpty()) {
+            if (!(broadcasts.size() == 1 && broadcasts.get(0).toString().isEmpty())) {
                 broadcasts.forEach(msg -> {
                     msg = msg.toString(rewardPlaceholders);
                     Bukkit.getServer().broadcastMessage(msg.toString());
@@ -151,11 +171,13 @@ public class FishingReward {
 
         // Execute commands
         if (commands != null) {
-            commands.forEach(command -> {
-                MistString replacer = new MistString(command);
-                replacer = replacer.toString(rewardPlaceholders);
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), replacer.toString());
-            });
+            if (!(commands.size() == 1 && commands.get(0).toString().isEmpty())) {
+                commands.forEach(command -> {
+                    MistString replacer = new MistString(command);
+                    replacer = replacer.toString(rewardPlaceholders);
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), replacer.toString());
+                });
+            }
         }
 
         // Give custom items
