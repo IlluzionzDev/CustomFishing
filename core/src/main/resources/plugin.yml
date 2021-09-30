@@ -4,13 +4,3 @@ author: Illuzionz Studios
 main: com.illuzionzstudios.customfishing.CustomFishing
 description: Customize the fishing system of minecraft
 api-version: "1.13"
-
-permissions:
-  customfishing.default:
-    default: not op
-  customfishing.admin:
-    children:
-      customfishing.command.rewards: true
-      customfishing.command.reload: true
-      customfishing.command.save: true
-      customfishing.command.config: true
