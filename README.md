@@ -10,6 +10,7 @@
 ![Header](../media/Header.png?raw=true)
 ![About](../media/About.png?raw=true)
 ![Features](../media/Features.png?raw=true)
+![Hooks](../media/Hooks.png?raw=true)
 
 <div align="center">
   <a href="https://discord.gg/DbJXzWq"><img src="../media/SupportButton.png?raw=true" alt="Support" height="70px"/></a>
