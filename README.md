@@ -1,7 +1,8 @@
 <div align="center">
   <img src="https://img.shields.io/github/v/release/IlluzionzDev/CustomFishing?style=for-the-badge" alt="Release"/>
   <img src="https://img.shields.io/tokei/lines/github/IlluzionzDev/CustomFishing?style=for-the-badge" alt="Total Lines"/>
-  <img src="https://img.shields.io/github/commits-since/IlluzionzDev/CustomFishing/latest/development?style=for-the-badge&label=New%20Dev%20Commits" alt="Updates Since"/>
+  <img src="https://img.shields.io/github/last-commit/IlluzionzDev/CustomFishing?label=Last%20Updated&style=for-the-badge" alt="Last Updated"/>
+  <img src="https://img.shields.io/github/downloads/IlluzionzDev/CustomFishing/total?style=for-the-badge" alt="Downloads"/>
   <a href="https://discord.gg/DbJXzWq"><img src="https://img.shields.io/discord/465783810370568192?color=blue&label=Discord&logo=Discord&logoColor=white&style=for-the-badge" alt="Discord"/></a>
 </div>
   
