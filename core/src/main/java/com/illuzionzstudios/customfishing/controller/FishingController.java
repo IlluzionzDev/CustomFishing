@@ -35,8 +35,8 @@ public enum FishingController implements PluginController<CustomFishing>, Listen
         if (ServerVersion.atLeast(ServerVersion.V.v1_16)) {
             // Custom hook features
             FishHook hook = event.getHook();
-            hook.setMinWaitTime(Settings.MIN_WAIT_TIME.getInt());
-            hook.setMaxWaitTime(Settings.MAX_WAIT_TIME.getInt());
+//            hook.setMinWaitTime(Settings.MIN_WAIT_TIME.getInt());
+//            hook.setMaxWaitTime(Settings.MAX_WAIT_TIME.getInt());
         }
 
         // Detect if they catch a fish
