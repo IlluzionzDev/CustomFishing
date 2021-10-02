@@ -17,4 +17,5 @@
   <a href="https://discord.gg/DbJXzWq"><img src="../media/SupportButton.png?raw=true" alt="Support" height="70px"/></a>
   <a href="https://illuzionzstudios.notion.site/Custom-Fishing-234906da66864b35850b5b9794bc3e57"><img src="../media/WikiButton.png?raw=true" alt="Wiki" height="70px"/></a>
   <a href="https://discord.gg/DbJXzWq"><img src="../media/DiscordButton.png?raw=true" alt="Discord" height="70px"/></a>
+  <img src="https://bstats.org/signatures/bukkit/CustomFishing.svg" />
 </div>
