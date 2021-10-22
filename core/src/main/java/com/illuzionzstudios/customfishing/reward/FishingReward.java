@@ -149,7 +149,7 @@ public class FishingReward {
 
         // Send titles
         if (title != null) {
-            player.sendTitle(title.toString(), subtitle != null ? subtitle.toString() : "", Settings.TITLE_FADEIN.getInt(), Settings.TITLE_DISPLAY.getInt(), Settings.TITLE_FADEOUT.getInt());
+            title.sendTitle(player, subtitle);
         }
 
         // Send messages

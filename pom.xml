@@ -7,7 +7,7 @@
     <groupId>com.illuzionzstudios</groupId>
     <artifactId>CustomFishing</artifactId>
     <packaging>pom</packaging>
-    <version>4.2.2</version>
+    <version>4.2.3</version>
     <build>
         <plugins>
             <plugin>
@@ -28,7 +28,31 @@
         <module>1_13_R1</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>nms-repo</id>
+            <url>https://repo.codemc.org/repository/nms/</url>
+        </repository>
+
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <dependency>
+            <groupId>com.github.IlluzionzDev</groupId>
+            <artifactId>Mist</artifactId>
+            <version>daf07ad887</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
