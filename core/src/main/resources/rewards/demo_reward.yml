@@ -19,6 +19,17 @@ name: "Demo Reward"
 commands:
   - "msg {player} demo"
 
+mob:
+  # Define what kind of mob is it (vanillaMob or mythicMob)
+  mythicMob:
+    # Name of mob from MythicMob
+    mobName: SkeletalKnight
+    # Chance of spawning a mob
+    chance: 100
+#  vanillaMob:
+#    mobName: SKELETON
+#    chance: 100
+
 # List of custom item rewards, leave the list blank
 # if you don't want any custom items or remove this section
 items:
