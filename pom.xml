@@ -7,7 +7,7 @@
     <groupId>com.illuzionzstudios</groupId>
     <artifactId>CustomFishing</artifactId>
     <packaging>pom</packaging>
-    <version>4.2.3</version>
+    <version>4.2.4</version>
     <build>
         <plugins>
             <plugin>
@@ -47,9 +47,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.IlluzionzDev</groupId>
+            <groupId>com.illuzionzstudios</groupId>
             <artifactId>Mist</artifactId>
-            <version>daf07ad887</version>
+            <version>1.0</version>
             <scope>compile</scope>
         </dependency>
 

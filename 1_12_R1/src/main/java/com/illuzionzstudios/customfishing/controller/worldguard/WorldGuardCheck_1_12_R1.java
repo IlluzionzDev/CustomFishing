@@ -5,7 +5,6 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 /**
  * WorldGuard for 1.8-1.12
