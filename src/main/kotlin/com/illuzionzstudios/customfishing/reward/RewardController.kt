@@ -17,6 +17,8 @@ object RewardController : PluginController {
     val loadedRewards: MutableSet<FishingReward> = HashSet()
 
     override fun initialize(plugin: SpigotPlugin) {
+        loadedRewards.clear()
+
         // Load rewards
         DirectoryLoader(
             FishingRewardLoader::class.java,
@@ -36,7 +38,7 @@ object RewardController : PluginController {
         val lootTable: LootTable<FishingReward> = LootTable()
         loadedRewards.forEach {
             var passTests = true
-            it.requirements?.forEach { if (!it.test(player)) passTests = false }
+            it.requirements?.forEach { requirement -> if (!requirement.test(player)) passTests = false }
             if (passTests) {
                 lootTable.addLoot(it, it.chance)
             }

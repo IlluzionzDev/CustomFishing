@@ -9,10 +9,9 @@ import com.illuzionzstudios.mist.plugin.SpigotPlugin
 import com.illuzionzstudios.mist.util.MathUtil
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerFishEvent
 
-object FishingController : PluginController, Listener {
+object FishingController : PluginController {
 
     override fun initialize(plugin: SpigotPlugin) {
     }

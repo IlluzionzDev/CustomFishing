@@ -40,11 +40,10 @@ class CustomFishing() : SpigotPlugin() {
     }
 
     override fun onPluginReload() {
-
     }
 
     override fun onRegisterReloadables() {
-        registerMainCommand(CustomFishingCommand(), "customfishing", "fishing")
+        registerMainCommand(CustomFishingCommand(), "fishing", "customfishing")
         reloadables.registerController(RewardController)
         reloadables.registerController(FishingController)
     }

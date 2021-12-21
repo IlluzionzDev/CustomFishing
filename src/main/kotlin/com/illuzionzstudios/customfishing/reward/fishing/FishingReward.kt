@@ -3,7 +3,9 @@ package com.illuzionzstudios.customfishing.reward.fishing
 import com.cryptomorin.xseries.XSound
 import com.illuzionzstudios.customfishing.reward.EventReward
 import com.illuzionzstudios.customfishing.reward.fishing.item.FishingItem
+import com.illuzionzstudios.mist.Logger
 import com.illuzionzstudios.mist.config.locale.MistString
+import com.illuzionzstudios.mist.config.locale.mist
 import com.illuzionzstudios.mist.random.RandomNumberGenerator
 import com.illuzionzstudios.mist.requirement.PlayerRequirement
 import com.illuzionzstudios.mist.util.MathUtil
@@ -34,22 +36,22 @@ class FishingReward : EventReward<PlayerFishEvent> {
     /**
      * Messages to send
      */
-    var messages: List<MistString>? = ArrayList()
+    var messages: List<String>? = ArrayList()
 
     /**
      * Broadcast messages to send
      */
-    var broadcasts: List<MistString>? = ArrayList()
+    var broadcasts: List<String>? = ArrayList()
 
     /**
      * Title message
      */
-    var title: MistString? = null
+    var title: String? = null
 
     /**
      * Subtitle message
      */
-    var subtitle: MistString? = null
+    var subtitle: String? = null
 
     /**
      * Chance to find this reward
@@ -98,18 +100,18 @@ class FishingReward : EventReward<PlayerFishEvent> {
 
         // Messages and cosmetics
         this.sound?.play(player.location)
-        title?.sendTitle(player, subtitle)
+        title?.mist?.sendTitle(player, subtitle?.mist)
 
         if (messages?.get(0).toString().isNotEmpty()) {
             messages?.forEach { message ->
-                val toSend = message.toString(rewardPlaceholders)
+                val toSend = message.mist.toString(rewardPlaceholders)
                 toSend.sendMessage(player)
             }
         }
 
         if (broadcasts?.get(0).toString().isNotEmpty()) {
             broadcasts?.forEach { broadcast ->
-                val toSend = broadcast.toString(rewardPlaceholders)
+                val toSend = broadcast.mist.toString(rewardPlaceholders)
                 Bukkit.getOnlinePlayers().forEach {
                     toSend.sendMessage(it)
                 }

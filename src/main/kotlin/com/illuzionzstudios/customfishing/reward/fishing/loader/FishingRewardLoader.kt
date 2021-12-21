@@ -22,27 +22,16 @@ class FishingRewardLoader(directory: String, fileName: String) : YamlFileLoader<
         reward.commands = file?.getStringList("commands")
 
         val items: MutableList<FishingItem> = ArrayList()
-        try {
-            file?.getSections("items")?.forEach {
-                items.add(FishingItemLoader(it!!).`object`)
-            }
-        } catch (error: Exception) {}
+        file?.getSections("items")?.forEach {
+            items.add(FishingItemLoader(it!!).`object`)
+        }
         reward.items = items
 
-        val messages: MutableList<MistString> = ArrayList()
-        file?.getStringList("messages")?.forEach {
-            messages.add(MistString(it))
-        }
-        reward.messages = messages
+        reward.messages = file?.getStringList("messages")
+        reward.broadcasts = file?.getStringList("broadcasts")
 
-        val broadcasts: MutableList<MistString> = ArrayList()
-        file?.getStringList("broadcasts")?.forEach {
-            broadcasts.add(MistString(it))
-        }
-        reward.broadcasts = broadcasts
-
-        reward.title = MistString.of(file?.getString("title"))
-        reward.subtitle = MistString.of(file?.getString("sub-title"))
+        reward.title = file?.getString("title")
+        reward.subtitle = file?.getString("sub-title")
 
         reward.chance = file?.getDouble("weight") ?: 0.0
         reward.vanillaRewards = file?.getBoolean("vanilla-rewards") ?: false
@@ -57,6 +46,7 @@ class FishingRewardLoader(directory: String, fileName: String) : YamlFileLoader<
         file?.getSections("requirements")?.forEach {
             requirements.add(PlayerRequirementLoader(it!!).`object`)
         }
+        reward.requirements = requirements
 
         return reward
     }
