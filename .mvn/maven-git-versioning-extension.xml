@@ -10,6 +10,6 @@
     </branch>
     <branch>
         <pattern>(.+)</pattern>
-        <versionFormat>${1}-DEV</versionFormat>
+        <versionFormat>${1}-SNAPSHOT</versionFormat>
     </branch>
 </configuration>

@@ -1,0 +1,88 @@
+###################################################################
+# A custom reward that can be caught by fishing.                  #
+# This files defines all the options for a specific reward        #
+# identified by 'Name'. Change the options here as you like       #
+# to make your own reward. To add more than one catchable reward, #
+# copy this file and then change the options to your liking.      #
+#                                                                 #
+# Any queries join our discord at https://discord.gg/DbJXzWq      #
+###################################################################
+
+# Placeholders
+# {player} : The player's name
+
+# The name or identifier of the reward. Make it something
+# relating to what the reward is.
+name: "Demo Reward"
+
+# A list of commands to run when this reward is caught.
+commands:
+  - "msg {player} demo"
+
+# List of custom item rewards, leave the list blank
+# if you don't want any custom items or remove this section
+items:
+  # The section for an item
+  sword:
+    # Chance out of 100 of getting this reward
+    chance: 100
+    # The custom display name of the item.
+    # If an empty string has no custom name
+    item-name: "&a&lMy Custom Sword"
+    # The lore of the item. Set to null for no lore
+    lore:
+      - "&7Made from CustomFishing!"
+    # The amount of this item
+    amount: 1
+    # The material of the item
+    material: DIAMOND_SWORD
+    # If has custom model data
+    model-data: 0
+    # A list of enchants as "ENCHANT:LEVEL". Set to null for no enchants
+    enchants:
+      - "SHARPNESS:5"
+    # If the item appears as glowing like it's enchanted
+    glowing: false
+    # If the item is unbreakable
+    unbreakable: false
+    # If to hide flags like unbreakable and enchants
+    hide-flags: false
+
+# A list of messages to send the player when this reward is caught.
+messages:
+  - '&7&l(!) &aYou found an awesome sword!'
+
+# A list of messages to broadcast to the server when this reward is caught.
+broadcasts:
+  - '&4&l(!) &c{player} &7found a &c&lLEGENDARY &7reward!'
+
+# Title to send to the player. Leave blank if none.
+title: "&a&lYou found a reward"
+
+# Subtitle to send to the player. Leave blank if none.
+sub-title: "&7&oFound: Sword"
+
+# The weight (chance) of this reward being found. The higher the weight
+# the more likely it is to be caught.
+weight: 4.5
+
+# If the player should still receive default minecraft rewards.
+# This means fish, enchanted books, enchanted items etc.
+# If set to false only the custom reward will be given
+vanilla-rewards: false
+
+# The amount of experience to give the player
+# as a range, the "x to y" meaning from x to y (inclusive)
+# Can just be a singular number
+exp-amount: "1 to 6"
+
+# The sound to play when this reward is caught. Leave blank
+# for no sound
+sound: ENTITY_FIREWORK_ROCKET_TWINKLE
+
+# Requirements if the player can find this reward
+requirements:
+  # Check if the player has a certain permission
+  permission:
+    type: permission
+    value: "customfishing.vip"
