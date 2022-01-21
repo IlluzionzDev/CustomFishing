@@ -6,6 +6,7 @@ import com.illuzionzstudios.mist.compatibility.ServerVersion.V
 import com.illuzionzstudios.mist.compatibility.ServerVersion.atLeast
 import com.illuzionzstudios.mist.controller.PluginController
 import com.illuzionzstudios.mist.plugin.SpigotPlugin
+import com.illuzionzstudios.mist.random.RandomNumberGenerator
 import com.illuzionzstudios.mist.util.MathUtil
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -31,8 +32,7 @@ object FishingController : PluginController {
         // Detect if they catch a fish
         if (event.state == PlayerFishEvent.State.CAUGHT_FISH) {
             // Set experience default reward
-            event.expToDrop = Settings.EXP_REWARD.int
-
+            event.expToDrop = RandomNumberGenerator.parse(Settings.EXP_REWARD.getString("1 to 6")).generate().toInt()
             // Detect if they actually get a reward
             if (MathUtil.chance(Settings.REWARD_CHANCE.double))
                 processRewards(event.player, event)

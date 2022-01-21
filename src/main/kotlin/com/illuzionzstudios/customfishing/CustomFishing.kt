@@ -10,7 +10,7 @@ import com.illuzionzstudios.mist.config.locale.PluginLocale
 import com.illuzionzstudios.mist.plugin.SpigotPlugin
 import org.bukkit.ChatColor
 
-class CustomFishing : SpigotPlugin() {
+class CustomFishing : SpigotPlugin(7247) {
 
     override val pluginColor: ChatColor = ChatColor.LIGHT_PURPLE
     override val pluginId: Int = 53634
@@ -28,7 +28,6 @@ class CustomFishing : SpigotPlugin() {
     }
 
     override fun onPluginLoad() {
-
     }
 
     override fun onPluginPreEnable() {
