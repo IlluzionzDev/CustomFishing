@@ -1,9 +1,9 @@
 # 一些基本信息
 
 general:
-  reload: '&7重新加载插件（配置文件和控制器）'
+  reload: '&7重新加载插件（配置文件和奖励文件）'
   save: '&7保存所有奖励'
-  prefix: '&d&l定制钓鱼 &8\u00BB&7'
+  prefix: '&d&l自定义钓鱼 &8\u00BB&7'
 
 command:
   player-only: '&c您必须是玩家才能执行此命令。'
@@ -18,7 +18,7 @@ command:
     usage: '&7用法: &f'
 
 config:
-  enter-value: '&7E输入要设置的新值（输入''cancel'' 取消）'
+  enter-value: '&7E输入要设置的新值（输入“cancel”取消）'
 
 interface:
   confirm:
