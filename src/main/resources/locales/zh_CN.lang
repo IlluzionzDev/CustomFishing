@@ -1,0 +1,36 @@
+# 一些基本信息
+
+general:
+  reload: '&7重新加载插件（配置文件和控制器）'
+  save: '&7保存所有奖励'
+  prefix: '&d&l定制钓鱼 &8\u00BB&7'
+
+command:
+  player-only: '&c您必须是玩家才能执行此命令。'
+  no-permission: '&c您必须拥有 {permission} 权限才能执行此操作。'
+  invalid-usage: '&c无效用法。试试 /{label} {args}'
+  invalid-sub: '&c该命令不存在。试试 /{label} 来查看帮助'
+  label-optional-args: 可选参数
+  label-required-args: 所需参数
+  help:
+    description: '&7描述: &f{description}'
+    permission: '&7权限: &f{permission}'
+    usage: '&7用法: &f'
+
+config:
+  enter-value: '&7E输入要设置的新值（输入''cancel'' 取消）'
+
+interface:
+  confirm:
+    confirm:
+      name: '&a&l确认'
+      lore: '&7&o(点击确认)'
+    deny:
+      name: '&c&l拒绝'
+      lore: '&7&o(点击拒绝)'
+
+update:
+  available: |-
+    &2您使用的是 &a{plugin_name}&2 的 &a{status}&2 版本。
+    &2当前版本: &a{current}&2; 最新版本: &a{new}
+    &2网址: &ahttps://spigotmc.org/resources/{resource_id}/。
