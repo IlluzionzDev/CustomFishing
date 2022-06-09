@@ -6,8 +6,7 @@
 
     <groupId>com.illuzionzstudios</groupId>
     <artifactId>CustomFishing</artifactId>
-    <version>4.3.1</version>
-
+    <version>4.3.2</version>
 
     <packaging>jar</packaging>
 
