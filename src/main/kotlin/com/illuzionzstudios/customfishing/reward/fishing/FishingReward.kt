@@ -3,7 +3,6 @@ package com.illuzionzstudios.customfishing.reward.fishing
 import com.cryptomorin.xseries.XSound
 import com.illuzionzstudios.customfishing.reward.EventReward
 import com.illuzionzstudios.customfishing.reward.fishing.item.FishingItem
-import com.illuzionzstudios.mist.Logger
 import com.illuzionzstudios.mist.config.locale.MistString
 import com.illuzionzstudios.mist.config.locale.mist
 import com.illuzionzstudios.mist.random.RandomNumberGenerator
@@ -90,6 +89,7 @@ class FishingReward : EventReward<PlayerFishEvent> {
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), replacer.toString())
         }
 
+        // Roll items
         items?.forEach {
             if (MathUtil.chance(it.chance)) it.givePlayer(player)
         }
@@ -102,19 +102,17 @@ class FishingReward : EventReward<PlayerFishEvent> {
         this.sound?.play(player.location)
         title?.mist?.sendTitle(player, subtitle?.mist)
 
-        if (messages?.get(0).toString().isNotEmpty()) {
-            messages?.forEach { message ->
-                val toSend = message.mist.toString(rewardPlaceholders)
-                toSend.sendMessage(player)
-            }
+        // Messages
+        messages?.forEach { message ->
+            val toSend = message.mist.toString(rewardPlaceholders)
+            toSend.sendMessage(player)
         }
 
-        if (broadcasts?.get(0).toString().isNotEmpty()) {
-            broadcasts?.forEach { broadcast ->
-                val toSend = broadcast.mist.toString(rewardPlaceholders)
-                Bukkit.getOnlinePlayers().forEach {
-                    toSend.sendMessage(it)
-                }
+        // Global Messages
+        broadcasts?.forEach { broadcast ->
+            val toSend = broadcast.mist.toString(rewardPlaceholders)
+            Bukkit.getOnlinePlayers().forEach {
+                toSend.sendMessage(it)
             }
         }
 
