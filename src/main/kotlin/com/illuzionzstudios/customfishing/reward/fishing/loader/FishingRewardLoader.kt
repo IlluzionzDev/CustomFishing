@@ -35,7 +35,7 @@ class FishingRewardLoader(directory: String, fileName: String) : YamlFileLoader<
 
         reward.chance = file?.getDouble("weight") ?: 0.0
         reward.vanillaRewards = file?.getBoolean("vanilla-rewards") ?: false
-        reward.experienceRange = file?.getString("exp-amount")
+        reward.experienceRange = file?.getString("exp-amount") ?: "1 to 6"
         try {
             reward.sound = XSound.matchXSound(config?.getString("sound") ?: "").get()
         } catch (ignored: Exception) {

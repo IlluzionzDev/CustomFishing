@@ -6,7 +6,7 @@
 
     <groupId>com.illuzionzstudios</groupId>
     <artifactId>CustomFishing</artifactId>
-    <version>4.3.2</version>
+    <version>4.3.3</version>
 
     <packaging>jar</packaging>
 
@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.6.21</kotlin.version>
+        <kotlin.version>1.7.0</kotlin.version>
     </properties>
 
     <build>
@@ -39,6 +39,10 @@
                         <relocation>
                             <pattern>com.illuzionzstudios.mist</pattern>
                             <shadedPattern>com.illuzionzstudios.customfishing.mist</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>kotlin</pattern>
+                            <shadedPattern>com.illuzionzstudios.customfishing.kotlin</shadedPattern>
                         </relocation>
                     </relocations>
                     <createDependencyReducedPom>true</createDependencyReducedPom>

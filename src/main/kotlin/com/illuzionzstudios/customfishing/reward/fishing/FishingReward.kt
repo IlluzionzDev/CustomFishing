@@ -65,7 +65,7 @@ class FishingReward : EventReward<PlayerFishEvent> {
     /**
      * Experience to give the player in a range. E.g "1 to 6"
      */
-    var experienceRange: String? = null
+    var experienceRange: String = "1 to 6"
 
     /**
      * Sound to play
