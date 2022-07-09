@@ -65,7 +65,7 @@ class FishingReward : EventReward<PlayerFishEvent> {
     /**
      * Experience to give the player in a range. E.g "1 to 6"
      */
-    var experienceRange: String = "1 to 6"
+    var experienceRange: RandomNumberGenerator = RandomNumberGenerator(1.0, 6.0)
 
     /**
      * Sound to play
@@ -95,7 +95,7 @@ class FishingReward : EventReward<PlayerFishEvent> {
         }
 
         // Exp and vanilla rewards
-        event.expToDrop = RandomNumberGenerator.parse(this.experienceRange).generate().toInt()
+        event.expToDrop = this.experienceRange.generate().toInt()
         if (!vanillaRewards) event.caught?.remove()
 
         // Messages and cosmetics
