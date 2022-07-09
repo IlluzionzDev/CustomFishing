@@ -6,7 +6,7 @@
 
     <groupId>com.illuzionzstudios</groupId>
     <artifactId>CustomFishing</artifactId>
-    <version>4.3.4</version>
+    <version>4.3.5</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
