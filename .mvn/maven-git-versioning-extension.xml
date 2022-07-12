@@ -1,15 +1,29 @@
-<configuration xmlns="https://github.com/qoomon/maven-git-versioning-extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:schemaLocation="https://github.com/qoomon/maven-git-versioning-extension https://qoomon.github.io/maven-git-versioning-extension/configuration-6.4.0.xsd">
-    <branch>
-        <pattern>master</pattern>
-        <versionFormat>${version}</versionFormat>
-    </branch>
-    <branch>
-        <pattern>development</pattern>
-        <versionFormat>${version}-DEV</versionFormat>
-    </branch>
-    <branch>
-        <pattern>(.+)</pattern>
-        <versionFormat>${1}-SNAPSHOT</versionFormat>
-    </branch>
+<configuration xmlns="https://github.com/qoomon/maven-git-versioning-extension"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="https://github.com/qoomon/maven-git-versioning-extension https://qoomon.github.io/maven-git-versioning-extension/configuration-7.0.0.xsd">
+    <refs>
+        <!-- Master Branches -->
+        <!-- Format: <version> -->
+        <!-- Must manually increase version number -->
+        <ref type="branch">
+            <pattern>main</pattern>
+            <version>${version.release}</version>
+        </ref>
+        <ref type="branch">
+            <pattern>master</pattern>
+            <version>${version.release}</version>
+        </ref>
+
+        <!-- Development Branches -->
+        <!-- Format: <version>-DEV -->
+        <ref type="branch">
+            <pattern>development</pattern>
+            <version>${version.release}-DEV</version>
+        </ref>
+        <!-- Format: <branch_name>-SNAPSHOT -->
+        <ref type="branch">
+            <pattern>.+</pattern>
+            <version>${ref.slug}-SNAPSHOT</version>
+        </ref>
+    </refs>
 </configuration>

@@ -7,6 +7,7 @@ import com.illuzionzstudios.mist.config.ConfigSection
 import com.illuzionzstudios.mist.config.YamlConfig
 import com.illuzionzstudios.mist.config.locale.MistString
 import com.illuzionzstudios.mist.config.serialization.loader.YamlFileLoader
+import com.illuzionzstudios.mist.random.RandomNumberGenerator
 import com.illuzionzstudios.mist.requirement.PlayerRequirement
 import com.illuzionzstudios.mist.requirement.PlayerRequirementLoader
 
@@ -35,7 +36,7 @@ class FishingRewardLoader(directory: String, fileName: String) : YamlFileLoader<
 
         reward.chance = file?.getDouble("weight") ?: 0.0
         reward.vanillaRewards = file?.getBoolean("vanilla-rewards") ?: false
-        reward.experienceRange = file?.getString("exp-amount")
+        reward.experienceRange = RandomNumberGenerator.parse(file?.getString("exp-amount") ?: "1 to 6")
         try {
             reward.sound = XSound.matchXSound(config?.getString("sound") ?: "").get()
         } catch (ignored: Exception) {

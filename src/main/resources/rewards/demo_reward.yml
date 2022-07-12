@@ -1,10 +1,11 @@
 ###################################################################
-# A custom reward that can be caught by fishing.                  #
-# This files defines all the options for a specific reward        #
-# identified by 'Name'. Change the options here as you like       #
+# A custom reward that can be caught by fishing.                   #
+# This files defines all the options for a specific reward           #
+# identified by 'Name'. Change the options here as you like        #
 # to make your own reward. To add more than one catchable reward, #
-# copy this file and then change the options to your liking.      #
+# copy this file and then change the options to your liking.       #
 #                                                                 #
+# https://docs.illuzionzstudios.com/spigot-plugins/custom-fishing/ #
 # Any queries join our discord at https://discord.gg/DbJXzWq      #
 ###################################################################
 
@@ -47,6 +48,8 @@ items:
     unbreakable: false
     # If to hide flags like unbreakable and enchants
     hide-flags: false
+    # Durability of item
+    damage: 0
 
 # A list of messages to send the player when this reward is caught.
 messages:

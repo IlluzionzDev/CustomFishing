@@ -26,8 +26,8 @@ class Settings(plugin: SpigotPlugin) : PluginSettings(plugin) {
             "fishing.exp-reward",
             "1 to 6",
             "Amount of experience to give the player when they HAVEN'T found a custom reward.",
-            "\"--\" indicates a range between two numbers.",
-            "-1 indicates to not reward exp."
+            "X to Y indicates a range between two numbers.",
+            "0 indicates to not reward exp."
         )
 
         var MIN_WAIT_TIME: ConfigSetting = GENERAL_GROUP.create(
