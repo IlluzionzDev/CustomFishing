@@ -8,14 +8,8 @@
   
 <br/>
 
-![Header](../media/Header.png?raw=true)
-![About](../media/About.png?raw=true)
-![Features](../media/Features.png?raw=true)
-![Hooks](../media/Hooks.png?raw=true)
-
-<div align="center">
-  <a href="https://discord.gg/DbJXzWq"><img src="../media/SupportButton.png?raw=true" alt="Support" height="70px"/></a>
-  <a href="https://illuzionzstudios.notion.site/Custom-Fishing-234906da66864b35850b5b9794bc3e57"><img src="../media/WikiButton.png?raw=true" alt="Wiki" height="70px"/></a>
-  <a href="https://discord.gg/DbJXzWq"><img src="../media/DiscordButton.png?raw=true" alt="Discord" height="70px"/></a>
-  <img src="https://bstats.org/signatures/bukkit/CustomFishing.svg" />
-</div>
+![Header](https://cdn.illuzionzstudios.com/spigot/customfishing/Header.png)
+![About](https://cdn.illuzionzstudios.com/spigot/customfishing/About.png)
+![Features](https://cdn.illuzionzstudios.com/spigot/customfishing/Features.png)
+![Hooks](https://cdn.illuzionzstudios.com/spigot/customfishing/Hooks.png)
+<img src="https://bstats.org/signatures/bukkit/CustomFishing.svg" />
