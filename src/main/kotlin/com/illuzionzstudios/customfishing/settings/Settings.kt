@@ -43,5 +43,12 @@ class Settings(plugin: SpigotPlugin) : PluginSettings(plugin) {
             "The maximum amount of ticks to wait for a bite. This is before processing lure and other things",
             "REQUIRES 1.16+"
         )
+
+        var REWARD_STARTUP_LOG: ConfigSetting = GENERAL_GROUP.create(
+            "fishing.reward-startup-log",
+            true,
+            "Set to \"false\" to disable the server from showing all rewards that are successfully loaded on startup",
+            "set to \"true\" by default"
+        )
     }
 }

@@ -26,7 +26,9 @@ object RewardController : PluginController {
             listOf("demo_reward.yml")
         ).loaders.forEach {
             loadedRewards.add(it.`object`)
-            Logger.info("Loading fishing reward '${it.`object`.name}'")
+            if (Settings.REWARD_STARTUP_LOG) {
+                Logger.info("Loading fishing reward '${it.`object`.name}'")
+            }
         }
     }
 
