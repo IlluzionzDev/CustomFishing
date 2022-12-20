@@ -74,9 +74,8 @@ weight: 4.5
 # If set to false only the custom reward will be given
 vanilla-rewards: false
 
-# The amount of experience to give the player
-# as a range, the "x to y" meaning from x to y (inclusive)
-# Can just be a singular number
+# The amount of experience to give the player as a range.
+# "x to y" means from x to y (inclusive) or [x,y]
 exp-amount: "1 to 6"
 
 # The sound to play when this reward is caught. Leave blank
