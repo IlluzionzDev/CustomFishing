@@ -47,8 +47,8 @@ class Settings(plugin: SpigotPlugin) : PluginSettings(plugin) {
         var REWARD_STARTUP_LOG: ConfigSetting = GENERAL_GROUP.create(
             "fishing.reward-startup-log",
             true,
-            "Set to \"false\" to disable the server from showing all rewards that are successfully loaded on startup",
-            "set to \"true\" by default"
+            "Set to \"false\" to disable the server from showing all rewards that are successfully loaded on console",
+            "Set to \"true\" by default"
         )
     }
 }
