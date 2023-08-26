@@ -1,4 +1,8 @@
 <div align="center">
+NOTE: This resource is no longer being maintained
+</div>
+<br/>
+<div align="center">
   <img src="https://img.shields.io/github/v/release/IlluzionzDev/CustomFishing?style=for-the-badge" alt="Release"/>
   <img src="https://img.shields.io/tokei/lines/github/IlluzionzDev/CustomFishing?style=for-the-badge" alt="Total Lines"/>
   <img src="https://img.shields.io/github/last-commit/IlluzionzDev/CustomFishing?label=Last%20Updated&style=for-the-badge" alt="Last Updated"/>
